@@ -1,8 +1,7 @@
 package com.example.cms.order.controller.response;
 
-import com.example.cms.member.domain.Member;
+import com.example.cms.order.domain.EPayments;
 import com.example.cms.order.domain.Order;
-import com.example.cms.order.domain.Payments;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,10 +17,10 @@ public class OrderDetailResponse {
     private String mobile;
     private LocalDateTime createdAt;
     private LocalDateTime cancelDate;
-    private Payments payments;
+    private EPayments payments;
 
     @Builder
-    public OrderDetailResponse(String ordersId, String memberName, String mobile, LocalDateTime createdAt, LocalDateTime cancelDate, Payments payments) {
+    public OrderDetailResponse(String ordersId, String memberName, String mobile, LocalDateTime createdAt, LocalDateTime cancelDate, EPayments payments) {
         this.ordersId = ordersId;
         this.memberName = memberName;
         this.mobile = mobile;

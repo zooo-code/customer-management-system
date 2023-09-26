@@ -1,8 +1,8 @@
 package com.example.cms.order.domain;
 
-public enum Payments {
+public enum EPayments {
     POINT,
     CARD,
     CASH,
-    COUPON;
+    COUPON
 }
