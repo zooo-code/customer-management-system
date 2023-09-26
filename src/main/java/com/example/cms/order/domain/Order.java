@@ -33,7 +33,7 @@ public class Order extends BaseDateTimeEntity {
 
     @Column(name = "payment", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Payments payment;
+    private EPayments payment;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
@@ -44,7 +44,7 @@ public class Order extends BaseDateTimeEntity {
     private Member member;
 
     @Builder
-    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, Payments payment, Cart cart, Member member) {
+    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, Cart cart, Member member) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
