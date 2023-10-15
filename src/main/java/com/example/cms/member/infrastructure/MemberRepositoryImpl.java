@@ -1,9 +1,5 @@
-package com.example.cms.member.repository;
+package com.example.cms.member.infrastructure;
 
-import com.example.cms.member.domain.Member;
-
-import com.example.cms.member.domain.QMember;
-import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,15 +19,15 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         this.queryFactory = queryFactory;
     }
 
-    public List<Member> findMemberList(){
+    public List<MemberEntity> findMemberList(){
         return queryFactory
                 .selectFrom(member)
                 .fetch();
     }
 
     @Override
-    public Page<Member> memberPage(Pageable pageable) {
-        List<Member> memberList = queryFactory
+    public Page<MemberEntity> memberPage(Pageable pageable) {
+        List<MemberEntity> memberEntityList = queryFactory
                 .selectFrom(member)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -41,7 +37,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .fetch()
                 .size();
 
-        return new PageImpl<>(memberList,pageable,total);
+        return new PageImpl<>(memberEntityList,pageable,total);
     }
 
 }

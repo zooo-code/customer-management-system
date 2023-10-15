@@ -18,7 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 
-@Tag(name = "Member", description = "회원 API")
+@Tag(name = "MemberEntity", description = "회원 API")
 @RestController
 @RequestMapping("/api/member")
 public class MemberController {

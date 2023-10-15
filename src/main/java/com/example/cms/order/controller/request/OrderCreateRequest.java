@@ -1,7 +1,7 @@
 package com.example.cms.order.controller.request;
 
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.member.domain.Member;
+import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.order.domain.EPayments;
 import com.example.cms.order.domain.Order;
 import lombok.Builder;
@@ -27,9 +27,9 @@ public class OrderCreateRequest {
         this.orderPrice = orderPrice;
     }
 
-    public Order toOrder(Member member, Cart cart){
+    public Order toOrder(MemberEntity memberEntity, Cart cart){
         return Order.builder()
-                .member(member)
+                .memberEntity(memberEntity)
                 .cart(cart)
                 .payment(payment)
                 .ordersPrice(orderPrice)

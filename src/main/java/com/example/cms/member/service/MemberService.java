@@ -6,10 +6,10 @@ import com.example.cms.member.controller.response.MemberCreateResponse;
 import com.example.cms.member.controller.response.MemberPageResponse;
 import com.example.cms.member.controller.response.MemberResponse;
 import com.example.cms.member.controller.response.MemberUpdateResponse;
-import com.example.cms.member.domain.Member;
+import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
-import com.example.cms.member.repository.MemberRepository;
+import com.example.cms.member.infrastructure.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,26 +30,26 @@ public class MemberService {
         if (memberRepository.findByMobile(memberCreateRequest.getMobile()).isPresent()){
             throw new MemberAlreadyExistException("member already exist");
         }
-        Member saveMember = memberRepository.save(memberCreateRequest.toEntity());
-        saveMember.firstPoint();
-        return new MemberCreateResponse(saveMember.getName(),saveMember.getMobile());
+        MemberEntity saveMemberEntity = memberRepository.save(memberCreateRequest.toEntity());
+        saveMemberEntity.firstPoint();
+        return new MemberCreateResponse(saveMemberEntity.getName(), saveMemberEntity.getMobile());
     }
 
     @Transactional(readOnly = true)
     public MemberResponse findMembership(String mobile){
-        Member member = memberRepository
+        MemberEntity memberEntity = memberRepository
                 .findByMobile(mobile)
-                .orElseThrow(()->new MemberNotFoundException("member not found"));
-        return new MemberResponse(member.getMobile(),member.getName(), member.getMembershipPoint());
+                .orElseThrow(()->new MemberNotFoundException("memberEntity not found"));
+        return new MemberResponse(memberEntity.getMobile(), memberEntity.getName(), memberEntity.getMembershipPoint());
     }
 
     @Transactional
     public MemberUpdateResponse memberUpdate(String previousPhone, MemberUpdateRequest request){
-        Member member = memberRepository
+        MemberEntity memberEntity = memberRepository
                 .findByMobile(previousPhone)
-                .orElseThrow(()->new MemberNotFoundException("member not found"));
-        member.update(request.getName() ,request.getMobile());
-        return new MemberUpdateResponse(member.getMobile(),member.getName());
+                .orElseThrow(()->new MemberNotFoundException("memberEntity not found"));
+        memberEntity.update(request.getName() ,request.getMobile());
+        return new MemberUpdateResponse(memberEntity.getMobile(), memberEntity.getName());
     }
 
     @Transactional(readOnly = true)
@@ -64,7 +64,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public MemberPageResponse memberListPaging(Pageable pageable){
 
-        Page<Member> members = memberRepository.memberPage(pageable);
+        Page<MemberEntity> members = memberRepository.memberPage(pageable);
 
 
 

@@ -1,15 +1,13 @@
 package com.example.cms.member.controller.request;
 
-import com.example.cms.member.domain.Member;
+import com.example.cms.member.infrastructure.EMemberStatus;
+import com.example.cms.member.infrastructure.MemberEntity;
 
-import com.example.cms.member.domain.MemberStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -22,16 +20,16 @@ public class MemberCreateRequest {
     @NotBlank
     private String name;
     private LocalDateTime createDate;
-    private MemberStatus status;
-    public Member toEntity(){
-        return Member.builder()
+    private EMemberStatus status;
+    public MemberEntity toEntity(){
+        return MemberEntity.builder()
                 .mobile(mobile)
                 .name(name)
-                .status(MemberStatus.OPEN)
+                .status(EMemberStatus.OPEN)
                 .build();
     }
     @Builder
-    public MemberCreateRequest(String mobile, String name,  MemberStatus status) {
+    public MemberCreateRequest(String mobile, String name,  EMemberStatus status) {
         this.mobile = mobile;
         this.name = name;
         this.status = status;

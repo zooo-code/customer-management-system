@@ -4,7 +4,7 @@ import com.example.cms.item.controller.request.ItemCreateRequest;
 import com.example.cms.item.domain.ItemStatus;
 import com.example.cms.item.service.ItemService;
 import com.example.cms.member.controller.request.MemberCreateRequest;
-import com.example.cms.member.domain.MemberStatus;
+import com.example.cms.member.infrastructure.EMemberStatus;
 import com.example.cms.member.service.MemberService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class MemberInitDb {
         private final ItemService itemService;
         public void dbInit1(){
             for(int i = 0; i<100; i++){
-                MemberCreateRequest memberCreateRequest = new MemberCreateRequest("1234" + i,"kim" +i ,MemberStatus.OPEN);
+                MemberCreateRequest memberCreateRequest = new MemberCreateRequest("1234" + i,"kim" +i , EMemberStatus.OPEN);
                 memberService.save(memberCreateRequest);
             }
             ItemCreateRequest ice = new ItemCreateRequest("라떼", 1000, ItemStatus.ICED);
