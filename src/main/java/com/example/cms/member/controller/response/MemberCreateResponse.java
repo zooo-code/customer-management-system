@@ -1,5 +1,6 @@
 package com.example.cms.member.controller.response;
 
+import com.example.cms.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,5 +16,11 @@ public class MemberCreateResponse {
         this.phone = phone;
     }
 
+    public MemberCreateResponse from(Member member){
+        return MemberCreateResponse.builder()
+                .name(member.getName())
+                .phone(member.getMobile())
+                .build();
+    }
 
 }

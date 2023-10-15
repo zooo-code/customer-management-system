@@ -5,7 +5,7 @@ import com.example.cms.item.domain.ItemStatus;
 import com.example.cms.item.service.ItemService;
 import com.example.cms.member.controller.request.MemberCreateRequest;
 import com.example.cms.member.infrastructure.EMemberStatus;
-import com.example.cms.member.service.MemberService;
+import com.example.cms.member.service.MemberServiceImpl;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,12 +26,12 @@ public class MemberInitDb {
     @Transactional
     @RequiredArgsConstructor
     static class InitService {
-        private final MemberService memberService;
+        private final MemberServiceImpl memberServiceImpl;
         private final ItemService itemService;
         public void dbInit1(){
             for(int i = 0; i<100; i++){
                 MemberCreateRequest memberCreateRequest = new MemberCreateRequest("1234" + i,"kim" +i , EMemberStatus.OPEN);
-                memberService.save(memberCreateRequest);
+                memberServiceImpl.save(memberCreateRequest);
             }
             ItemCreateRequest ice = new ItemCreateRequest("라떼", 1000, ItemStatus.ICED);
             ItemCreateRequest hot = new ItemCreateRequest("아메리카노", 2000, ItemStatus.HOT);

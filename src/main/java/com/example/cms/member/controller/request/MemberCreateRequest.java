@@ -3,6 +3,7 @@ package com.example.cms.member.controller.request;
 import com.example.cms.member.infrastructure.EMemberStatus;
 import com.example.cms.member.infrastructure.MemberEntity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
@@ -29,7 +30,10 @@ public class MemberCreateRequest {
                 .build();
     }
     @Builder
-    public MemberCreateRequest(String mobile, String name,  EMemberStatus status) {
+    public MemberCreateRequest(
+            @JsonProperty("mobile") String mobile,
+            @JsonProperty("name") String name,
+            @JsonProperty("status") EMemberStatus status) {
         this.mobile = mobile;
         this.name = name;
         this.status = status;

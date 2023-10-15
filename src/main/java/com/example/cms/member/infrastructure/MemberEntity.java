@@ -1,5 +1,6 @@
 package com.example.cms.member.infrastructure;
 
+import com.example.cms.member.domain.Member;
 import com.example.cms.utils.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -38,6 +39,14 @@ public class MemberEntity extends BaseDateTimeEntity {
         this.membershipPoint = membershipPoint;
         this.status = status;
     }
+    public static MemberEntity from(Member member){
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.mobile = member.getMobile();
+        memberEntity.name = member.getName();
+        memberEntity.status = member.getStatus();
+        memberEntity.firstJoinPoint = member.getFirstJoinPoint();
+        return memberEntity;
+    }
 
     public void firstPoint(){
         this.membershipPoint = firstJoinPoint;
@@ -50,5 +59,15 @@ public class MemberEntity extends BaseDateTimeEntity {
 
     public void updatePoint(Integer membershipPoint){
         this.membershipPoint = membershipPoint;
+    }
+
+    public Member toModel(){
+        return Member.builder()
+                .id(id)
+                .mobile(mobile)
+                .name(name)
+                .membershipPoint(membershipPoint)
+                .status(status)
+                .build();
     }
 }

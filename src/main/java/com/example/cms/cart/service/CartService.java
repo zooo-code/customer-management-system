@@ -13,7 +13,7 @@ import com.example.cms.item.domain.Item;
 import com.example.cms.item.repository.ItemRepository;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.member.exception.MemberNotFoundException;
-import com.example.cms.member.infrastructure.MemberRepository;
+import com.example.cms.member.infrastructure.MemberJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +29,14 @@ public class CartService {
     private final CartRepository cartRepository;
     public final ItemRepository itemRepository;
     public final CartItemRepository cartItemRepository;
-    public final MemberRepository memberRepository;
+    public final MemberJpaRepository memberJpaRepository;
 
     public CartService(CartRepository cartRepository, ItemRepository itemRepository,
-                       CartItemRepository cartItemRepository, MemberRepository memberRepository) {
+                       CartItemRepository cartItemRepository, MemberJpaRepository memberJpaRepository) {
         this.cartRepository = cartRepository;
         this.itemRepository = itemRepository;
         this.cartItemRepository = cartItemRepository;
-        this.memberRepository = memberRepository;
+        this.memberJpaRepository = memberJpaRepository;
     }
     /**
      * 메뉴를 선택한 후에 메뉴들(리스트로 들어옴)이 카드에 담긴다.
@@ -44,10 +44,10 @@ public class CartService {
     @Transactional
     public CartResponse CreateCart(CartRequest request){
         //멤버 못찾으면 예외 처리
-        if (memberRepository.findByMobile(request.getPhone()).isEmpty()) {
+        if (memberJpaRepository.findByMobile(request.getPhone()).isEmpty()) {
             throw new MemberNotFoundException("찾을 수 없는 회원입니다.");
         }
-        MemberEntity memberEntity = memberRepository.findByMobile(request.getPhone()).get();
+        MemberEntity memberEntity = memberJpaRepository.findByMobile(request.getPhone()).get();
         //카트 생성 멤버
         Cart cart = Cart.createCart(memberEntity);
         Cart saveCart = cartRepository.save(cart);
