@@ -32,8 +32,8 @@ public class OrderDetailResponse {
     public static OrderDetailResponse of(Order order){
         return OrderDetailResponse.builder()
                 .ordersId(order.getOrdersId())
-                .memberName(order.getMember().getName())
-                .mobile(order.getMember().getMobile())
+                .memberName(order.getMemberEntity().getName())
+                .mobile(order.getMemberEntity().getMobile())
                 .createdAt(order.getCreatedAt())
                 .cancelDate(order.getCancelDate())
                 .payments(order.getPayment())

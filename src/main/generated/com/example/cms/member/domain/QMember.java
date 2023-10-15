@@ -2,6 +2,8 @@ package com.example.cms.member.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.cms.member.infrastructure.EMemberStatus;
+import com.example.cms.member.infrastructure.MemberEntity;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -10,10 +12,10 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QMember is a Querydsl query type for Member
+ * QMember is a Querydsl query type for MemberEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QMember extends EntityPathBase<Member> {
+public class QMember extends EntityPathBase<MemberEntity> {
 
     private static final long serialVersionUID = 902648102L;
 
@@ -37,18 +39,18 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath name = createString("name");
 
-    public final EnumPath<MemberStatus> status = createEnum("status", MemberStatus.class);
+    public final EnumPath<EMemberStatus> status = createEnum("status", EMemberStatus.class);
 
     public QMember(String variable) {
-        super(Member.class, forVariable(variable));
+        super(MemberEntity.class, forVariable(variable));
     }
 
-    public QMember(Path<? extends Member> path) {
+    public QMember(Path<? extends MemberEntity> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QMember(PathMetadata metadata) {
-        super(Member.class, metadata);
+        super(MemberEntity.class, metadata);
     }
 
 }

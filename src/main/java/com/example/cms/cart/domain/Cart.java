@@ -1,7 +1,7 @@
 package com.example.cms.cart.domain;
 
 
-import com.example.cms.member.domain.Member;
+import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.cartitem.domain.CartItem;
 import com.example.cms.utils.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;
@@ -25,7 +25,7 @@ public class Cart extends BaseDateTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private MemberEntity memberEntity;
 
     private Integer count;
 
@@ -37,15 +37,15 @@ public class Cart extends BaseDateTimeEntity {
 
     private LocalDateTime createdAt;
 
-    public Cart(Member member, Integer count, LocalDateTime localDateTime,Integer totalPrice) {
-        this.member = member;
+    public Cart(MemberEntity memberEntity, Integer count, LocalDateTime localDateTime, Integer totalPrice) {
+        this.memberEntity = memberEntity;
         this.count = count;
         this.createdAt = localDateTime;
         this.totalPrice = totalPrice;
     }
 
-    public static Cart createCart(Member member){
-        return new Cart(member,0,LocalDateTime.now(),0);
+    public static Cart createCart(MemberEntity memberEntity){
+        return new Cart(memberEntity,0,LocalDateTime.now(),0);
     }
 
     public void addCountCart(Integer count){
