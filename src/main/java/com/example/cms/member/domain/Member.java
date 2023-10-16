@@ -28,11 +28,19 @@ public class Member {
         this.membershipPoint = firstJoinPoint;
     }
 
+    public void updatePoint(Integer membershipPoint){
+        this.membershipPoint = membershipPoint;
+    }
+
     public Member from(MemberCreateRequest memberCreateRequest){
         return Member.builder()
                 .mobile(memberCreateRequest.getMobile())
                 .name(memberCreateRequest.getName())
                 .status(EMemberStatus.OPEN)
                 .build();
+    }
+    public void update(String name, String phoneNumber){
+        this.mobile = phoneNumber;
+        this.name = name;
     }
 }

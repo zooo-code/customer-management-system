@@ -7,53 +7,54 @@ import com.example.cms.member.controller.response.MemberCreateResponse;
 import com.example.cms.member.controller.response.MemberPageResponse;
 import com.example.cms.member.controller.response.MemberResponse;
 import com.example.cms.member.controller.response.MemberUpdateResponse;
+import com.example.cms.member.domain.Member;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.infrastructure.MemberJpaRepository;
 import com.example.cms.member.service.port.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     private final MemberJpaRepository memberJpaRepository;
     private final MemberRepository memberRepository;
 
-    public MemberServiceImpl(MemberJpaRepository memberJpaRepository, MemberRepository memberRepository) {
-        this.memberJpaRepository = memberJpaRepository;
-        this.memberRepository = memberRepository;
-    }
     @Override
     @Transactional
     public MemberCreateResponse save(MemberCreateRequest memberCreateRequest){
-        if (memberJpaRepository.findByMobile(memberCreateRequest.getMobile()).isPresent()){
+        if (memberRepository.findByMobile(memberCreateRequest.getMobile()).isPresent()){
             throw new MemberAlreadyExistException("member already exist");
         }
-
-        MemberEntity saveMemberEntity = memberJpaRepository.save(memberCreateRequest.toEntity());
-        saveMemberEntity.firstPoint();
-        return new MemberCreateResponse(saveMemberEntity.getName(), saveMemberEntity.getMobile());
+        Member saveMember = memberRepository.save(memberCreateRequest.toEntity().toModel());
+        saveMember.firstPoint();
+        return new MemberCreateResponse(saveMember.getName(), saveMember.getMobile());
     }
     @Override
     @Transactional(readOnly = true)
     public MemberResponse findMembership(String mobile){
-        MemberEntity memberEntity = memberJpaRepository
+
+        Member member = memberRepository
                 .findByMobile(mobile)
-                .orElseThrow(()->new MemberNotFoundException("memberEntity not found"));
-        return new MemberResponse(memberEntity.getMobile(), memberEntity.getName(), memberEntity.getMembershipPoint());
+                .orElseThrow(() -> new MemberNotFoundException("memberEntity not found")).toModel();
+
+        return new MemberResponse(member.getMobile(), member.getName(), member.getMembershipPoint());
     }
     @Override
     @Transactional
     public MemberUpdateResponse memberUpdate(String previousPhone, MemberUpdateRequest request){
-        MemberEntity memberEntity = memberJpaRepository
+        Member member = memberRepository
                 .findByMobile(previousPhone)
-                .orElseThrow(()->new MemberNotFoundException("memberEntity not found"));
-        memberEntity.update(request.getName() ,request.getMobile());
-        return new MemberUpdateResponse(memberEntity.getMobile(), memberEntity.getName());
+                .orElseThrow(() -> new MemberNotFoundException("memberEntity not found")).toModel();
+
+        member.update(request.getName() ,request.getMobile());
+        return new MemberUpdateResponse(member.getMobile(), member.getName());
     }
     @Override
     @Transactional(readOnly = true)
