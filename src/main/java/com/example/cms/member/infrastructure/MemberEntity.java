@@ -48,19 +48,6 @@ public class MemberEntity extends BaseDateTimeEntity {
         return memberEntity;
     }
 
-    public void firstPoint(){
-        this.membershipPoint = firstJoinPoint;
-    }
-
-    public void update(String name, String mobile){
-        this.name = name;
-        this.mobile = mobile;
-    }
-
-    public void updatePoint(Integer membershipPoint){
-        this.membershipPoint = membershipPoint;
-    }
-
     public Member toModel(){
         return Member.builder()
                 .id(id)
