@@ -4,8 +4,6 @@ import com.example.cms.cart.controller.request.CartDeleteRequest;
 import com.example.cms.cart.controller.request.CartRequest;
 import com.example.cms.cart.controller.response.CartResponse;
 import com.example.cms.cart.service.CartService;
-import com.example.cms.cartitem.controller.request.CartItemCreateRequest;
-import com.example.cms.cartitem.service.CartItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;

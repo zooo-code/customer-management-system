@@ -56,7 +56,7 @@ public class OrderService {
         }else{
             int remainPoint = memberPoint - payAmount;
             //남은 포인트 set
-            memberEntity.updatePoint(remainPoint);
+//            memberEntity.updatePoint(remainPoint);
         }
 
         //3. 오더 생성
@@ -107,7 +107,7 @@ public class OrderService {
         //결제 포인트 + 잔여포인트
         int resultPoint = paidPoint + memberEntity.getMembershipPoint();
 
-        memberEntity.updatePoint(resultPoint);
+//        memberEntity.updatePoint(resultPoint);
 
         //2. 오더 삭제
         orderRepository.deleteById(orderId);
