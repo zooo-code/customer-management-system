@@ -33,7 +33,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.example.cms.member.domain.QMember member;
+    public final com.example.cms.member.infrastructure.QMemberEntity memberEntity;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
@@ -63,7 +63,7 @@ public class QOrder extends EntityPathBase<Order> {
     public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.cart = inits.isInitialized("cart") ? new com.example.cms.cart.domain.QCart(forProperty("cart"), inits.get("cart")) : null;
-        this.member = inits.isInitialized("member") ? new com.example.cms.member.domain.QMember(forProperty("member")) : null;
+        this.memberEntity = inits.isInitialized("memberEntity") ? new com.example.cms.member.infrastructure.QMemberEntity(forProperty("memberEntity")) : null;
     }
 
 }

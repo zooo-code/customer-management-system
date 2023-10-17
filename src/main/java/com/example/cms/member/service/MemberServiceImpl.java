@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberJpaRepository memberJpaRepository;
     private final MemberRepository memberRepository;
 
     @Override
@@ -69,7 +68,6 @@ public class MemberServiceImpl implements MemberService {
     @Transactional(readOnly = true)
     public MemberPageResponse memberListPaging(Pageable pageable){
 
-        Page<MemberEntity> members = memberJpaRepository.memberPage(pageable);
 
 
 

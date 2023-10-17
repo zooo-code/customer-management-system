@@ -32,7 +32,7 @@ public class Member {
         this.membershipPoint = membershipPoint;
     }
 
-    public Member from(MemberCreateRequest memberCreateRequest){
+    public static Member from(MemberCreateRequest memberCreateRequest){
         return Member.builder()
                 .mobile(memberCreateRequest.getMobile())
                 .name(memberCreateRequest.getName())
