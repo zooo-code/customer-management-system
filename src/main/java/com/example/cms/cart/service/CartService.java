@@ -26,7 +26,6 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class CartService {
 
     private final CartRepository cartRepository;
@@ -34,7 +33,12 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
 
-
+    public CartService(CartRepository cartRepository, ItemRepository itemRepository, CartItemRepository cartItemRepository, MemberRepository memberRepository) {
+        this.cartRepository = cartRepository;
+        this.itemRepository = itemRepository;
+        this.cartItemRepository = cartItemRepository;
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 메뉴를 선택한 후에 메뉴들(리스트로 들어옴)이 카드에 담긴다.

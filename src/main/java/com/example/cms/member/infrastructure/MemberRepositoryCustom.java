@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface MemberRepositoryCustom {
 
-    List<MemberEntity> findMemberList();
 
-    Page<MemberEntity> memberPage(Pageable pageable);
+
 }

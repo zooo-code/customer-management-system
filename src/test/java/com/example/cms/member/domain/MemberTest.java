@@ -5,13 +5,14 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MemberTest {
 
     @Test
-    public void 회원가입_테스트(){
+    public void MemberCreate_객체로_생성할_수_있다(){
         //given
         MemberCreateRequest kim = MemberCreateRequest.builder()
                 .mobile("1234")
@@ -20,7 +21,8 @@ class MemberTest {
         //when
         Member member = Member.from(kim);
         //then
-        Assertions.assertThat(member.getId()).isNull();
+        assertThat(member.getId()).isNull();
+        assertThat(member.getName()).isEqualTo("kim");
     }
 
 }

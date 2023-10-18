@@ -14,15 +14,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public OpenAPI openAPI(@Value("${springdoc.version}") String springdocVersion) {
-        Info info = new Info()
-                .title("CMS platform API docs")
-                .version(springdocVersion)
-                .description("cms프로젝트에 쓰이는 api 정리");
-
-        return new OpenAPI()
-                .components(new Components())
-                .info(info);
-    }
+//    @Bean
+//    public OpenAPI openAPI(@Value("${springdoc.version}") String springdocVersion) {
+//        Info info = new Info()
+//                .title("CMS platform API docs")
+//                .version(springdocVersion)
+//                .description("cms프로젝트에 쓰이는 api 정리");
+//
+//        return new OpenAPI()
+//                .components(new Components())
+//                .info(info);
+//    }
 }
