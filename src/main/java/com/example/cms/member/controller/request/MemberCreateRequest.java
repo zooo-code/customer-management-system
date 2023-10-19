@@ -1,6 +1,6 @@
 package com.example.cms.member.controller.request;
 
-import com.example.cms.member.infrastructure.EMemberStatus;
+import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.infrastructure.MemberEntity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

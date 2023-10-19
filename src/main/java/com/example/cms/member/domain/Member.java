@@ -1,7 +1,5 @@
 package com.example.cms.member.domain;
 
-import com.example.cms.member.controller.request.MemberCreateRequest;
-import com.example.cms.member.infrastructure.EMemberStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -32,15 +30,18 @@ public class Member {
         this.membershipPoint = membershipPoint;
     }
 
-    public static Member from(MemberCreateRequest memberCreateRequest){
+    public static Member from(MemberCreate memberCreate){
         return Member.builder()
-                .mobile(memberCreateRequest.getMobile())
-                .name(memberCreateRequest.getName())
+                .mobile(memberCreate.getPhone())
+                .name(memberCreate.getName())
                 .status(EMemberStatus.OPEN)
                 .build();
     }
-    public void update(String name, String phoneNumber){
-        this.mobile = phoneNumber;
-        this.name = name;
+    public Member update(MemberUpdate memberUpdate){
+        return Member.builder()
+                .mobile(memberUpdate.getPhone())
+                .name(memberUpdate.getName())
+                .status(memberUpdate.getStatus())
+                .build();
     }
 }

@@ -1,13 +1,12 @@
 package com.example.cms.member.controller;
 
 
-import com.example.cms.member.controller.request.MemberCreateRequest;
 import com.example.cms.member.controller.request.MemberUpdateRequest;
-import com.example.cms.member.controller.response.MemberCreateResponse;
 import com.example.cms.member.controller.response.MemberPageResponse;
 import com.example.cms.member.controller.response.MemberResponse;
 import com.example.cms.member.controller.response.MemberUpdateResponse;
 
+import com.example.cms.member.domain.MemberCreate;
 import com.example.cms.member.service.MemberServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,8 +28,8 @@ public class MemberController {
     }
     @Operation(summary = "회원 생성", description = "회원에 대한 생성을 진행합니다.")
     @PostMapping("/create")
-    public MemberCreateResponse createMember(@RequestBody @Valid MemberCreateRequest request){
-        return memberServiceImpl.save(request);
+    public MemberCreateResponse createMember(@RequestBody @Valid MemberCreate  create){
+        return memberServiceImpl.save(create);
     }
 
     @Operation(summary = "회원 조회", description = "회원에 대한 조회를 진행합니다.")

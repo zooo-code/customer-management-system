@@ -1,20 +1,16 @@
 package com.example.cms.member.service;
 
 import com.example.cms.member.controller.port.MemberService;
-import com.example.cms.member.controller.request.MemberCreateRequest;
 import com.example.cms.member.controller.request.MemberUpdateRequest;
-import com.example.cms.member.controller.response.MemberCreateResponse;
 import com.example.cms.member.controller.response.MemberPageResponse;
 import com.example.cms.member.controller.response.MemberResponse;
 import com.example.cms.member.controller.response.MemberUpdateResponse;
 import com.example.cms.member.domain.Member;
-import com.example.cms.member.infrastructure.MemberEntity;
+import com.example.cms.member.domain.MemberCreate;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
-import com.example.cms.member.infrastructure.MemberJpaRepository;
 import com.example.cms.member.service.port.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +23,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public MemberCreateResponse save(MemberCreateRequest memberCreateRequest){
-        if (memberRepository.findByMobile(memberCreateRequest.getMobile()).isPresent()){
+    public MemberCreateResponse save(MemberCreate memberCreate){
+        if (memberRepository.findByMobile(memberCreate.getPhone()).isPresent()){
             throw new MemberAlreadyExistException("member already exist");
         }
-        Member saveMember = memberRepository.save(memberCreateRequest.toEntity().toModel());
+        Member saveMember = memberRepository.save(Member.from(memberCreate));
         saveMember.firstPoint();
         return new MemberCreateResponse(saveMember.getName(), saveMember.getMobile());
     }
