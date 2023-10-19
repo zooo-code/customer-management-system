@@ -3,7 +3,6 @@ package com.example.cms.member.infrastructure;
 
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.service.port.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +24,8 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Optional<MemberEntity> findByMobile(String mobile) {
-        return Optional.empty();
+    public Optional<Member> findByMobile(String mobile) {
+         return memberJpaRepository.findByMobile(mobile).map(MemberEntity::toModel);
     }
 
     @Override

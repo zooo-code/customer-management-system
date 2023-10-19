@@ -7,6 +7,7 @@ import com.example.cms.member.controller.response.MemberResponse;
 import com.example.cms.member.controller.response.MemberUpdateResponse;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.domain.MemberCreate;
+import com.example.cms.member.domain.MemberUpdate;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.service.port.MemberRepository;
@@ -23,13 +24,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public MemberCreateResponse save(MemberCreate memberCreate){
+    public Member save(MemberCreate memberCreate){
         if (memberRepository.findByMobile(memberCreate.getPhone()).isPresent()){
             throw new MemberAlreadyExistException("member already exist");
         }
-        Member saveMember = memberRepository.save(Member.from(memberCreate));
-        saveMember.firstPoint();
-        return new MemberCreateResponse(saveMember.getName(), saveMember.getMobile());
+        return memberRepository.save(Member.from(memberCreate));
+
     }
     @Override
     @Transactional(readOnly = true)
@@ -43,13 +43,12 @@ public class MemberServiceImpl implements MemberService {
     }
     @Override
     @Transactional
-    public MemberUpdateResponse memberUpdate(String previousPhone, MemberUpdateRequest request){
+    public Member memberUpdate(String previousPhone, MemberUpdate memberUpdate){
         Member member = memberRepository
                 .findByMobile(previousPhone)
                 .orElseThrow(() -> new MemberNotFoundException("memberEntity not found")).toModel();
 
-        member.update(request.getName() ,request.getMobile());
-        return new MemberUpdateResponse(member.getMobile(), member.getName());
+        return member.update(memberUpdate);
     }
     @Override
     @Transactional(readOnly = true)
