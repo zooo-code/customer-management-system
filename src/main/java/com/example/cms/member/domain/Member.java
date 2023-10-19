@@ -6,12 +6,12 @@ import lombok.Getter;
 @Getter
 public class Member {
 
-    private Long id;
-    private String mobile;
-    private  String name;
-    private Integer membershipPoint;
-    private EMemberStatus status;
-    Integer firstJoinPoint = 10000;
+    private final Long id;
+    private final String mobile;
+    private final String name;
+    private final Integer membershipPoint;
+    private final EMemberStatus status;
+
 
     @Builder
     public Member(Long id, String mobile, String name, Integer membershipPoint, EMemberStatus status) {
@@ -22,13 +22,6 @@ public class Member {
         this.status = status;
     }
 
-    public void firstPoint(){
-        this.membershipPoint = firstJoinPoint;
-    }
-
-    public void updatePoint(Integer membershipPoint){
-        this.membershipPoint = membershipPoint;
-    }
 
     public static Member from(MemberCreate memberCreate){
         return Member.builder()
