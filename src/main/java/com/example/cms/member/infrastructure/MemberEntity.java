@@ -1,5 +1,6 @@
 package com.example.cms.member.infrastructure;
 
+import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.domain.Member;
 import com.example.cms.utils.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;

@@ -4,7 +4,7 @@ import com.example.cms.item.controller.request.ItemCreateRequest;
 import com.example.cms.item.domain.ItemStatus;
 import com.example.cms.item.service.ItemService;
 import com.example.cms.member.controller.request.MemberCreateRequest;
-import com.example.cms.member.infrastructure.EMemberStatus;
+import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.service.MemberServiceImpl;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.cms.member.infrastructure;
+package com.example.cms.member.domain;
 
 public enum EMemberStatus {
 
