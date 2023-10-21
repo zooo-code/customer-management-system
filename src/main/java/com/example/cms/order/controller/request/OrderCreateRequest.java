@@ -1,6 +1,6 @@
 package com.example.cms.order.controller.request;
 
-import com.example.cms.cart.domain.Cart;
+import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.order.domain.EPayments;
 import com.example.cms.order.domain.Order;
@@ -27,10 +27,10 @@ public class OrderCreateRequest {
         this.orderPrice = orderPrice;
     }
 
-    public Order toOrder(MemberEntity memberEntity, Cart cart){
+    public Order toOrder(MemberEntity memberEntity, CartEntity cartEntity){
         return Order.builder()
                 .memberEntity(memberEntity)
-                .cart(cart)
+                .cartEntity(cartEntity)
                 .payment(payment)
                 .ordersPrice(orderPrice)
                 .build();

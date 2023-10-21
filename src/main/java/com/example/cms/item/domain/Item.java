@@ -1,7 +1,6 @@
 package com.example.cms.item.domain;
 
 
-import com.example.cms.item.infrastructure.ItemEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -38,11 +37,4 @@ public class Item {
                 .build();
     }
 
-    public static Item of(ItemEntity itemEntity){
-        return Item.builder()
-                .name(itemEntity.getName())
-                .cost(itemEntity.getCost())
-                .hotIce(itemEntity.getHotIce())
-                .build();
-    }
 }

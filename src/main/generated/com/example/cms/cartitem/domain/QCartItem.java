@@ -2,6 +2,7 @@ package com.example.cms.cartitem.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.cms.cartitem.infrastructure.CartItemEntity;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -11,10 +12,10 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QCartItem is a Querydsl query type for CartItem
+ * QCartItem is a Querydsl query type for CartItemEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QCartItem extends EntityPathBase<CartItem> {
+public class QCartItem extends EntityPathBase<CartItemEntity> {
 
     private static final long serialVersionUID = -671098376L;
 
@@ -33,10 +34,10 @@ public class QCartItem extends EntityPathBase<CartItem> {
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
     public QCartItem(String variable) {
-        this(CartItem.class, forVariable(variable), INITS);
+        this(CartItemEntity.class, forVariable(variable), INITS);
     }
 
-    public QCartItem(Path<? extends CartItem> path) {
+    public QCartItem(Path<? extends CartItemEntity> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
@@ -45,10 +46,10 @@ public class QCartItem extends EntityPathBase<CartItem> {
     }
 
     public QCartItem(PathMetadata metadata, PathInits inits) {
-        this(CartItem.class, metadata, inits);
+        this(CartItemEntity.class, metadata, inits);
     }
 
-    public QCartItem(Class<? extends CartItem> type, PathMetadata metadata, PathInits inits) {
+    public QCartItem(Class<? extends CartItemEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.cart = inits.isInitialized("cart") ? new com.example.cms.cart.domain.QCart(forProperty("cart"), inits.get("cart")) : null;
         this.itemEntity = inits.isInitialized("itemEntity") ? new com.example.cms.item.infrastructure.QItemEntity(forProperty("itemEntity")) : null;

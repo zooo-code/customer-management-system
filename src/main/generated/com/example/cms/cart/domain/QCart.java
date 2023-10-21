@@ -2,6 +2,8 @@ package com.example.cms.cart.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.cms.cart.infrastructure.CartEntity;
+import com.example.cms.cartitem.infrastructure.CartItemEntity;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -11,10 +13,10 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QCart is a Querydsl query type for Cart
+ * QCart is a Querydsl query type for CartEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QCart extends EntityPathBase<Cart> {
+public class QCart extends EntityPathBase<CartEntity> {
 
     private static final long serialVersionUID = 2011941298L;
 
@@ -24,7 +26,7 @@ public class QCart extends EntityPathBase<Cart> {
 
     public final com.example.cms.utils.entity.QBaseDateTimeEntity _super = new com.example.cms.utils.entity.QBaseDateTimeEntity(this);
 
-    public final ListPath<com.example.cms.cartitem.domain.CartItem, com.example.cms.cartitem.domain.QCartItem> cartItems = this.<com.example.cms.cartitem.domain.CartItem, com.example.cms.cartitem.domain.QCartItem>createList("cartItems", com.example.cms.cartitem.domain.CartItem.class, com.example.cms.cartitem.domain.QCartItem.class, PathInits.DIRECT2);
+    public final ListPath<CartItemEntity, com.example.cms.cartitem.domain.QCartItem> cartItems = this.<CartItemEntity, com.example.cms.cartitem.domain.QCartItem>createList("cartItems", CartItemEntity.class, com.example.cms.cartitem.domain.QCartItem.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
@@ -40,10 +42,10 @@ public class QCart extends EntityPathBase<Cart> {
     public final NumberPath<Integer> totalPrice = createNumber("totalPrice", Integer.class);
 
     public QCart(String variable) {
-        this(Cart.class, forVariable(variable), INITS);
+        this(CartEntity.class, forVariable(variable), INITS);
     }
 
-    public QCart(Path<? extends Cart> path) {
+    public QCart(Path<? extends CartEntity> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
@@ -52,10 +54,10 @@ public class QCart extends EntityPathBase<Cart> {
     }
 
     public QCart(PathMetadata metadata, PathInits inits) {
-        this(Cart.class, metadata, inits);
+        this(CartEntity.class, metadata, inits);
     }
 
-    public QCart(Class<? extends Cart> type, PathMetadata metadata, PathInits inits) {
+    public QCart(Class<? extends CartEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.memberEntity = inits.isInitialized("memberEntity") ? new com.example.cms.member.infrastructure.QMemberEntity(forProperty("memberEntity")) : null;
     }

@@ -1,6 +1,6 @@
 package com.example.cms.order.domain;
 
-import com.example.cms.cart.domain.Cart;
+import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.utils.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;
@@ -37,20 +37,20 @@ public class Order extends BaseDateTimeEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private CartEntity cartEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
     @Builder
-    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, Cart cart, MemberEntity memberEntity) {
+    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, CartEntity cartEntity, MemberEntity memberEntity) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
         this.ordersPrice = ordersPrice;
         this.payment = payment;
-        this.cart = cart;
+        this.cartEntity = cartEntity;
         this.memberEntity = memberEntity;
     }
 
