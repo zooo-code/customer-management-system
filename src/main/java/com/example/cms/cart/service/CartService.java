@@ -9,13 +9,10 @@ import com.example.cms.cart.repository.CartRepository;
 import com.example.cms.cartitem.controller.request.CartItemCreateRequest;
 import com.example.cms.cartitem.domain.CartItem;
 import com.example.cms.cartitem.repository.CartItemRepository;
-import com.example.cms.item.domain.Item;
 import com.example.cms.item.repository.ItemRepository;
-import com.example.cms.member.infrastructure.MemberEntity;
+import com.example.cms.member.domain.Member;
 import com.example.cms.member.exception.MemberNotFoundException;
-import com.example.cms.member.infrastructure.MemberJpaRepository;
 import com.example.cms.member.service.port.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,28 +46,30 @@ public class CartService {
         if (memberRepository.findByMobile(request.getPhone()).isEmpty()) {
             throw new MemberNotFoundException("찾을 수 없는 회원입니다.");
         }
-        MemberEntity memberEntity = memberRepository.findByMobile(request.getPhone()).get();
+        Member member = memberRepository.findByMobile(request.getPhone()).get();
+
         //카트 생성 멤버
-        Cart cart = Cart.createCart(memberEntity);
-        Cart saveCart = cartRepository.save(cart);
+//        Cart cart = Cart.createCart(member);
+//        Cart saveCart = cartRepository.save(cart);
 
         List<CartItemCreateRequest> cartItemCreateRequests = request.getCartItemRequests();
 
-        for (CartItemCreateRequest cartItemCreateRequest : cartItemCreateRequests) {
-            //카트에 총 상품의 수를 증가
-            saveCart.addCountCart(cartItemCreateRequest.getCount());
-            Item drink = itemRepository.findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
-            saveCart.addTotalPrice(drink.getCost()*cartItemCreateRequest.getCount());
-            //request 들어온 상품을 찾고 cartItem 에 등록
-            Item findItem = itemRepository
-                    .findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
-            CartItem cartItem = CartItem
-                    .createCartItem(saveCart, findItem, findItem.getCost(), cartItemCreateRequest.getCount());
-            cartItemRepository.save(cartItem);
-        }
-        Cart save = cartRepository.save(saveCart);
+//        for (CartItemCreateRequest cartItemCreateRequest : cartItemCreateRequests) {
+//            //카트에 총 상품의 수를 증가
+//            saveCart.addCountCart(cartItemCreateRequest.getCount());
+//            Item drink = itemRepository.findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
+//            saveCart.addTotalPrice(drink.getCost()*cartItemCreateRequest.getCount());
+//            //request 들어온 상품을 찾고 cartItem 에 등록
+//            Item findItem = itemRepository
+//                    .findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
+//            CartItem cartItem = CartItem
+//                    .createCartItem(saveCart, findItem, findItem.getCost(), cartItemCreateRequest.getCount());
+//            cartItemRepository.save(cartItem);
+//        }
+//        Cart save = cartRepository.save(saveCart);
 
-        return new CartResponse(save.getCount(),save.getTotalPrice(),save.getId(),save.getMemberEntity().getId());
+        return null;
+//                new CartResponse(save.getCount(),save.getTotalPrice(),save.getId(),save.getMemberEntity().getId());
     }
 
     /**

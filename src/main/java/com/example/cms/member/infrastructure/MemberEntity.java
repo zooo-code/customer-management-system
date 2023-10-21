@@ -30,7 +30,7 @@ public class MemberEntity extends BaseDateTimeEntity {
     private EMemberStatus status;
 
     //첫 회원 가입 포인트
-    Integer firstJoinPoint = 10000;
+
 
     @Builder
     public MemberEntity(Long id, String mobile, String name, Integer membershipPoint, EMemberStatus status) {
@@ -42,17 +42,17 @@ public class MemberEntity extends BaseDateTimeEntity {
     }
     public static MemberEntity from(Member member){
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.mobile = member.getMobile();
+        memberEntity.mobile = member.getPhone();
         memberEntity.name = member.getName();
         memberEntity.status = member.getStatus();
-        memberEntity.firstJoinPoint = member.getFirstJoinPoint();
+
         return memberEntity;
     }
 
     public Member toModel(){
         return Member.builder()
                 .id(id)
-                .mobile(mobile)
+                .phone(mobile)
                 .name(name)
                 .membershipPoint(membershipPoint)
                 .status(status)

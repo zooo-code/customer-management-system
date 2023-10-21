@@ -1,7 +1,7 @@
 package com.example.cms.member.service.port;
 
 import com.example.cms.member.domain.Member;
-import com.example.cms.member.infrastructure.MemberEntity;
+
 
 import java.util.Optional;
 
@@ -12,5 +12,5 @@ public interface MemberRepository {
 
     Optional<Member> findByMobile(String mobile);
 
-    Optional<MemberEntity> findById(Long id);
+    Optional<Member> findById(Long id);
 }

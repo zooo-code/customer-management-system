@@ -29,7 +29,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Optional<MemberEntity> findById(Long id) {
-        return Optional.empty();
+    public Optional<Member> findById(Long id) {
+        return memberJpaRepository.findById(id).map(MemberEntity::toModel);
     }
+
+
 }
