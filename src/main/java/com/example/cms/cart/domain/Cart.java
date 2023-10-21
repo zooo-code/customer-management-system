@@ -26,7 +26,7 @@ public class Cart extends BaseDateTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
-
+    @Column(name ="count")
     private Integer count;
 
     @Column(name = "total_price")

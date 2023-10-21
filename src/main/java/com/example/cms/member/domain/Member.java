@@ -3,6 +3,8 @@ package com.example.cms.member.domain;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class Member {
 
@@ -12,16 +14,19 @@ public class Member {
     private final Integer membershipPoint;
     private final EMemberStatus status;
 
-
+    private final LocalDateTime createAt;
+    private final LocalDateTime modifiedAt;
     @Builder
-    public Member(Long id, String phone, String name, Integer membershipPoint, EMemberStatus status) {
+    public Member(Long id, String phone, String name, Integer membershipPoint, EMemberStatus status,
+                  LocalDateTime createAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.phone = phone;
         this.name = name;
         this.membershipPoint = membershipPoint;
         this.status = status;
+        this.createAt = createAt;
+        this.modifiedAt = modifiedAt;
     }
-
 
     public static Member from(MemberCreate memberCreate){
         Integer firstPoint = 0;
@@ -37,6 +42,7 @@ public class Member {
                 .id(id)
                 .status(status)
                 .membershipPoint(membershipPoint)
+                .modifiedAt(LocalDateTime.now())
                 .phone(memberUpdate.getPhone())
                 .name(memberUpdate.getName())
                 .build();
