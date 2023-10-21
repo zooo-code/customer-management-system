@@ -1,6 +1,6 @@
 package com.example.cms.item.domain;
 
-public enum ItemStatus {
+public enum EItemStatus {
     HOT,
     ICED;
 }

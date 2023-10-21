@@ -2,6 +2,7 @@ package com.example.cms.item.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.example.cms.item.infrastructure.ItemEntity;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -10,10 +11,10 @@ import com.querydsl.core.types.Path;
 
 
 /**
- * QItem is a Querydsl query type for Item
+ * QItem is a Querydsl query type for ItemEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QItem extends EntityPathBase<Item> {
+public class QItem extends EntityPathBase<ItemEntity> {
 
     private static final long serialVersionUID = 1858762008L;
 
@@ -26,7 +27,7 @@ public class QItem extends EntityPathBase<Item> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
-    public final EnumPath<ItemStatus> hotIce = createEnum("hotIce", ItemStatus.class);
+    public final EnumPath<EItemStatus> hotIce = createEnum("hotIce", EItemStatus.class);
 
     public final NumberPath<Long> itemId = createNumber("itemId", Long.class);
 
@@ -36,15 +37,15 @@ public class QItem extends EntityPathBase<Item> {
     public final StringPath name = createString("name");
 
     public QItem(String variable) {
-        super(Item.class, forVariable(variable));
+        super(ItemEntity.class, forVariable(variable));
     }
 
-    public QItem(Path<? extends Item> path) {
+    public QItem(Path<? extends ItemEntity> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QItem(PathMetadata metadata) {
-        super(Item.class, metadata);
+        super(ItemEntity.class, metadata);
     }
 
 }

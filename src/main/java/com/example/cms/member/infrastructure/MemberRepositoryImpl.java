@@ -11,10 +11,10 @@ import java.util.Optional;
 @Transactional
 public class MemberRepositoryImpl implements MemberRepository {
 
-    private final MemberJpaRepository memberJpaRepository;
+    private final MemberRepositoryJpa memberJpaRepository;
 
 
-    public MemberRepositoryImpl(MemberJpaRepository memberJpaRepository) {
+    public MemberRepositoryImpl(MemberRepositoryJpa memberJpaRepository) {
         this.memberJpaRepository = memberJpaRepository;
     }
 

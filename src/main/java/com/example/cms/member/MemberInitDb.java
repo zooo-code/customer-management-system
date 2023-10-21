@@ -1,6 +1,6 @@
 package com.example.cms.member;
 
-import com.example.cms.item.service.ItemService;
+import com.example.cms.item.service.ItemServiceImpl;
 import com.example.cms.member.service.MemberServiceImpl;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class MemberInitDb {
     @RequiredArgsConstructor
     static class InitService {
         private final MemberServiceImpl memberServiceImpl;
-        private final ItemService itemService;
+        private final ItemServiceImpl itemServiceImpl;
         public void dbInit1(){
 
         }

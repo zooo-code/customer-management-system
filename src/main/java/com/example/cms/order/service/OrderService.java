@@ -3,7 +3,7 @@ package com.example.cms.order.service;
 import com.example.cms.cart.domain.Cart;
 import com.example.cms.cart.repository.CartRepository;
 import com.example.cms.member.infrastructure.MemberEntity;
-import com.example.cms.member.infrastructure.MemberJpaRepository;
+import com.example.cms.member.infrastructure.MemberRepositoryJpa;
 import com.example.cms.order.controller.request.OrderCreateRequest;
 import com.example.cms.order.controller.response.OrderCreateResponse;
 import com.example.cms.order.controller.response.OrderDetailResponse;
@@ -24,10 +24,10 @@ import static com.example.cms.utils.exception.ErrorCode.DUPLICATE_RESOURCE;
 public class OrderService {
 
     private OrderRepository orderRepository;
-    private MemberJpaRepository memberJpaRepository;
+    private MemberRepositoryJpa memberJpaRepository;
     private CartRepository cartRepository;
 
-    public OrderService(OrderRepository orderRepository, MemberJpaRepository memberJpaRepository, CartRepository cartRepository) {
+    public OrderService(OrderRepository orderRepository, MemberRepositoryJpa memberJpaRepository, CartRepository cartRepository) {
         this.orderRepository = orderRepository;
         this.memberJpaRepository = memberJpaRepository;
         this.cartRepository = cartRepository;
