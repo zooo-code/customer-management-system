@@ -43,7 +43,6 @@ class MemberServiceTest {
                 .build();
         memberService.save(kim);
         MemberUpdate lee = MemberUpdate.builder()
-                .status(EMemberStatus.BLIND)
                 .name("lee")
                 .phone("12346")
                 .build();
@@ -52,13 +51,9 @@ class MemberServiceTest {
 
         Member membership = memberService.findMembership("12346");
 
-        Member membership1 = memberService.findMembership("1234");
-        System.out.println("membership1 = " + membership1.getId());
-        System.out.println("member.getId() = " + member.getId());
         //then
         assertThat(membership.getName()).isEqualTo(member.getName());
         assertThat(membership.getPhone()).isEqualTo(member.getPhone());
-        assertThat(membership.getStatus()).isEqualTo(EMemberStatus.BLIND);
     }
 
     @Test

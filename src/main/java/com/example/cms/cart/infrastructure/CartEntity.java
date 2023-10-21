@@ -35,7 +35,7 @@ public class CartEntity extends BaseDateTimeEntity {
     @Column(name = "total_price")
     private Integer totalPrice;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cartEntity")
     private List<CartItemEntity> cartItemEntities = new ArrayList<>();
 
     private LocalDateTime createdAt;
