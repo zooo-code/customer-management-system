@@ -13,6 +13,7 @@ public class MemberCreateResponse {
     private String phone;
     private Integer myPoint;
 
+
     public MemberCreateResponse(String name, String phone, Integer myPoint) {
         this.name = name;
         this.phone = phone;
@@ -20,10 +21,11 @@ public class MemberCreateResponse {
     }
 
     public static MemberCreateResponse from(Member member) {
-
+        Integer firstPoint = 0;
         return MemberCreateResponse.builder()
                 .phone(member.getPhone())
                 .name(member.getName())
+                .myPoint(firstPoint)
                 .build();
     }
 }

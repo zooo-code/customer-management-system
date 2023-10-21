@@ -73,4 +73,6 @@ class MemberServiceTest {
         assertThat(save.getPhone()).isEqualTo(member.getPhone());
         assertThat(save.getStatus()).isEqualTo(EMemberStatus.OPEN);
     }
+
+
 }
