@@ -28,7 +28,7 @@ public class QCartItem extends EntityPathBase<CartItem> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.example.cms.item.domain.QItem item;
+    public final com.example.cms.item.infrastructure.QItemEntity itemEntity;
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
@@ -51,7 +51,7 @@ public class QCartItem extends EntityPathBase<CartItem> {
     public QCartItem(Class<? extends CartItem> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.cart = inits.isInitialized("cart") ? new com.example.cms.cart.domain.QCart(forProperty("cart"), inits.get("cart")) : null;
-        this.item = inits.isInitialized("item") ? new com.example.cms.item.domain.QItem(forProperty("item")) : null;
+        this.itemEntity = inits.isInitialized("itemEntity") ? new com.example.cms.item.infrastructure.QItemEntity(forProperty("itemEntity")) : null;
     }
 
 }

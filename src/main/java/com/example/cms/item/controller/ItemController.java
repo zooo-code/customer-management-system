@@ -9,6 +9,7 @@ import com.example.cms.item.service.ItemServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +17,13 @@ import java.util.List;
 
 @Tag(name = "Items", description = "상품 API")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/items")
 public class ItemController {
 
-    private ItemServiceImpl itemServiceImpl;
+    private final ItemServiceImpl itemServiceImpl;
 
-    public ItemController(ItemServiceImpl itemServiceImpl) {
-        this.itemServiceImpl = itemServiceImpl;
-    }
+
 
     @Operation(summary = "상품 목록 조회", description = "상품 목록 전부 조회합니다.")
     @GetMapping
@@ -57,15 +57,15 @@ public class ItemController {
     }
 
     //TODO: 필터링 완료
-    @GetMapping("/search")
-    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")
-    public List<ItemResponse> searchItems(@RequestBody ItemSearchRequest itemSearchRequest){
-        return itemServiceImpl.searchItems(itemSearchRequest);
-    }
-
-    @GetMapping("/search/paging")
-    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")
-    public PageImpl<ItemResponse> searchItems(@RequestBody ItemSearchRequest itemSearchRequest, PageRequest pageRequest){
-        return itemServiceImpl.searchItemsPaging(itemSearchRequest, pageRequest);
-    }
+//    @GetMapping("/search")
+//    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")
+//    public List<ItemResponse> searchItems(@RequestBody ItemSearchRequest itemSearchRequest){
+//        return itemServiceImpl.searchItems(itemSearchRequest);
+//    }
+//
+//    @GetMapping("/search/paging")
+//    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")
+//    public PageImpl<ItemResponse> searchItems(@RequestBody ItemSearchRequest itemSearchRequest, PageRequest pageRequest){
+//        return itemServiceImpl.searchItemsPaging(itemSearchRequest, pageRequest);
+//    }
 }

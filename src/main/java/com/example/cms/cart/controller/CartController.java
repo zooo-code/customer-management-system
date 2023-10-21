@@ -6,6 +6,7 @@ import com.example.cms.cart.controller.response.CartResponse;
 import com.example.cms.cart.service.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,15 +16,13 @@ import java.util.List;
 
 @Tag(name = "Cart", description = "카트 API")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/cart")
 public class CartController {
 
 
     private final CartService cartService;
 
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
     @Operation(summary = "장바구니 생성", description = "징바구니를 생성합니다.")
     @PostMapping("/create")
     public CartResponse CreateCart(@RequestBody CartRequest request){
