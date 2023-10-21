@@ -22,7 +22,7 @@ public class MemberCreateResponse {
     public static MemberCreateResponse from(Member member) {
 
         return MemberCreateResponse.builder()
-                .phone(member.getMobile())
+                .phone(member.getPhone())
                 .name(member.getName())
                 .build();
     }

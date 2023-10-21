@@ -16,7 +16,7 @@ public class MemberUpdateResponse {
     }
     public static MemberUpdateResponse from(Member member){
         return MemberUpdateResponse.builder()
-                .mobile(member.getMobile())
+                .mobile(member.getPhone())
                 .name(member.getName())
                 .build();
     }

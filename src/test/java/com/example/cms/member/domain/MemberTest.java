@@ -31,7 +31,7 @@ class MemberTest {
                 .status(EMemberStatus.OPEN)
                 .membershipPoint(1000)
                 .name("lee")
-                .mobile("1234")
+                .phone("1234")
                 .build();
         MemberUpdate lee_kim = MemberUpdate.builder()
                 .phone("12345")
@@ -43,7 +43,7 @@ class MemberTest {
         //then
         assertThat(update.getId()).isEqualTo(1L);
         assertThat(update.getName()).isEqualTo("lee_kim");
-        assertThat(update.getMobile()).isEqualTo("12345");
+        assertThat(update.getPhone()).isEqualTo("12345");
         assertThat(update.getStatus()).isEqualTo(EMemberStatus.BLIND);
     }
 

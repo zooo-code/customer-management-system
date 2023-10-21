@@ -42,7 +42,7 @@ public class MemberEntity extends BaseDateTimeEntity {
     }
     public static MemberEntity from(Member member){
         MemberEntity memberEntity = new MemberEntity();
-        memberEntity.mobile = member.getMobile();
+        memberEntity.mobile = member.getPhone();
         memberEntity.name = member.getName();
         memberEntity.status = member.getStatus();
 
@@ -52,7 +52,7 @@ public class MemberEntity extends BaseDateTimeEntity {
     public Member toModel(){
         return Member.builder()
                 .id(id)
-                .mobile(mobile)
+                .phone(mobile)
                 .name(name)
                 .membershipPoint(membershipPoint)
                 .status(status)

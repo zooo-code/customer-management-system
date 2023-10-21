@@ -20,7 +20,7 @@ public class MemberResponse {
 
     public static MemberResponse from(Member member){
         return MemberResponse.builder()
-                .mobile(member.getMobile())
+                .mobile(member.getPhone())
                 .name(member.getName())
                 .membershipPoint(member.getMembershipPoint())
                 .build();
