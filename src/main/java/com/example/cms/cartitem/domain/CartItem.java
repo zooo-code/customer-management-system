@@ -22,8 +22,9 @@ public class CartItem {
     @JoinColumn(name = "seq")
     private ItemEntity itemEntity;
 
+    @Column(name = "count", nullable = false)
     private Integer count;
-
+    @Column(name = "price", nullable = false)
     private Integer price;
 
     @Builder

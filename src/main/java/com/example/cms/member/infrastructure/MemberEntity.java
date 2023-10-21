@@ -17,16 +17,16 @@ public class MemberEntity extends BaseDateTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-    @Column(length = 11)
+    @Column(length = 11,nullable = false)
     private String mobile;
-
+    @Column(name = "name",nullable = false)
     private String name;
 
-    @Column(name = "membership_point")
+    @Column(name = "membership_point",nullable = false)
     private Integer membershipPoint;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status",nullable = false)
     private EMemberStatus status;
 
 
@@ -46,6 +46,7 @@ public class MemberEntity extends BaseDateTimeEntity {
         memberEntity.mobile = member.getPhone();
         memberEntity.name = member.getName();
         memberEntity.status = member.getStatus();
+
         memberEntity.membershipPoint = member.getMembershipPoint();
         return memberEntity;
     }

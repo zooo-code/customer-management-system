@@ -14,5 +14,5 @@ public interface MemberRepository {
 
     Optional<Member> findById(Long id);
 
-    Member update();
+
 }

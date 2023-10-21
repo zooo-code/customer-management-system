@@ -1,32 +1,30 @@
-package com.example.cms.item.controller.request;
+package com.example.cms.item.domain;
 
 import com.example.cms.item.infrastructure.ItemEntity;
-import com.example.cms.item.domain.EItemStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class ItemCreateRequest {
-
+public class ItemResponse {
     private String name;
     private Integer cost;
     private EItemStatus hotIce;
 
+
     @Builder
-    public ItemCreateRequest(String name, Integer cost, EItemStatus hotIce) {
+    public ItemResponse(String name, Integer cost, EItemStatus hotIce) {
         this.name = name;
         this.cost = cost;
         this.hotIce = hotIce;
     }
 
-
-    public ItemEntity toItem(){
-        return ItemEntity.builder()
-                .name(name)
-                .cost(cost)
-                .hotIce(hotIce)
+    public static ItemResponse of(ItemEntity itemEntity){
+        return ItemResponse.builder()
+                .name(itemEntity.getName())
+                .cost(itemEntity.getCost())
+                .hotIce(itemEntity.getHotIce())
                 .build();
     }
 }

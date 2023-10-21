@@ -41,8 +41,7 @@ public class MemberServiceImpl implements MemberService {
                 .findByMobile(previousPhone)
                 .orElseThrow(() -> new MemberNotFoundException("memberEntity not found"));
         Member update = member.update(memberUpdate);
-        Member save = memberRepository.save(update);
-        return save;
+        return memberRepository.save(update);
     }
 
 

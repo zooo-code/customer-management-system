@@ -1,100 +1,91 @@
 package com.example.cms.item.service;
 
-import com.example.cms.item.controller.request.ItemCreateRequest;
-import com.example.cms.item.controller.request.ItemSearchRequest;
-import com.example.cms.item.controller.request.ItemUpdateRequest;
-import com.example.cms.item.controller.request.PageRequest;
-import com.example.cms.item.controller.response.ItemResponse;
-import com.example.cms.item.infrastructure.ItemEntity;
-import com.example.cms.item.infrastructure.ItemRepositoryJpa;
+import com.example.cms.item.controller.port.ItemService;
+import com.example.cms.item.domain.ItemCreate;
+import com.example.cms.item.domain.ItemUpdate;
+import com.example.cms.item.domain.Item;
+
+import com.example.cms.item.service.port.ItemRepository;
 import com.example.cms.utils.exception.CommonException;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import static com.example.cms.utils.exception.ErrorCode.DUPLICATE_RESOURCE;
 
 
 @Service
-public class ItemServiceImpl {
+@RequiredArgsConstructor
+public class ItemServiceImpl implements ItemService {
 
-    private final ItemRepositoryJpa itemRepositoryJpa;
-
-    public ItemServiceImpl(ItemRepositoryJpa itemRepositoryJpa) {
-        this.itemRepositoryJpa = itemRepositoryJpa;
-    }
-
+    private final ItemRepository itemRepository;
+    @Override
     @Transactional(readOnly = true)
-    public List<ItemResponse> findAll(){
-        return itemRepositoryJpa.findAll().stream()
-                .map(ItemResponse::of)
-                .collect(Collectors.toList());
+    public List<Item> findAll(){
+        return itemRepository.findAll();
     }
-
+    @Override
     @Transactional(readOnly = true)
-    public List<ItemResponse> findByName(String name) {
-        return itemRepositoryJpa.findAllByNameContaining(name)
-                .stream().map(ItemResponse::of)
-                .collect(Collectors.toList());
+    public List<Item> findByName(String name) {
+        return itemRepository.findAllByNameContaining(name);
     }
-
+    @Override
     @Transactional
-    public void create(ItemCreateRequest itemCreateRequest){
-        ItemEntity newItemEntity = itemCreateRequest.toItem();
+    public void create(ItemCreate itemCreate){
+        Item item = Item.from(itemCreate);
         //중복체크
-        Boolean isExistItemAndStatus = itemRepositoryJpa.existsByNameAndAndHotIce(newItemEntity.getName(), newItemEntity.getHotIce());
+        Boolean isExistItemAndStatus = itemRepository.existsByNameAndAndHotIce(item.getName(), item.getHotIce());
 
         if(isExistItemAndStatus){
-            ItemEntity originItemEntity = itemRepositoryJpa.findByNameAndHotIce(newItemEntity.getName(), newItemEntity.getHotIce());
-            validateDuplicate(originItemEntity, newItemEntity);
+            Item originItem = itemRepository.findByNameAndHotIce(item.getName(), item.getHotIce());
+            validateDuplicate(originItem, item);
         }else {
-            itemRepositoryJpa.save(newItemEntity);
+            itemRepository.save(item);
         }
     }
 
-    private void validateDuplicate(ItemEntity originItemEntity, ItemEntity newItemEntity){
+    private void validateDuplicate(Item originItem, Item newItem){
         // 이름과 상태값이 같은 제품이 있을경우
-        if(originItemEntity != null && ( originItemEntity.getCost().equals(newItemEntity.getCost()))){
+        if(originItem != null && ( originItem.getCost().equals(newItem.getCost()))){
 //            throw new IllegalStateException("중복되는 기존 메뉴가 있습니다. " + originItemEntity.getName() + "("+ originItemEntity.getHotIce() +") " +originItemEntity.getCost());
             throw new CommonException(DUPLICATE_RESOURCE);
-        }else if(originItemEntity != null && ( originItemEntity.getCost() != newItemEntity.getCost())){
+        }else if(originItem != null && (!originItem.getCost().equals(newItem.getCost()))){
 //            throw new IllegalStateException(newItemEntity.getName() +"("+newItemEntity.getHotIce()+") 는(운) 이미 "+originItemEntity.getCost()+"원 으로 책정되어있습니다.");
             throw new CommonException(DUPLICATE_RESOURCE);
         }
     }
-
+    @Override
     @Transactional
-    public void update(ItemUpdateRequest updateRequest){
-        ItemEntity updateItemEntity = updateRequest.toItem();
+    public void update(ItemUpdate itemUpdate){
+        Item updateItem = itemUpdate.toItem();
 
         //name, cost, h/i 가 모두 중복
-        Boolean isDuplicated = itemRepositoryJpa.existsByNameAndCostAndHotIce(updateItemEntity.getName(), updateItemEntity.getCost(), updateItemEntity.getHotIce());
+        Boolean isDuplicated = itemRepository.existsByNameAndCostAndHotIce(updateItem.getName(), updateItem.getCost(), updateItem.getHotIce());
         if(isDuplicated) {
 //            throw new IllegalStateException("중복되는 기존 메뉴가 있습니다. " + updateItemEntity.getName() + "(" + updateItemEntity.getHotIce() + ") " + updateItemEntity.getCost() + "원");
             throw new CommonException(DUPLICATE_RESOURCE);
         }
 
         //name , h/i 중복
-        ItemEntity originItemEntity = itemRepositoryJpa.findByNameAndHotIce(updateItemEntity.getName(), updateItemEntity.getHotIce());
+        Item originItem = itemRepository.findByNameAndHotIce(updateItem.getName(), updateItem.getHotIce());
 
-        if (originItemEntity != null && originItemEntity.getCost() != updateItemEntity.getCost()){
+        if (originItem != null && !originItem.getCost().equals(updateItem.getCost())){
             //cost 만 다를경우 cost만 업뎃
-            updateItemEntity.update(updateItemEntity.getItemId(), originItemEntity.getName(), updateItemEntity.getCost(), originItemEntity.getHotIce());
-            itemRepositoryJpa.save(updateItemEntity);
-        }else if(originItemEntity == null){
+            updateItem.update(itemUpdate);
+            itemRepository.save(updateItem);
+        }else if(originItem == null){
             //중복된것 없으면 그냥 업뎃
-            updateItemEntity.update(updateItemEntity.getItemId(), updateItemEntity.getName(), updateItemEntity.getCost(), updateItemEntity.getHotIce());
-            itemRepositoryJpa.save(updateItemEntity);
+            updateItem.update(itemUpdate);
+            itemRepository.save(updateItem);
         }
     }
-
+    @Override
     @Transactional
     public void delete(Long itemId){
-        itemRepositoryJpa.deleteByItemId(itemId);
+        itemRepository.deleteByItemId(itemId);
     }
 
 //    @Transactional(readOnly = true)
