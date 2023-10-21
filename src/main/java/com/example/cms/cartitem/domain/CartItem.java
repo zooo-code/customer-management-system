@@ -1,7 +1,7 @@
 package com.example.cms.cartitem.domain;
 
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.item.domain.Item;
+import com.example.cms.item.infrastructure.ItemEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,23 +20,23 @@ public class CartItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seq")
-    private Item item;
+    private ItemEntity itemEntity;
 
     private Integer count;
 
     private Integer price;
 
     @Builder
-    public CartItem(Cart cart, Item item, Integer count, Integer price) {
+    public CartItem(Cart cart, ItemEntity itemEntity, Integer count, Integer price) {
         this.cart = cart;
-        this.item = item;
+        this.itemEntity = itemEntity;
         this.count = count;
         this.price = price;
     }
 
 
-    public static CartItem createCartItem(Cart cart, Item item, Integer price, Integer count){
-        return new CartItem(cart, item, count, price);
+    public static CartItem createCartItem(Cart cart, ItemEntity itemEntity, Integer price, Integer count){
+        return new CartItem(cart, itemEntity, count, price);
     }
 
 

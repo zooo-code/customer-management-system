@@ -9,7 +9,7 @@ import com.example.cms.cart.repository.CartRepository;
 import com.example.cms.cartitem.controller.request.CartItemCreateRequest;
 import com.example.cms.cartitem.domain.CartItem;
 import com.example.cms.cartitem.repository.CartItemRepository;
-import com.example.cms.item.repository.ItemRepository;
+import com.example.cms.item.infrastructure.ItemRepositoryJpa;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.service.port.MemberRepository;
@@ -26,13 +26,13 @@ import java.util.Optional;
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final ItemRepository itemRepository;
+    private final ItemRepositoryJpa itemRepositoryJpa;
     private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
 
-    public CartService(CartRepository cartRepository, ItemRepository itemRepository, CartItemRepository cartItemRepository, MemberRepository memberRepository) {
+    public CartService(CartRepository cartRepository, ItemRepositoryJpa itemRepositoryJpa, CartItemRepository cartItemRepository, MemberRepository memberRepository) {
         this.cartRepository = cartRepository;
-        this.itemRepository = itemRepository;
+        this.itemRepositoryJpa = itemRepositoryJpa;
         this.cartItemRepository = cartItemRepository;
         this.memberRepository = memberRepository;
     }
@@ -57,10 +57,10 @@ public class CartService {
 //        for (CartItemCreateRequest cartItemCreateRequest : cartItemCreateRequests) {
 //            //카트에 총 상품의 수를 증가
 //            saveCart.addCountCart(cartItemCreateRequest.getCount());
-//            Item drink = itemRepository.findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
+//            ItemEntity drink = itemRepository.findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
 //            saveCart.addTotalPrice(drink.getCost()*cartItemCreateRequest.getCount());
 //            //request 들어온 상품을 찾고 cartItem 에 등록
-//            Item findItem = itemRepository
+//            ItemEntity findItem = itemRepository
 //                    .findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
 //            CartItem cartItem = CartItem
 //                    .createCartItem(saveCart, findItem, findItem.getCost(), cartItemCreateRequest.getCount());

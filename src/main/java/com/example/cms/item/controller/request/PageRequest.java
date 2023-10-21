@@ -1,6 +1,5 @@
 package com.example.cms.item.controller.request;
 
-import com.example.cms.item.domain.Item;
 import lombok.Getter;
 import org.springframework.data.domain.Sort;
 

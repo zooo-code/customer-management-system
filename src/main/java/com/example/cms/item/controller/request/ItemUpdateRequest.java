@@ -1,7 +1,7 @@
 package com.example.cms.item.controller.request;
 
-import com.example.cms.item.domain.Item;
-import com.example.cms.item.domain.ItemStatus;
+import com.example.cms.item.infrastructure.ItemEntity;
+import com.example.cms.item.domain.EItemStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +13,10 @@ public class ItemUpdateRequest {
     private Long itemId;
     private String name;
     private Integer cost;
-    private ItemStatus hotIce;
+    private EItemStatus hotIce;
 
     @Builder
-    public ItemUpdateRequest(Long itemId, String name, Integer cost, ItemStatus hotIce) {
+    public ItemUpdateRequest(Long itemId, String name, Integer cost, EItemStatus hotIce) {
         this.itemId = itemId;
         this.name = name;
         this.cost = cost;
@@ -24,8 +24,8 @@ public class ItemUpdateRequest {
     }
 
 
-    public Item toItem(){
-        return Item.builder()
+    public ItemEntity toItem(){
+        return ItemEntity.builder()
                 .id(itemId)
                 .name(name)
                 .cost(cost)
