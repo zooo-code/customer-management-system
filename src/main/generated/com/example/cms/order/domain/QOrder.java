@@ -26,7 +26,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final DateTimePath<java.time.LocalDateTime> cancelDate = createDateTime("cancelDate", java.time.LocalDateTime.class);
 
-    public final com.example.cms.cart.domain.QCart cart;
+    public final com.example.cms.cart.infrastructure.QCartEntity cartEntity;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
@@ -62,7 +62,7 @@ public class QOrder extends EntityPathBase<Order> {
 
     public QOrder(Class<? extends Order> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.cart = inits.isInitialized("cart") ? new com.example.cms.cart.domain.QCart(forProperty("cart"), inits.get("cart")) : null;
+        this.cartEntity = inits.isInitialized("cartEntity") ? new com.example.cms.cart.infrastructure.QCartEntity(forProperty("cartEntity"), inits.get("cartEntity")) : null;
         this.memberEntity = inits.isInitialized("memberEntity") ? new com.example.cms.member.infrastructure.QMemberEntity(forProperty("memberEntity")) : null;
     }
 

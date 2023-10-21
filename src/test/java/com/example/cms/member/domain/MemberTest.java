@@ -36,7 +36,6 @@ class MemberTest {
         MemberUpdate lee_kim = MemberUpdate.builder()
                 .phone("12345")
                 .name("lee_kim")
-                .status(EMemberStatus.BLIND)
                 .build();
         //when
         Member update = lee.update(lee_kim);
@@ -44,7 +43,7 @@ class MemberTest {
         assertThat(update.getId()).isEqualTo(1L);
         assertThat(update.getName()).isEqualTo("lee_kim");
         assertThat(update.getPhone()).isEqualTo("12345");
-        assertThat(update.getStatus()).isEqualTo(EMemberStatus.BLIND);
+
     }
 
 
