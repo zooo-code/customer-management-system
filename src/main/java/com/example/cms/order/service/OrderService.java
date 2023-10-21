@@ -1,7 +1,7 @@
 package com.example.cms.order.service;
 
-import com.example.cms.cart.domain.Cart;
-import com.example.cms.cart.repository.CartRepository;
+import com.example.cms.cart.infrastructure.CartEntity;
+import com.example.cms.cart.infrastructure.CartRepositoryJpa;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.member.infrastructure.MemberRepositoryJpa;
 import com.example.cms.order.controller.request.OrderCreateRequest;
@@ -25,12 +25,12 @@ public class OrderService {
 
     private OrderRepository orderRepository;
     private MemberRepositoryJpa memberJpaRepository;
-    private CartRepository cartRepository;
+    private CartRepositoryJpa cartRepositoryJpa;
 
-    public OrderService(OrderRepository orderRepository, MemberRepositoryJpa memberJpaRepository, CartRepository cartRepository) {
+    public OrderService(OrderRepository orderRepository, MemberRepositoryJpa memberJpaRepository, CartRepositoryJpa cartRepositoryJpa) {
         this.orderRepository = orderRepository;
         this.memberJpaRepository = memberJpaRepository;
-        this.cartRepository = cartRepository;
+        this.cartRepositoryJpa = cartRepositoryJpa;
     }
 
     @Transactional
@@ -40,10 +40,10 @@ public class OrderService {
         MemberEntity memberEntity = memberJpaRepository.findById(request.getMemberId())
                 .orElseThrow(()-> new CommonException(DATA_NOT_FOUND));
 
-        Cart cart = cartRepository.findById(request.getCartId())
+        CartEntity cartEntity = cartRepositoryJpa.findById(request.getCartId())
                 .orElseThrow(()-> new CommonException(DATA_NOT_FOUND));
 
-        Order order = request.toOrder(memberEntity, cart);
+        Order order = request.toOrder(memberEntity, cartEntity);
 
         //1-2. payment 확인
 
@@ -101,7 +101,7 @@ public class OrderService {
 
         int paidPoint = order.getOrdersPrice();
 
-        MemberEntity memberEntity = memberJpaRepository.findById(order.getCart().getMemberEntity().getId())
+        MemberEntity memberEntity = memberJpaRepository.findById(order.getCartEntity().getMemberEntity().getId())
                 .orElseThrow(()-> new CommonException(DATA_NOT_FOUND));
 
         //결제 포인트 + 잔여포인트

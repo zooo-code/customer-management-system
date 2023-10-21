@@ -1,48 +1,28 @@
 package com.example.cms.cartitem.domain;
 
 import com.example.cms.cart.domain.Cart;
+import com.example.cms.cart.infrastructure.CartEntity;
+import com.example.cms.item.domain.Item;
 import com.example.cms.item.infrastructure.ItemEntity;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
-@Entity @Getter
-@Table(name = "cart_item")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
+@Getter
 public class CartItem {
 
-    @Id @Column(name = "cart_item_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seq")
-    private ItemEntity itemEntity;
-
-    @Column(name = "count", nullable = false)
-    private Integer count;
-    @Column(name = "price", nullable = false)
-    private Integer price;
-
+    private final Long id;
+    private final Cart cart;
+    private final Item item;
+    private final Integer count;
+    private final Integer price;
     @Builder
-    public CartItem(Cart cart, ItemEntity itemEntity, Integer count, Integer price) {
+    public CartItem(Long id, Cart cart, Item item, Integer count, Integer price) {
+        this.id = id;
         this.cart = cart;
-        this.itemEntity = itemEntity;
+        this.item = item;
         this.count = count;
         this.price = price;
-    }
-
-
-    public static CartItem createCartItem(Cart cart, ItemEntity itemEntity, Integer price, Integer count){
-        return new CartItem(cart, itemEntity, count, price);
-    }
-
-
-    public void addCount(Integer count){
-        this.count += count;
     }
 
 

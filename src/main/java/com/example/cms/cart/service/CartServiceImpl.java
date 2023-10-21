@@ -1,15 +1,14 @@
 package com.example.cms.cart.service;
-
+import com.example.cms.cart.controller.port.CartService;
 import com.example.cms.cart.controller.request.CartDeleteRequest;
 import com.example.cms.cart.controller.request.CartRequest;
 import com.example.cms.cart.controller.response.CartResponse;
 import com.example.cms.cart.domain.Cart;
+import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.cart.exception.CartNotFoundException;
-import com.example.cms.cart.repository.CartRepository;
+import com.example.cms.cart.service.port.CartRepository;
 import com.example.cms.cartitem.controller.request.CartItemCreateRequest;
-import com.example.cms.cartitem.domain.CartItem;
-import com.example.cms.cartitem.repository.CartItemRepository;
-import com.example.cms.item.infrastructure.ItemRepositoryJpa;
+import com.example.cms.cartitem.infrastructure.CartItemEntity;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.service.port.MemberRepository;
@@ -25,7 +24,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CartService {
+public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
@@ -42,8 +41,8 @@ public class CartService {
         Member member = memberRepository.findByMobile(request.getPhone()).get();
 
         //카트 생성 멤버
-//        Cart cart = Cart.createCart(member);
-//        Cart saveCart = cartRepository.save(cart);
+        Cart cart = Cart.from(member);
+        Cart saveCart = cartRepository.save(cart);
 
         List<CartItemCreateRequest> cartItemCreateRequests = request.getCartItemRequests();
 
@@ -55,11 +54,11 @@ public class CartService {
 //            //request 들어온 상품을 찾고 cartItem 에 등록
 //            ItemEntity findItem = itemRepository
 //                    .findByNameAndHotIce(cartItemCreateRequest.getName(), cartItemCreateRequest.getStatus());
-//            CartItem cartItem = CartItem
+//            CartItemEntity cartItem = CartItemEntity
 //                    .createCartItem(saveCart, findItem, findItem.getCost(), cartItemCreateRequest.getCount());
 //            cartItemRepository.save(cartItem);
 //        }
-//        Cart save = cartRepository.save(saveCart);
+//        CartEntity save = cartRepository.save(saveCart);
 
         return null;
 //                new CartResponse(save.getCount(),save.getTotalPrice(),save.getId(),save.getMemberEntity().getId());
@@ -72,12 +71,12 @@ public class CartService {
      */
     @Transactional
     public void deleteCartItem(CartDeleteRequest request){
-        Optional<Cart> findCart = cartRepository.findById(request.getCartId());
+        Optional<CartEntity> findCart = cartRepository.findById(request.getCartId());
         if (findCart.isEmpty()){
             throw new CartNotFoundException("존재하지 않는 장바구니 입니다.");
         }
-        Cart cart = findCart.get();
-        List<CartItem> cartItems = cart.getCartItems();
+        CartEntity cartEntity = findCart.get();
+        List<CartItemEntity> cartItemEntities = cartEntity.getCartItemEntities();
 
 
 
