@@ -30,7 +30,7 @@ public class MemberEntity extends BaseDateTimeEntity {
     private EMemberStatus status;
 
     //첫 회원 가입 포인트
-    Integer firstJoinPoint = 10000;
+
 
     @Builder
     public MemberEntity(Long id, String mobile, String name, Integer membershipPoint, EMemberStatus status) {
@@ -45,7 +45,7 @@ public class MemberEntity extends BaseDateTimeEntity {
         memberEntity.mobile = member.getMobile();
         memberEntity.name = member.getName();
         memberEntity.status = member.getStatus();
-        memberEntity.firstJoinPoint = member.getFirstJoinPoint();
+
         return memberEntity;
     }
 

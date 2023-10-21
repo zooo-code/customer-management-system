@@ -32,6 +32,7 @@ public class Member {
     }
     public Member update(MemberUpdate memberUpdate){
         return Member.builder()
+                .id(id)
                 .mobile(memberUpdate.getPhone())
                 .name(memberUpdate.getName())
                 .status(memberUpdate.getStatus())
