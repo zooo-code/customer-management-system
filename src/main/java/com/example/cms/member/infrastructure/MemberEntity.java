@@ -29,7 +29,7 @@ public class MemberEntity extends BaseDateTimeEntity {
     @Column(name = "status")
     private EMemberStatus status;
 
-    //첫 회원 가입 포인트
+
 
 
     @Builder
@@ -42,10 +42,11 @@ public class MemberEntity extends BaseDateTimeEntity {
     }
     public static MemberEntity from(Member member){
         MemberEntity memberEntity = new MemberEntity();
+        memberEntity.id = member.getId();
         memberEntity.mobile = member.getPhone();
         memberEntity.name = member.getName();
         memberEntity.status = member.getStatus();
-
+        memberEntity.membershipPoint = member.getMembershipPoint();
         return memberEntity;
     }
 

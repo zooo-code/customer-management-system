@@ -22,7 +22,7 @@ import static com.example.cms.utils.exception.ErrorCode.DUPLICATE_RESOURCE;
 @Service
 public class ItemServiceImpl {
 
-    private ItemRepositoryJpa itemRepositoryJpa;
+    private final ItemRepositoryJpa itemRepositoryJpa;
 
     public ItemServiceImpl(ItemRepositoryJpa itemRepositoryJpa) {
         this.itemRepositoryJpa = itemRepositoryJpa;
@@ -97,19 +97,19 @@ public class ItemServiceImpl {
         itemRepositoryJpa.deleteByItemId(itemId);
     }
 
-    @Transactional(readOnly = true)
-    public List<ItemResponse> searchItems(ItemSearchRequest itemSearchRequest) {
-        ItemEntity filter = itemSearchRequest.toItem();
-        return itemRepositoryJpa.searchItems(filter)
-                .stream()
-                .map(ItemResponse::of)
-                .collect(Collectors.toList());
-    }
-
-    public PageImpl<ItemResponse> searchItemsPaging(ItemSearchRequest itemSearchRequest, PageRequest pageRequest) {
-        Pageable pageable = pageRequest.of();
-        PageImpl<ItemEntity> searched = itemRepositoryJpa.searchItemsPaging(pageable, itemSearchRequest.toItem());
-        PageImpl<ItemResponse> result = (PageImpl<ItemResponse>) searched.map(ItemResponse::of);
-        return result;
-    }
+//    @Transactional(readOnly = true)
+//    public List<ItemResponse> searchItems(ItemSearchRequest itemSearchRequest) {
+//        ItemEntity filter = itemSearchRequest.toItem();
+//        return itemRepositoryJpa.searchItems(filter)
+//                .stream()
+//                .map(ItemResponse::of)
+//                .collect(Collectors.toList());
+//    }
+//
+//    public PageImpl<ItemResponse> searchItemsPaging(ItemSearchRequest itemSearchRequest, PageRequest pageRequest) {
+//        Pageable pageable = pageRequest.of();
+//        PageImpl<ItemEntity> searched = itemRepositoryJpa.searchItemsPaging(pageable, itemSearchRequest.toItem());
+//        PageImpl<ItemResponse> result = (PageImpl<ItemResponse>) searched.map(ItemResponse::of);
+//        return result;
+//    }
 }

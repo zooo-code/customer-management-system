@@ -13,4 +13,6 @@ public interface MemberRepository {
     Optional<Member> findByMobile(String mobile);
 
     Optional<Member> findById(Long id);
+
+    Member update();
 }

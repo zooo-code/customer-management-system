@@ -33,5 +33,10 @@ public class MemberRepositoryImpl implements MemberRepository {
         return memberJpaRepository.findById(id).map(MemberEntity::toModel);
     }
 
+    @Override
+    public Member update() {
+        return null;
+    }
+
 
 }

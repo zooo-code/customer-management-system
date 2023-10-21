@@ -41,7 +41,7 @@ class MemberServiceTest {
                 .phone("1234")
                 .name("kim")
                 .build();
-        Member save = memberService.save(kim);
+        memberService.save(kim);
         MemberUpdate lee = MemberUpdate.builder()
                 .status(EMemberStatus.BLIND)
                 .name("lee")
@@ -50,23 +50,28 @@ class MemberServiceTest {
         //when
         Member member = memberService.memberUpdate("1234", lee);
 
+        Member membership = memberService.findMembership("12346");
+
+        Member membership1 = memberService.findMembership("1234");
+        System.out.println("membership1 = " + membership1.getId());
+        System.out.println("member.getId() = " + member.getId());
         //then
-        assertThat(lee.getName()).isEqualTo(member.getName());
-        assertThat(lee.getPhone()).isEqualTo(member.getPhone());
-        assertThat(lee.getStatus()).isEqualTo(EMemberStatus.BLIND);
+        assertThat(membership.getName()).isEqualTo(member.getName());
+        assertThat(membership.getPhone()).isEqualTo(member.getPhone());
+        assertThat(membership.getStatus()).isEqualTo(EMemberStatus.BLIND);
     }
 
     @Test
     public void 회원정보를_찾을_수_있다(){
         //given
         MemberCreate kim = MemberCreate.builder()
-                .phone("1234")
-                .name("kim")
+                .phone("1234123")
+                .name("cho")
                 .build();
         Member save = memberService.save(kim);
 
         //when
-        Member member = memberService.findMembership("1234");
+        Member member = memberService.findMembership("1234123");
 
         //then
         assertThat(save.getName()).isEqualTo(member.getName());

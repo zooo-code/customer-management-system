@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface ItemRepositoryJpa extends JpaRepository<ItemEntity, Long>, ItemCustomRepository {
     List<ItemEntity> findAll();
     //Optional<ItemEntity> findAllByNameLike(String name);

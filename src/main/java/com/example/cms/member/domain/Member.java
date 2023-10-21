@@ -24,18 +24,21 @@ public class Member {
 
 
     public static Member from(MemberCreate memberCreate){
+        Integer firstPoint = 0;
         return Member.builder()
                 .phone(memberCreate.getPhone())
                 .name(memberCreate.getName())
+                .membershipPoint(firstPoint)
                 .status(EMemberStatus.OPEN)
                 .build();
     }
     public Member update(MemberUpdate memberUpdate){
         return Member.builder()
                 .id(id)
+                .status(status)
+                .membershipPoint(membershipPoint)
                 .phone(memberUpdate.getPhone())
                 .name(memberUpdate.getName())
-                .status(memberUpdate.getStatus())
                 .build();
     }
 }

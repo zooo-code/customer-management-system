@@ -13,6 +13,7 @@ import com.example.cms.item.infrastructure.ItemRepositoryJpa;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.service.port.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,19 +24,11 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final ItemRepositoryJpa itemRepositoryJpa;
-    private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
-
-    public CartService(CartRepository cartRepository, ItemRepositoryJpa itemRepositoryJpa, CartItemRepository cartItemRepository, MemberRepository memberRepository) {
-        this.cartRepository = cartRepository;
-        this.itemRepositoryJpa = itemRepositoryJpa;
-        this.cartItemRepository = cartItemRepository;
-        this.memberRepository = memberRepository;
-    }
 
     /**
      * 메뉴를 선택한 후에 메뉴들(리스트로 들어옴)이 카드에 담긴다.
