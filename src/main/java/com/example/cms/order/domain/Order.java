@@ -9,20 +9,20 @@ import java.time.LocalDateTime;
 @Getter
 public class Order {
 
-    private Long id;
+    private final Long id;
 
     private String ordersId;
 
     private LocalDateTime cancelDate;
 
-    private Integer ordersPrice;
+    private final Integer ordersPrice;
 
-    private EPayments payment;
+    private final EPayments payment;
 
-    private Cart cart;
+    private final Cart cart;
 
-    private Member member;
-    private LocalDateTime CreatedAt;
+    private final Member member;
+    private final LocalDateTime CreatedAt;
 
     @Builder
     public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, Cart cart, Member member, LocalDateTime createdAt) {
