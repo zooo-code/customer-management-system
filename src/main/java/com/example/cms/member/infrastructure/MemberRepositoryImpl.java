@@ -2,14 +2,13 @@ package com.example.cms.member.infrastructure;
 
 
 import com.example.cms.member.domain.Member;
-import com.example.cms.member.service.port.MemberRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 @Repository
 @Transactional
-public class MemberRepositoryImpl implements MemberRepository {
+public class MemberRepositoryImpl implements com.example.cms.member.service.port.MemberRepository {
 
     private final MemberRepositoryJpa memberJpaRepository;
 

@@ -1,7 +1,9 @@
-package com.example.cms.order.domain;
+package com.example.cms.order.infrastructure;
 
 import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.member.infrastructure.MemberEntity;
+import com.example.cms.order.domain.EPayments;
+import com.example.cms.order.domain.Order;
 import com.example.cms.utils.entity.BaseDateTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order extends BaseDateTimeEntity {
+public class OrderEntity extends BaseDateTimeEntity {
 
     @Column(name = "seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -44,7 +46,7 @@ public class Order extends BaseDateTimeEntity {
     private MemberEntity memberEntity;
 
     @Builder
-    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, CartEntity cartEntity, MemberEntity memberEntity) {
+    public OrderEntity(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, CartEntity cartEntity, MemberEntity memberEntity) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
@@ -60,5 +62,18 @@ public class Order extends BaseDateTimeEntity {
 
     public void cancel(LocalDateTime cancelDate){
         this.cancelDate = cancelDate;
+    }
+
+    public Order toModel(){
+        return Order.builder()
+                .id(id)
+                .ordersId(ordersId)
+                .cart(cartEntity.toModel())
+                .ordersPrice(ordersPrice)
+                .cancelDate(cancelDate)
+                .member(memberEntity.toModel())
+                .payment(payment)
+                .build();
+
     }
 }

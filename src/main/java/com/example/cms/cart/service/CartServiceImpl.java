@@ -4,11 +4,12 @@ import com.example.cms.cart.controller.request.CartDeleteRequest;
 import com.example.cms.cart.controller.request.CartRequest;
 import com.example.cms.cart.controller.response.CartResponse;
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.cart.infrastructure.CartEntity;
+
 import com.example.cms.cart.exception.CartNotFoundException;
 import com.example.cms.cart.service.port.CartRepository;
 import com.example.cms.cartitem.controller.request.CartItemCreateRequest;
-import com.example.cms.cartitem.infrastructure.CartItemEntity;
+import com.example.cms.cartitem.domain.CartItem;
+
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.service.port.MemberRepository;
@@ -71,12 +72,12 @@ public class CartServiceImpl implements CartService {
      */
     @Transactional
     public void deleteCartItem(CartDeleteRequest request){
-        Optional<CartEntity> findCart = cartRepository.findById(request.getCartId());
+        Optional<Cart> findCart = cartRepository.findById(request.getCartId());
         if (findCart.isEmpty()){
             throw new CartNotFoundException("존재하지 않는 장바구니 입니다.");
         }
-        CartEntity cartEntity = findCart.get();
-        List<CartItemEntity> cartItemEntities = cartEntity.getCartItemEntities();
+        Cart cart = findCart.get();
+        List<CartItem> cartItemEntities = cart.getCartItem();
 
 
 

@@ -1,7 +1,6 @@
 package com.example.cms.cart.infrastructure;
 
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.cart.service.port.CartRepository;
 
 
 import lombok.RequiredArgsConstructor;
@@ -12,13 +11,13 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class CartRepositoryImpl implements CartRepository {
+public class CartRepositoryImpl implements com.example.cms.cart.service.port.CartRepository {
 
     private final CartRepositoryJpa cartRepositoryJpa;
 
     @Override
-    public Optional<CartEntity> findById(Long id) {
-        return cartRepositoryJpa.findById(id);
+    public Optional<Cart> findById(Long id) {
+        return cartRepositoryJpa.findById(id).map(CartEntity::toModel);
     }
 
     @Override
