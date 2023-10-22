@@ -16,7 +16,7 @@ public class OrderCreateResponse {
         this.orderId = orderId;
     }
 
-    public static OrderCreateResponse of(Order order){
+    public static OrderCreateResponse from(Order order){
         return OrderCreateResponse.builder()
                 .orderId(order.getOrdersId())
                 .build();

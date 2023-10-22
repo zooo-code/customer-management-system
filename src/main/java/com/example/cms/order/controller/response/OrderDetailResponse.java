@@ -2,6 +2,7 @@ package com.example.cms.order.controller.response;
 
 import com.example.cms.order.domain.EPayments;
 import com.example.cms.order.domain.Order;
+import com.example.cms.order.infrastructure.OrderEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,11 +30,11 @@ public class OrderDetailResponse {
         this.payments = payments;
     }
 
-    public static OrderDetailResponse of(Order order){
+    public static OrderDetailResponse from(Order order){
         return OrderDetailResponse.builder()
                 .ordersId(order.getOrdersId())
-                .memberName(order.getMemberEntity().getName())
-                .mobile(order.getMemberEntity().getMobile())
+                .memberName(order.getMember().getName())
+                .mobile(order.getMember().getPhone())
                 .createdAt(order.getCreatedAt())
                 .cancelDate(order.getCancelDate())
                 .payments(order.getPayment())
