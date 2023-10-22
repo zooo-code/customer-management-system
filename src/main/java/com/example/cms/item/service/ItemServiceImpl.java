@@ -7,21 +7,30 @@ import com.example.cms.item.domain.Item;
 
 import com.example.cms.item.service.port.ItemRepository;
 import com.example.cms.utils.exception.CommonException;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
+import static com.example.cms.utils.exception.ErrorCode.DATA_NOT_FOUND;
 import static com.example.cms.utils.exception.ErrorCode.DUPLICATE_RESOURCE;
 
-
+@Builder
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
+
+    @Override
+    public Optional<Item> findByName(String name) {
+        return itemRepository.findByName(name);
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<Item> findAll(){
@@ -29,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
     }
     @Override
     @Transactional(readOnly = true)
-    public List<Item> findByName(String name) {
+    public List<Item> findAllByNameContaining(String name) {
         return itemRepository.findAllByNameContaining(name);
     }
     @Override
@@ -37,10 +46,12 @@ public class ItemServiceImpl implements ItemService {
     public void create(ItemCreate itemCreate){
         Item item = Item.from(itemCreate);
         //중복체크
-        Boolean isExistItemAndStatus = itemRepository.existsByNameAndAndHotIce(item.getName(), item.getHotIce());
+        Boolean isExistItemAndStatus = itemRepository
+                .existsByNameAndAndHotIce(item.getName(), item.getHotIce());
 
         if(isExistItemAndStatus){
-            Item originItem = itemRepository.findByNameAndHotIce(item.getName(), item.getHotIce());
+            Item originItem = itemRepository
+                    .findByNameAndHotIce(item.getName(), item.getHotIce());
             validateDuplicate(originItem, item);
         }else {
             itemRepository.save(item);
@@ -59,28 +70,19 @@ public class ItemServiceImpl implements ItemService {
     }
     @Override
     @Transactional
-    public void update(ItemUpdate itemUpdate){
-        Item updateItem = itemUpdate.toItem();
+    public Item update(ItemUpdate itemUpdate){
 
+
+        Item item = itemRepository
+                .findByName(itemUpdate.getName()).orElseThrow(()->new CommonException(DATA_NOT_FOUND));
         //name, cost, h/i 가 모두 중복
-        Boolean isDuplicated = itemRepository.existsByNameAndCostAndHotIce(updateItem.getName(), updateItem.getCost(), updateItem.getHotIce());
+        Boolean isDuplicated = itemRepository.existsByNameAndCostAndHotIce(itemUpdate.getName(), itemUpdate.getCost(), itemUpdate.getHotIce());
         if(isDuplicated) {
-//            throw new IllegalStateException("중복되는 기존 메뉴가 있습니다. " + updateItemEntity.getName() + "(" + updateItemEntity.getHotIce() + ") " + updateItemEntity.getCost() + "원");
             throw new CommonException(DUPLICATE_RESOURCE);
         }
+        Item update = item.update(itemUpdate);
 
-        //name , h/i 중복
-        Item originItem = itemRepository.findByNameAndHotIce(updateItem.getName(), updateItem.getHotIce());
-
-        if (originItem != null && !originItem.getCost().equals(updateItem.getCost())){
-            //cost 만 다를경우 cost만 업뎃
-            updateItem.update(itemUpdate);
-            itemRepository.save(updateItem);
-        }else if(originItem == null){
-            //중복된것 없으면 그냥 업뎃
-            updateItem.update(itemUpdate);
-            itemRepository.save(updateItem);
-        }
+        return itemRepository.save(update);
     }
     @Override
     @Transactional

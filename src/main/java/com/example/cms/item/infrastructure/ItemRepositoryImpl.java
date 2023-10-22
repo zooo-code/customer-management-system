@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -17,6 +18,11 @@ import java.util.stream.Collectors;
 public class ItemRepositoryImpl implements ItemRepository {
 
     private final ItemRepositoryJpa itemRepositoryJpa;
+
+    @Override
+    public Optional<Item> findByName(String name) {
+        return itemRepositoryJpa.findByName(name).map(ItemEntity::toModel);
+    }
 
     @Override
     public List<Item> findAll() {
