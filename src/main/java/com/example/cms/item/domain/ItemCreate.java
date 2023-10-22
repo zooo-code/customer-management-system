@@ -1,6 +1,6 @@
 package com.example.cms.item.domain;
 
-import com.example.cms.item.infrastructure.ItemEntity;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;

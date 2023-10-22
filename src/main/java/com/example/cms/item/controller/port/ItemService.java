@@ -7,15 +7,16 @@ import com.example.cms.item.domain.Item;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemService {
-
+    Optional<Item> findByName(String name);
     List<Item> findAll();
-    List<Item> findByName(String name);
+    List<Item> findAllByNameContaining(String name);
 
     void create(ItemCreate itemCreate);
 
 
-    void update(ItemUpdate updateRequest);
+    Item update(ItemUpdate updateRequest);
     void delete(Long itemId);
 }

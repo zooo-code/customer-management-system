@@ -30,7 +30,7 @@ public class ItemController {
     @Operation(summary = "상품 이름으로 조회", description = "상품 이름으로 Containing 조회합니다.")
     @GetMapping("/{itemName}")
     public List<Item> findByName(@PathVariable("itemName") String name){
-        return itemService.findByName(name);
+        return itemService.findAllByNameContaining(name);
     }
 
     @Operation(summary = "신규 상품 추가", description = "신규 상품을 추가합니다. 같은 이름의 메뉴를 중복체크합니다.")

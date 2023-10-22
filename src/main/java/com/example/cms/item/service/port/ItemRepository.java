@@ -5,9 +5,10 @@ import com.example.cms.item.domain.Item;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository {
-
+    Optional<Item> findByName(String name);
     List<Item> findAll();
     //Optional<ItemEntity> findAllByNameLike(String name);
 
