@@ -24,8 +24,8 @@ public class ItemCreate {
     }
 
 
-    public ItemEntity toItem(){
-        return ItemEntity.builder()
+    public Item toItem(){
+        return Item.builder()
                 .name(name)
                 .cost(cost)
                 .hotIce(hotIce)

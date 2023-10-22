@@ -27,7 +27,7 @@ public class MemberController {
     }
     @Operation(summary = "회원 생성", description = "회원에 대한 생성을 진행합니다.")
     @PostMapping("/create")
-    public ResponseEntity<MemberCreateResponse> createMember(@RequestBody @Valid MemberCreate  create){
+    public ResponseEntity<MemberCreateResponse> createMember(@RequestBody @Valid MemberCreate create){
         return ResponseEntity.ok()
                 .body(MemberCreateResponse
                         .from(memberService.save(create)));

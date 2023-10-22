@@ -7,10 +7,11 @@ import com.example.cms.member.domain.MemberUpdate;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.member.service.port.MemberRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+@Builder
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -29,7 +30,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(readOnly = true)
     public Member findMembership(String mobile){
-
         return memberRepository
                 .findByMobile(mobile)
                 .orElseThrow(() -> new MemberNotFoundException("memberEntity not found"));

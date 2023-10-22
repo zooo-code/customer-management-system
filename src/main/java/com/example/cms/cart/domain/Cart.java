@@ -33,12 +33,12 @@ public class Cart {
     public static Cart from(Member member){
         List<CartItem> cartItems = new ArrayList<>();
         Integer countItem = 0;
-        Integer total = 0;
+        Integer totalPrice = 0;
         return Cart.builder()
                 .member(member)
                 .cartItem(cartItems)
                 .count(countItem)
-                .totalPrice(total)
+                .totalPrice(totalPrice)
                 .build();
     }
 }
