@@ -1,5 +1,6 @@
-package com.example.cms.item.domain;
+package com.example.cms.item.controller.response;
 
+import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.infrastructure.ItemEntity;
 import lombok.Builder;
 import lombok.Getter;

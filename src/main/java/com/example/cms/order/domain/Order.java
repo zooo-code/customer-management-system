@@ -37,8 +37,6 @@ public class Order {
     }
 
 
-
-
     public void setOrdersId(String ordersId){
         this.ordersId = ordersId;
     }

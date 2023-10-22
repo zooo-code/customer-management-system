@@ -1,25 +1,47 @@
 package com.example.cms.member.service;
 
-import com.example.cms.member.controller.port.MemberService;
+
 import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.domain.MemberCreate;
 import com.example.cms.member.domain.MemberUpdate;
+import com.example.cms.member.exception.MemberAlreadyExistException;
+import com.example.cms.member.exception.MemberNotFoundException;
+import com.example.cms.mock.FakeMemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
 
 
-@SpringBootTest
 class MemberServiceTest {
 
-    @Autowired
-    MemberService memberService;
+    private MemberServiceImpl memberService;
+
+    @BeforeEach
+    void init(){
+        FakeMemberRepository fakeMemberRepository = new FakeMemberRepository();
+        this.memberService = MemberServiceImpl.builder()
+                .memberRepository(fakeMemberRepository)
+                .build();
+        fakeMemberRepository.save(Member.builder()
+                .name("test")
+                .phone("1234")
+                .status(EMemberStatus.OPEN)
+                        .membershipPoint(0)
+                .build());
+        fakeMemberRepository.save(Member.builder()
+                .name("test1")
+                .phone("12341235")
+                .status(EMemberStatus.OPEN)
+                .membershipPoint(0)
+                .build());
+
+    }
+
 
     @Test
-    public void 회원을_저장할_수_있다(){
+    public void MemberCreate_회원을_저장할_수_있다(){
         //given
         MemberCreate park = MemberCreate.builder()
                 .phone("12345")
@@ -35,13 +57,24 @@ class MemberServiceTest {
     }
 
     @Test
-    public void 회원정보를_수정할_수_있다(){
+    public void MemberCreate_이미_존재하는_회원은_저장할_수_없다(){
         //given
-        MemberCreate kim = MemberCreate.builder()
+        MemberCreate park = MemberCreate.builder()
                 .phone("1234")
-                .name("kim")
+                .name("park")
                 .build();
-        memberService.save(kim);
+        //when
+
+
+        //then
+        assertThatThrownBy(() -> memberService.save(park))
+                .isInstanceOf(MemberAlreadyExistException.class);
+    }
+
+    @Test
+    public void MemberUpdate_로_회원정보를_수정할_수_있다(){
+        //given
+
         MemberUpdate lee = MemberUpdate.builder()
                 .name("lee")
                 .phone("12346")
@@ -49,29 +82,34 @@ class MemberServiceTest {
         //when
         Member member = memberService.memberUpdate("1234", lee);
 
-        Member membership = memberService.findMembership("12346");
-
         //then
-        assertThat(membership.getName()).isEqualTo(member.getName());
-        assertThat(membership.getPhone()).isEqualTo(member.getPhone());
+        assertThat(member.getName()).isEqualTo(lee.getName());
+        assertThat(member.getPhone()).isEqualTo(lee.getPhone());
     }
 
     @Test
-    public void 회원정보를_찾을_수_있다(){
+    public void mobile_로_회원정보를_찾을_수_있다(){
         //given
-        MemberCreate kim = MemberCreate.builder()
-                .phone("1234123")
-                .name("cho")
-                .build();
-        Member save = memberService.save(kim);
+        String phone = "1234";
 
         //when
-        Member member = memberService.findMembership("1234123");
+        Member member = memberService.findMembership(phone);
 
         //then
-        assertThat(save.getName()).isEqualTo(member.getName());
-        assertThat(save.getPhone()).isEqualTo(member.getPhone());
-        assertThat(save.getStatus()).isEqualTo(EMemberStatus.OPEN);
+        assertThat("test").isEqualTo(member.getName());
+        assertThat("1234").isEqualTo(member.getPhone());
+        assertThat(EMemberStatus.OPEN).isEqualTo(member.getStatus());
+    }
+
+    @Test
+    public void 없는_번호는_mobile_로_회원정보를_찾을_수_있다(){
+        //given
+        String phone = "1234123123";
+
+        //when
+
+        //then
+        assertThatThrownBy(()-> memberService.findMembership(phone)).isInstanceOf(MemberNotFoundException.class);
     }
 
 

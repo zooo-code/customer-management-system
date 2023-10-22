@@ -1,9 +1,8 @@
 package com.example.cms.cartitem.domain;
 
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.cart.infrastructure.CartEntity;
+
 import com.example.cms.item.domain.Item;
-import com.example.cms.item.infrastructure.ItemEntity;
 import lombok.Builder;
 import lombok.Getter;
 
