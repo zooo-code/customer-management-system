@@ -1,6 +1,5 @@
 package com.example.cms.order.service;
 
-import com.example.cms.cart.domain.Cart;
 import com.example.cms.cart.service.port.CartRepository;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.service.port.MemberRepository;
@@ -39,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
         Member member = memberRepository.findByMobile(orderCreate.getMobile())
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
 
-        Cart cart = cartRepository.findById(orderCreate.getCartId())
+        com.example.cms.cart.domain.Cart cart = cartRepository.findById(orderCreate.getCartId())
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
 
         Order order = orderCreate.toOrder(member, cart);

@@ -29,6 +29,7 @@ public class FakeMemberRepository implements MemberRepository {
             return saveMember;
         } else {
             data.removeIf(test -> Objects.equals(test.getId(),member.getId()));
+            data.add(member);
             return member;
         }
     }

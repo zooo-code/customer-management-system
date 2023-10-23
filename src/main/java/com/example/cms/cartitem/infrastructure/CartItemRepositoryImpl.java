@@ -14,7 +14,7 @@ public class CartItemRepositoryImpl implements CartItemRepository {
     private final CartItemRepositoryJpa cartItemRepositoryJpa;
 
     @Override
-    public void save(CartItem cartItem) {
-        cartItemRepositoryJpa.save(CartItemEntity.from(cartItem));
+    public CartItem save(CartItem cartItem) {
+        return cartItemRepositoryJpa.save(CartItemEntity.from(cartItem)).toModel();
     }
 }

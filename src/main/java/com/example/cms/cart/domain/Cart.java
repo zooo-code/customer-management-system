@@ -1,8 +1,8 @@
 package com.example.cms.cart.domain;
 
 import com.example.cms.cartitem.domain.CartItem;
-import com.example.cms.member.domain.Member;
 
+import com.example.cms.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -35,7 +35,7 @@ public class Cart {
         List<CartItem> cartItems = new ArrayList<>();
         Integer countItem = 0;
         Integer totalPrice = 0;
-        return Cart.builder()
+        return com.example.cms.cart.domain.Cart.builder()
                 .cartItem(cartItems)
                 .totalPrice(totalPrice)
                 .count(countItem)

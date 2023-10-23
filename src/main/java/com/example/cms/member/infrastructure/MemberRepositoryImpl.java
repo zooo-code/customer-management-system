@@ -2,7 +2,6 @@ package com.example.cms.member.infrastructure;
 
 
 import com.example.cms.member.domain.Member;
-import lombok.Builder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

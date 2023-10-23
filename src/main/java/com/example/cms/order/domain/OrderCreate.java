@@ -1,6 +1,5 @@
 package com.example.cms.order.domain;
 
-import com.example.cms.cart.domain.Cart;
 import com.example.cms.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +28,7 @@ public class OrderCreate {
 
 
 
-    public Order toOrder(Member member, Cart cart){
+    public Order toOrder(Member member, com.example.cms.cart.domain.Cart cart){
         return Order.builder()
                 .member(member)
                 .cart(cart)

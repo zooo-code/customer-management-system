@@ -1,6 +1,5 @@
 package com.example.cms.order.domain;
 
-import com.example.cms.cart.domain.Cart;
 import com.example.cms.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +18,13 @@ public class Order {
 
     private final EPayments payment;
 
-    private final Cart cart;
+    private final com.example.cms.cart.domain.Cart cart;
 
     private final Member member;
     private final LocalDateTime CreatedAt;
 
     @Builder
-    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, Cart cart, Member member, LocalDateTime createdAt) {
+    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, com.example.cms.cart.domain.Cart cart, Member member, LocalDateTime createdAt) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
