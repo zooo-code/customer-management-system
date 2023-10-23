@@ -60,9 +60,7 @@ public class CartEntity extends BaseDateTimeEntity {
         cartEntity.memberEntity = MemberEntity.from(cart.getMember());
         return cartEntity;
     }
-//    public static CartEntity createCart(MemberEntity memberEntity){
-//        return new CartEntity(memberEntity,0,LocalDateTime.now(),0);
-//    }
+
     public Cart toModel(){
         return Cart.builder()
                 .id(id)
@@ -74,11 +72,7 @@ public class CartEntity extends BaseDateTimeEntity {
                 .createdAt(createdAt)
                 .build();
     }
-    public void addCountCart(Integer count){
-        this.count += count;
-    }
 
-    public void addTotalPrice(Integer price){
-        this.totalPrice += price;
-    }
+
+
 }

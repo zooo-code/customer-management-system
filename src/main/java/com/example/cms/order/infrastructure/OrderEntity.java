@@ -10,6 +10,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.ast.Or;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -54,6 +56,18 @@ public class OrderEntity extends BaseDateTimeEntity {
         this.payment = payment;
         this.cartEntity = cartEntity;
         this.memberEntity = memberEntity;
+    }
+
+    public static OrderEntity from(Order order) {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.id = order.getId();
+        orderEntity.ordersId = order.getOrdersId();
+        orderEntity.cancelDate = order.getCancelDate();
+        orderEntity.ordersPrice = order.getOrdersPrice();
+        orderEntity.payment = order.getPayment();
+        orderEntity.cartEntity = CartEntity.from(order.getCart());
+        orderEntity.memberEntity = MemberEntity.from(order.getMember());
+        return orderEntity;
     }
 
     public void setOrdersId(String ordersId){

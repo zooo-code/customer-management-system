@@ -1,10 +1,9 @@
 package com.example.cms.order.controller;
 
 import com.example.cms.order.controller.port.OrderService;
-import com.example.cms.order.domain.OrderCreateRequest;
+import com.example.cms.order.domain.OrderCreate;
 import com.example.cms.order.controller.response.OrderCreateResponse;
 import com.example.cms.order.controller.response.OrderDetailResponse;
-import com.example.cms.order.service.OrderServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,7 @@ public class OrderController {
 
     @PostMapping
     @Operation(summary = "주문 및 결제", description = "주문한 내역을 결제합니다. 일단 포인트 결제만 구현")
-    public ResponseEntity<OrderCreateResponse> create(@RequestBody OrderCreateRequest request){
+    public ResponseEntity<OrderCreateResponse> create(@RequestBody OrderCreate request){
         return ResponseEntity.ok()
                 .body(OrderCreateResponse
                         .from(orderService.createOrder(request)));

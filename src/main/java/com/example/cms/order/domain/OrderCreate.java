@@ -1,17 +1,14 @@
 package com.example.cms.order.domain;
 
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.member.domain.Member;
-import com.example.cms.member.infrastructure.MemberEntity;
-import com.example.cms.order.infrastructure.OrderEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class OrderCreateRequest {
+public class OrderCreate {
 
     private EPayments payment;
     //private CartResponse cartResponse;
@@ -19,14 +16,18 @@ public class OrderCreateRequest {
     private Long cartId;
     private Integer orderPrice;
 
-
+    private String mobile;
     @Builder
-    public OrderCreateRequest(EPayments payment, Long memberId, Long cartId, Integer orderPrice) {
+    public OrderCreate(EPayments payment, Long memberId, Long cartId, Integer orderPrice, String mobile) {
         this.payment = payment;
         this.memberId = memberId;
         this.cartId = cartId;
         this.orderPrice = orderPrice;
+        this.mobile = mobile;
     }
+
+
+
 
     public Order toOrder(Member member, Cart cart){
         return Order.builder()
