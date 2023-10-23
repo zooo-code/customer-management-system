@@ -9,7 +9,7 @@ import lombok.Getter;
 
 
 @Getter
-public class CartItemCreateRequest {
+public class CartItemRequest {
 
 
     private String name;
@@ -20,10 +20,10 @@ public class CartItemCreateRequest {
     private EItemStatus status;
 
 
-    public CartItemCreateRequest() {
+    public CartItemRequest() {
     }
     @Builder
-    public CartItemCreateRequest(String name, Integer count, EItemStatus status) {
+    public CartItemRequest(String name, Integer count, EItemStatus status) {
         this.name = name;
         this.count = count;
         this.status = status;

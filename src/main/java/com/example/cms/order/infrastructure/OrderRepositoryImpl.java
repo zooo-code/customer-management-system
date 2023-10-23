@@ -18,8 +18,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order save(Order order) {
-
-        return null;
+        return orderRepositoryJpa.save(OrderEntity.from(order)).toModel();
     }
 
     @Override

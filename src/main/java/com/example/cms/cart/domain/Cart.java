@@ -16,8 +16,8 @@ public class Cart {
 
     private final Long id;
     private final Member member;
-    private final Integer count;
-    private final Integer totalPrice;
+    private Integer count;
+    private Integer totalPrice;
     private List<CartItem> cartItem = new ArrayList<>();
     private final LocalDateTime createdAt;
     @Builder
@@ -30,15 +30,26 @@ public class Cart {
         this.createdAt = createdAt;
     }
 
-    public static Cart from(Member member){
+
+    public static Cart cartCreate(){
         List<CartItem> cartItems = new ArrayList<>();
         Integer countItem = 0;
         Integer totalPrice = 0;
         return Cart.builder()
-                .member(member)
                 .cartItem(cartItems)
-                .count(countItem)
                 .totalPrice(totalPrice)
+                .count(countItem)
                 .build();
+    }
+    public void addCountCart(Integer count) {
+        this.count += count;
+    }
+    public void addTotalPrice(Integer price) {
+        this.totalPrice += price;
+    }
+
+    public void addCartItem(CartItem cartItem) {
+        this.cartItem.add(cartItem);
+
     }
 }

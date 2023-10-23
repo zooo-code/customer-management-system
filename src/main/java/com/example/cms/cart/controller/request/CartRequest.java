@@ -1,9 +1,8 @@
 package com.example.cms.cart.controller.request;
 
 
-import com.example.cms.cartitem.controller.request.CartItemCreateRequest;
+import com.example.cms.cartitem.controller.request.CartItemRequest;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;
@@ -11,15 +10,11 @@ import java.util.List;
 @Getter
 public class CartRequest {
 
-    private List<CartItemCreateRequest> cartItemRequests;
+    private List<CartItemRequest> cartItemRequests;
 
-    private String phone;
 
-    public CartRequest() {
-    }
     @Builder
-    public CartRequest(List<CartItemCreateRequest> cartItemRequests, String phone) {
+    public CartRequest(List<CartItemRequest> cartItemRequests) {
         this.cartItemRequests = cartItemRequests;
-        this.phone = phone;
     }
 }

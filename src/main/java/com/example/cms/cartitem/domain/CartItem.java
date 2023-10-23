@@ -25,4 +25,13 @@ public class CartItem {
     }
 
 
+
+    public static CartItem createCartItem(Cart cart, Item item, Integer count) {
+        return CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .price(item.getCost())
+                .count(count)
+                .build();
+    }
 }

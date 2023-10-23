@@ -11,7 +11,7 @@ public class Member {
     private final Long id;
     private final String phone;
     private final String name;
-    private final Integer membershipPoint;
+    private Integer membershipPoint;
     private final EMemberStatus status;
 
     private final LocalDateTime createAt;
@@ -46,5 +46,9 @@ public class Member {
                 .phone(memberUpdate.getPhone())
                 .name(memberUpdate.getName())
                 .build();
+    }
+
+    public void updatePoint(int remainPoint) {
+        this.membershipPoint = remainPoint;
     }
 }
