@@ -18,7 +18,7 @@ class CartTest {
 
         //when
         //then
-        assertThat(cart.getCartItem()).size().isEqualTo(0);
+        assertThat(cart.getCartItems()).size().isEqualTo(0);
         assertThat(cart.getCount()).isEqualTo(0);
         assertThat(cart.getTotalPrice()).isEqualTo(0);
     }
@@ -40,7 +40,7 @@ class CartTest {
         cart.addCartItem(cartItem);
 
         //then
-        assertThat(cart.getCartItem()).size().isEqualTo(1);
+        assertThat(cart.getCartItems()).size().isEqualTo(1);
         assertThat(cart.getCount()).isEqualTo(3);
         assertThat(cart.getTotalPrice()).isEqualTo(3000);
     }

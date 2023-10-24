@@ -47,16 +47,15 @@ public class CartServiceImpl implements CartService {
     private Cart makeCart(Cart cart, List<CartItemRequest> cartItemRequests) {
         for (CartItemRequest cartItemRequest : cartItemRequests) {
             //카트에 총 상품의 수를 증가
-            cart.addCountCart(cartItemRequest.getCount());
             Item drink = itemRepository
                     .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
 
             cart.addTotalPrice(drink.getCost() * cartItemRequest.getCount());
-            //request 들어온 상품을 찾고 cartItem 에 등록
-            Item findItem = itemRepository
-                    .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
+            cart.addCountCart(cartItemRequest.getCount());
+
             CartItem cartItem = CartItem
-                    .createCartItem(cart, findItem, cartItemRequest.getCount());
+                    .createCartItem(cart, drink, cartItemRequest.getCount());
+
             cart.addCartItem(cartItem);
             cartItemRepository.save(cartItem);
         }
@@ -76,7 +75,7 @@ public class CartServiceImpl implements CartService {
             throw new CartNotFoundException("존재하지 않는 장바구니 입니다.");
         }
         Cart cart = findCart.get();
-        List<CartItem> cartItemEntities = cart.getCartItem();
+        List<CartItem> cartItemEntities = cart.getCartItems();
 
 
 

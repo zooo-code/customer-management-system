@@ -35,7 +35,6 @@ public class Order {
         CreatedAt = createdAt;
     }
 
-
     public void setOrdersId(String ordersId){
         this.ordersId = ordersId;
     }
