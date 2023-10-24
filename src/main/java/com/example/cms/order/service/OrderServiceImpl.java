@@ -43,23 +43,25 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
 
         Order order = orderCreate.toOrder(member, cart);
-
         //1-2. payment 확인
-
         //2. 포인트 차감
+        return calculateMemberPoint(member, order);
+
+    }
+
+    private Order calculateMemberPoint(Member member, Order order) {
         int memberPoint = order.getMember().getMembershipPoint();
         int payAmount = order.getOrdersPrice();
-        if (memberPoint < payAmount){
+        if (memberPoint < payAmount) {
             throw new IllegalStateException("포인트가 부족합니다.");
-        }else{
-            int remainPoint = memberPoint - payAmount;
-            //남은 포인트 set
-            member.updatePoint(remainPoint);
-            memberRepository.save(member);
-            orderRepository.save(order);
-            return order;
         }
+        int remainPoint = memberPoint - payAmount;
+        //남은 포인트 set
+        member.updatePoint(remainPoint);
+        memberRepository.save(member);
+        return orderRepository.save(order);
     }
+
     @Override
     public List<Order> findByOrdersId(String orderId) {
         Order order = orderRepository.findById(orderId)

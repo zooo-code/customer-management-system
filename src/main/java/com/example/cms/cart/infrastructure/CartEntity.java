@@ -50,7 +50,7 @@ public class CartEntity extends BaseDateTimeEntity {
     }
     public static CartEntity from(Cart cart){
         CartEntity cartEntity = new CartEntity();
-        cartEntity.cartItemEntities = cart.getCartItem()
+        cartEntity.cartItemEntities = cart.getCartItems()
                 .stream()
                 .map(CartItemEntity::from)
                 .collect(Collectors.toList());
@@ -64,7 +64,7 @@ public class CartEntity extends BaseDateTimeEntity {
     public Cart toModel(){
         return Cart.builder()
                 .id(id)
-                .cartItem(cartItemEntities.stream()
+                .cartItems(cartItemEntities.stream()
                         .map(CartItemEntity::toModel).collect(Collectors.toList()))
                 .totalPrice(totalPrice)
                 .member(memberEntity.toModel())

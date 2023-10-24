@@ -1,8 +1,8 @@
 package com.example.cms.cart.domain;
 
 import com.example.cms.cartitem.domain.CartItem;
-import com.example.cms.member.domain.Member;
 
+import com.example.cms.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -18,15 +18,15 @@ public class Cart {
     private final Member member;
     private Integer count;
     private Integer totalPrice;
-    private List<CartItem> cartItem = new ArrayList<>();
+    private List<CartItem> cartItems = new ArrayList<>();
     private final LocalDateTime createdAt;
     @Builder
-    public Cart(Long id, Member member, Integer count, Integer totalPrice, List<CartItem> cartItem, LocalDateTime createdAt) {
+    public Cart(Long id, Member member, Integer count, Integer totalPrice, List<CartItem> cartItems, LocalDateTime createdAt) {
         this.id = id;
         this.member = member;
         this.count = count;
         this.totalPrice = totalPrice;
-        this.cartItem = cartItem;
+        this.cartItems = cartItems;
         this.createdAt = createdAt;
     }
 
@@ -35,8 +35,8 @@ public class Cart {
         List<CartItem> cartItems = new ArrayList<>();
         Integer countItem = 0;
         Integer totalPrice = 0;
-        return Cart.builder()
-                .cartItem(cartItems)
+        return com.example.cms.cart.domain.Cart.builder()
+                .cartItems(cartItems)
                 .totalPrice(totalPrice)
                 .count(countItem)
                 .build();
@@ -49,7 +49,7 @@ public class Cart {
     }
 
     public void addCartItem(CartItem cartItem) {
-        this.cartItem.add(cartItem);
+        this.cartItems.add(cartItem);
 
     }
 }
