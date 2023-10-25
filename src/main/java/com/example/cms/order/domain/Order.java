@@ -1,5 +1,6 @@
 package com.example.cms.order.domain;
 
+import com.example.cms.cart.domain.Cart;
 import com.example.cms.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Order {
 
     private final EPayments payment;
 
-    private final com.example.cms.cart.domain.Cart cart;
+    private final Cart cart;
 
     private final Member member;
     private final LocalDateTime CreatedAt;
