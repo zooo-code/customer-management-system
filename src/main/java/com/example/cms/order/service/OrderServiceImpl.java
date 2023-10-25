@@ -72,16 +72,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void cancel(String orderId) {
         //1.포인트 업뎃
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalStateException("주문 내역이 없습니다."));
 
-        int paidPoint = order.getOrdersPrice();
-
-        Member member = memberRepository.findById(order.getCart().getMember().getId())
-                .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
-
-        //결제 포인트 + 잔여포인트
-        int resultPoint = paidPoint + member.getMembershipPoint();
 
 //        member.updatePoint(resultPoint);
 
