@@ -26,9 +26,7 @@ public class CartEntity extends BaseDateTimeEntity {
     @Column(name = "cart_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private MemberEntity memberEntity;
+
     @Column(name ="count")
     private Integer count;
 
@@ -40,9 +38,9 @@ public class CartEntity extends BaseDateTimeEntity {
 
     private LocalDateTime createdAt;
     @Builder
-    public CartEntity(Long id, MemberEntity memberEntity, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, LocalDateTime createdAt) {
+    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, LocalDateTime createdAt) {
         this.id = id;
-        this.memberEntity = memberEntity;
+
         this.count = count;
         this.totalPrice = totalPrice;
         this.cartItemEntities = cartItemEntities;
@@ -57,7 +55,6 @@ public class CartEntity extends BaseDateTimeEntity {
 
         cartEntity.count = cart.getCount();
         cartEntity.totalPrice = cart.getTotalPrice();
-        cartEntity.memberEntity = MemberEntity.from(cart.getMember());
         return cartEntity;
     }
 
@@ -67,7 +64,6 @@ public class CartEntity extends BaseDateTimeEntity {
                 .cartItems(cartItemEntities.stream()
                         .map(CartItemEntity::toModel).collect(Collectors.toList()))
                 .totalPrice(totalPrice)
-                .member(memberEntity.toModel())
                 .count(count)
                 .createdAt(createdAt)
                 .build();
