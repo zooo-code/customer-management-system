@@ -13,6 +13,7 @@ import com.example.cms.cartitem.service.port.CartItemRepository;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.service.port.ItemRepository;
 import com.example.cms.member.service.port.MemberRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,11 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Builder
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
-    private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
     private final CartItemRepository cartItemRepository;
 
