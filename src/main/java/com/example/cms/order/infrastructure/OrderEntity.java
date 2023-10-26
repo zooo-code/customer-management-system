@@ -70,13 +70,6 @@ public class OrderEntity extends BaseDateTimeEntity {
         return orderEntity;
     }
 
-    public void setOrdersId(String ordersId){
-        this.ordersId = ordersId;
-    }
-
-    public void cancel(LocalDateTime cancelDate){
-        this.cancelDate = cancelDate;
-    }
 
     public Order toModel(){
         return Order.builder()

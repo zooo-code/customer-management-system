@@ -14,27 +14,21 @@ public class OrderCreate {
     //private CartResponse cartResponse;
     private Long memberId;
     private Long cartId;
-    private Integer orderPrice;
 
     private String mobile;
     @Builder
-    public OrderCreate(EPayments payment, Long memberId, Long cartId, Integer orderPrice, String mobile) {
+    public OrderCreate(EPayments payment, Long memberId, Long cartId, String mobile) {
         this.payment = payment;
         this.memberId = memberId;
         this.cartId = cartId;
-        this.orderPrice = orderPrice;
         this.mobile = mobile;
     }
-
-
-
 
     public Order toOrder(Member member, Cart cart){
         return Order.builder()
                 .member(member)
                 .cart(cart)
                 .payment(payment)
-                .ordersPrice(orderPrice)
                 .build();
     }
 }

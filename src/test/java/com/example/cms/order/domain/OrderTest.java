@@ -10,6 +10,10 @@ import com.example.cms.member.domain.Member;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderTest {
@@ -17,8 +21,10 @@ class OrderTest {
 
     @Test
     void OrderCreate_객체로_주문을_만들수_있다(){
+
         //given
-        Member build = Member.builder()
+        Member member = Member.builder()
+                .id(1L)
                 .name("123")
                 .phone("1234")
                 .status(EMemberStatus.OPEN)
@@ -38,7 +44,28 @@ class OrderTest {
                 .count(3)
                 .build();
 
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(cartItem);
+        Cart cart = Cart.builder()
+                .id(1L)
+                .cartItems(cartItems)
+                .count(cartItem.getCount())
+                .totalPrice(cartItem.getPrice())
+                .build();
 
+        OrderCreate orderCreate = OrderCreate.builder()
+                .memberId(1L)
+                .cartId(1L)
+                .mobile(member.getPhone())
+                .cartId(cart.getId())
+                .payment(EPayments.POINT)
+                .build();
+        Order or = Order.from(orderCreate, member, cart);
+
+        assertThat(or.getMember().getId()).isEqualTo(member.getId());
+        assertThat(or.getOrdersPrice()).isEqualTo(cartItem.getPrice());
+        assertThat(or.getCart().getId()).isEqualTo(cart.getId());
+        assertThat(or.getPayment()).isEqualTo(orderCreate.getPayment());
 
     }
 

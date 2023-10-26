@@ -35,9 +35,13 @@ public class Order {
         this.member = member;
         CreatedAt = createdAt;
     }
-
-    public void setOrdersId(String ordersId){
-        this.ordersId = ordersId;
+    public static Order from(OrderCreate orderCreate, Member member, Cart cart){
+        return Order.builder()
+                .cart(cart)
+                .member(member)
+                .payment(orderCreate.getPayment())
+                .ordersPrice(cart.getTotalPrice())
+                .build();
     }
 
     public void cancel(LocalDateTime cancelDate){
