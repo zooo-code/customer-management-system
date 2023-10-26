@@ -63,9 +63,7 @@ public class CartItemEntity {
                 .price(price)
                 .build();
     }
-    public void addCount(Integer count){
-        this.count += count;
-    }
+
 
 
 }
