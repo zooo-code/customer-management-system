@@ -54,7 +54,6 @@ class OrderTest {
                 .build();
 
         OrderCreate orderCreate = OrderCreate.builder()
-                .memberId(1L)
                 .cartId(1L)
                 .mobile(member.getPhone())
                 .cartId(cart.getId())
@@ -62,7 +61,6 @@ class OrderTest {
                 .build();
         Order or = Order.from(orderCreate, member, cart);
 
-        assertThat(or.getMember().getId()).isEqualTo(member.getId());
         assertThat(or.getOrdersPrice()).isEqualTo(cartItem.getPrice());
         assertThat(or.getCart().getId()).isEqualTo(cart.getId());
         assertThat(or.getPayment()).isEqualTo(orderCreate.getPayment());
