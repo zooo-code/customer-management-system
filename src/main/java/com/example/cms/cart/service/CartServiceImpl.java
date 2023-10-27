@@ -42,25 +42,27 @@ public class CartServiceImpl implements CartService {
         //카트 생성
         List<CartItemRequest> cartItemRequests = cartRequest.getCartItemRequests();
         Cart cart = Cart.cartCreate();
+
         return makeCart(cart,cartItemRequests);
     }
 
     private Cart makeCart(Cart cart, List<CartItemRequest> cartItemRequests) {
+        Cart save = cartRepository.save(cart);
         for (CartItemRequest cartItemRequest : cartItemRequests) {
             //카트에 총 상품의 수를 증가
             Item drink = itemRepository
                     .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
 
-            cart.addTotalPrice(drink.getCost() * cartItemRequest.getCount());
-            cart.addCountCart(cartItemRequest.getCount());
+            save.addTotalPrice(drink.getCost() * cartItemRequest.getCount());
+            save.addCountCart(cartItemRequest.getCount());
 
             CartItem cartItem = CartItem
-                    .createCartItem(cart, drink, cartItemRequest.getCount());
+                    .createCartItem(save, drink, cartItemRequest.getCount());
 
-            cart.addCartItem(cartItem);
+            save.addCartItem(cartItem);
             cartItemRepository.save(cartItem);
         }
-        return cartRepository.save(cart);
+        return cartRepository.save(save);
     }
 
     /**

@@ -17,7 +17,7 @@ public class Cart {
     private final Long id;
     private Integer count;
     private Integer totalPrice;
-    private List<CartItem> cartItems = new ArrayList<>();
+    private final List<CartItem> cartItems;
     private final LocalDateTime createdAt;
     @Builder
     public Cart(Long id, Integer count, Integer totalPrice, List<CartItem> cartItems, LocalDateTime createdAt) {
@@ -39,6 +39,7 @@ public class Cart {
                 .count(countItem)
                 .build();
     }
+
     public void addCountCart(Integer count) {
         this.count += count;
     }

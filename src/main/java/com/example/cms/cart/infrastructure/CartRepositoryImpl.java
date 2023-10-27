@@ -22,7 +22,6 @@ public class CartRepositoryImpl implements com.example.cms.cart.service.port.Car
 
     @Override
     public Cart save(Cart cart) {
-        cartRepositoryJpa.save(CartEntity.from(cart));
-        return null;
+        return cartRepositoryJpa.save(CartEntity.from(cart)).toModel();
     }
 }

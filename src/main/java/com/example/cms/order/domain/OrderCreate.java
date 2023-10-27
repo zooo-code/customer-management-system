@@ -12,14 +12,14 @@ public class OrderCreate {
 
     private EPayments payment;
     //private CartResponse cartResponse;
-    private Long memberId;
+
     private Long cartId;
 
     private String mobile;
     @Builder
-    public OrderCreate(EPayments payment, Long memberId, Long cartId, String mobile) {
+    public OrderCreate(EPayments payment, Long cartId, String mobile) {
         this.payment = payment;
-        this.memberId = memberId;
+
         this.cartId = cartId;
         this.mobile = mobile;
     }

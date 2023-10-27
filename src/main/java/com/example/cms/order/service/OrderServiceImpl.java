@@ -9,6 +9,7 @@ import com.example.cms.order.domain.Order;
 import com.example.cms.order.domain.OrderCreate;
 import com.example.cms.order.service.port.OrderRepository;
 import com.example.cms.utils.exception.CommonException;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static com.example.cms.utils.exception.ErrorCode.DATA_NOT_FOUND;
 
-
+@Builder
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -45,11 +46,13 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderCreate.toOrder(member, cart);
         //1-2. payment 확인
         //2. 포인트 차감
-        return calculateMemberPoint(member, order);
+        calculateMemberPoint(member, order);
+
+        return orderRepository.save(order);
 
     }
 
-    private Order calculateMemberPoint(Member member, Order order) {
+    private Member calculateMemberPoint(Member member, Order order) {
         int memberPoint = order.getMember().getMembershipPoint();
         int payAmount = order.getOrdersPrice();
         if (memberPoint < payAmount) {
@@ -58,8 +61,7 @@ public class OrderServiceImpl implements OrderService {
         int remainPoint = memberPoint - payAmount;
         //남은 포인트 set
         member.updatePoint(remainPoint);
-        memberRepository.save(member);
-        return orderRepository.save(order);
+        return memberRepository.save(member);
     }
 
     @Override
