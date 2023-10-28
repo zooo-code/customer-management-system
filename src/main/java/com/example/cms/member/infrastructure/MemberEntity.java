@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity @Getter
-@Table(name = "member")
+@Table(name = "member", indexes = @Index(name ="idx__mobile",columnList = "mobile", unique = true))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberEntity extends BaseDateTimeEntity {
 
