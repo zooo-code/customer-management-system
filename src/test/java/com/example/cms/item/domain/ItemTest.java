@@ -1,5 +1,6 @@
 package com.example.cms.item.domain;
 
+import com.example.cms.mock.TestClockHolder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ class ItemTest {
                 .hotIce(EItemStatus.HOT)
                 .build();
 
-        Item item = Item.from(itemCreate);
+        Item item = Item.from(itemCreate,new TestClockHolder(1L));
 
         assertThat(item.getItemId()).isNull();
         assertThat(item.getName()).isEqualTo(itemCreate.getName());

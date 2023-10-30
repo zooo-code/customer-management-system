@@ -8,10 +8,7 @@ import com.example.cms.item.domain.Item;
 import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.service.MemberServiceImpl;
-import com.example.cms.mock.FakeCartItemRepository;
-import com.example.cms.mock.FakeCartRepository;
-import com.example.cms.mock.FakeItemRepository;
-import com.example.cms.mock.FakeMemberRepository;
+import com.example.cms.mock.*;
 import com.example.cms.order.domain.OrderCreate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +44,7 @@ class CartServiceTest {
                 .build();
         fakeItemRepository.save(coffee);
         fakeItemRepository.save(ade);
-        Cart cart = Cart.cartCreate();
+        Cart cart = Cart.cartCreate(new TestClockHolder(1L));
         CartItem cartItemCoffee = CartItem.builder()
                 .id(1L)
                 .item(coffee)

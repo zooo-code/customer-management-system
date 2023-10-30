@@ -4,7 +4,6 @@ import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 
 @Getter
 public class Member {
@@ -31,20 +30,22 @@ public class Member {
 
     public static Member from(MemberCreate memberCreate, ClockHolder clockHolder){
         Integer firstPoint = 0;
+        Long createAtMillis = (clockHolder != null) ? clockHolder.millis() : System.currentTimeMillis();
         return Member.builder()
                 .phone(memberCreate.getPhone())
                 .name(memberCreate.getName())
                 .membershipPoint(firstPoint)
                 .status(EMemberStatus.OPEN)
-                .createAt(clockHolder.millis())
+                .createAt(createAtMillis)
                 .build();
     }
     public Member update(MemberUpdate memberUpdate,ClockHolder clockHolder){
+        Long modifiedAtMillis = (clockHolder != null) ? clockHolder.millis() : System.currentTimeMillis();
         return Member.builder()
                 .id(id)
                 .status(status)
                 .membershipPoint(membershipPoint)
-                .modifiedAt(clockHolder.millis())
+                .modifiedAt(modifiedAtMillis)
                 .phone(memberUpdate.getPhone())
                 .name(memberUpdate.getName())
                 .build();

@@ -1,6 +1,7 @@
 package com.example.cms.member.domain;
 
 
+import com.example.cms.mock.TestClockHolder;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -16,7 +17,7 @@ class MemberTest {
                 .name("kim")
                 .build();
         //when
-        Member member = Member.from(kim);
+        Member member = Member.from(kim,new TestClockHolder(1L));
         //then
         assertThat(member.getId()).isNull();
         assertThat(member.getName()).isEqualTo("kim");
@@ -37,7 +38,7 @@ class MemberTest {
                 .name("lee_kim")
                 .build();
         //when
-        Member update = lee.update(lee_kim);
+        Member update = lee.update(lee_kim,new TestClockHolder(2L));
         //then
         assertThat(update.getId()).isEqualTo(1L);
         assertThat(update.getName()).isEqualTo("lee_kim");

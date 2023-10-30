@@ -16,12 +16,12 @@ public class OrderDetailResponse {
     private String ordersId;
     private String memberName;
     private String mobile;
-    private LocalDateTime createdAt;
-    private LocalDateTime cancelDate;
+    private Long createdAt;
+    private Long cancelDate;
     private EPayments payments;
 
     @Builder
-    public OrderDetailResponse(String ordersId, String memberName, String mobile, LocalDateTime createdAt, LocalDateTime cancelDate, EPayments payments) {
+    public OrderDetailResponse(String ordersId, String memberName, String mobile, Long createdAt, Long cancelDate, EPayments payments) {
         this.ordersId = ordersId;
         this.memberName = memberName;
         this.mobile = mobile;

@@ -8,6 +8,7 @@ import com.example.cms.member.domain.MemberUpdate;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
 import com.example.cms.mock.FakeMemberRepository;
+import com.example.cms.mock.TestClockHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +48,7 @@ class MemberServiceTest {
                 .phone("12345")
                 .name("park")
                 .build();
+        Member from = Member.from(park, new TestClockHolder(1L));
         //when
         Member save = memberService.save(park);
 

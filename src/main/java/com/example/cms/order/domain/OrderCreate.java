@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class OrderCreate {
 
     private EPayments payment;
-    //private CartResponse cartResponse;
+
 
     private Long cartId;
 
@@ -19,16 +19,9 @@ public class OrderCreate {
     @Builder
     public OrderCreate(EPayments payment, Long cartId, String mobile) {
         this.payment = payment;
-
         this.cartId = cartId;
         this.mobile = mobile;
     }
 
-    public Order toOrder(Member member, Cart cart){
-        return Order.builder()
-                .member(member)
-                .cart(cart)
-                .payment(payment)
-                .build();
-    }
+
 }

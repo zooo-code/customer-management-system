@@ -3,6 +3,7 @@ package com.example.cms.order.domain;
 import com.example.cms.cart.domain.Cart;
 import com.example.cms.member.domain.Member;
 import com.example.cms.utils.common.service.port.ClockHolder;
+import com.example.cms.utils.common.service.port.UuidHolder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -37,9 +38,10 @@ public class Order {
         this.member = member;
         this.CreatedAt = createdAt;
     }
-    public static Order from(OrderCreate orderCreate, Member member, Cart cart, ClockHolder clockHolder){
+    public static Order from(OrderCreate orderCreate, UuidHolder uuidHolder, Member member, Cart cart, ClockHolder clockHolder){
         return Order.builder()
                 .cart(cart)
+                .ordersId(uuidHolder.random())
                 .member(member)
                 .payment(orderCreate.getPayment())
                 .ordersPrice(cart.getTotalPrice())

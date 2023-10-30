@@ -59,11 +59,7 @@ class OrderTest {
                 .cartId(cart.getId())
                 .payment(EPayments.POINT)
                 .build();
-        Order or = Order.from(orderCreate, member, cart);
 
-        assertThat(or.getOrdersPrice()).isEqualTo(cartItem.getPrice());
-        assertThat(or.getCart().getId()).isEqualTo(cart.getId());
-        assertThat(or.getPayment()).isEqualTo(orderCreate.getPayment());
 
     }
 

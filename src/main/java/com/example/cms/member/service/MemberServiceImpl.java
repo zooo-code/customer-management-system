@@ -25,7 +25,8 @@ public class MemberServiceImpl implements MemberService {
         if (memberRepository.findByMobile(memberCreate.getPhone()).isPresent()){
             throw new MemberAlreadyExistException("member already exist");
         }
-        return memberRepository.save(Member.from(memberCreate,clockHolder));
+        Member from = Member.from(memberCreate, clockHolder);
+        return memberRepository.save(from);
 
     }
     @Override
