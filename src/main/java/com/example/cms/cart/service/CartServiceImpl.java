@@ -13,6 +13,7 @@ import com.example.cms.cartitem.service.port.CartItemRepository;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.service.port.ItemRepository;
 import com.example.cms.member.service.port.MemberRepository;
+import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final ItemRepository itemRepository;
     private final CartItemRepository cartItemRepository;
-
+    private final ClockHolder clockHolder;
     /**
      * 메뉴를 선택한 후에 메뉴들(리스트로 들어옴)이 카드에 담긴다.
      */
@@ -41,7 +42,7 @@ public class CartServiceImpl implements CartService {
     public Cart CreateCart(CartRequest cartRequest){
         //카트 생성
         List<CartItemRequest> cartItemRequests = cartRequest.getCartItemRequests();
-        Cart cart = Cart.cartCreate();
+        Cart cart = Cart.cartCreate(clockHolder);
 
         return makeCart(cart,cartItemRequests);
     }

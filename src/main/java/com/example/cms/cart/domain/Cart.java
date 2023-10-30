@@ -2,7 +2,8 @@ package com.example.cms.cart.domain;
 
 import com.example.cms.cartitem.domain.CartItem;
 
-import com.example.cms.member.domain.Member;
+
+import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -18,9 +19,9 @@ public class Cart {
     private Integer count;
     private Integer totalPrice;
     private final List<CartItem> cartItems;
-    private final LocalDateTime createdAt;
+    private final Long createdAt;
     @Builder
-    public Cart(Long id, Integer count, Integer totalPrice, List<CartItem> cartItems, LocalDateTime createdAt) {
+    public Cart(Long id, Integer count, Integer totalPrice, List<CartItem> cartItems, Long createdAt) {
         this.id = id;
         this.count = count;
         this.totalPrice = totalPrice;
@@ -29,7 +30,7 @@ public class Cart {
     }
 
 
-    public static Cart cartCreate(){
+    public static Cart cartCreate(ClockHolder clockHolder){
         List<CartItem> cartItems = new ArrayList<>();
         Integer countItem = 0;
         Integer totalPrice = 0;
@@ -37,6 +38,7 @@ public class Cart {
                 .cartItems(cartItems)
                 .totalPrice(totalPrice)
                 .count(countItem)
+                .createdAt(clockHolder.millis())
                 .build();
     }
 
