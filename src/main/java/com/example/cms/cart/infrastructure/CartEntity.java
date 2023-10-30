@@ -2,10 +2,8 @@ package com.example.cms.cart.infrastructure;
 
 
 import com.example.cms.cart.domain.Cart;
-import com.example.cms.cartitem.domain.CartItem;
-import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.cartitem.infrastructure.CartItemEntity;
-import com.example.cms.utils.entity.BaseDateTimeEntity;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,12 +18,11 @@ import java.util.stream.Collectors;
 @Entity
 @Getter @Table(name = "cart")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CartEntity extends BaseDateTimeEntity {
+public class CartEntity   {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long id;
-
 
     @Column(name ="count")
     private Integer count;
@@ -36,11 +33,11 @@ public class CartEntity extends BaseDateTimeEntity {
     @OneToMany(mappedBy = "cartEntity")
     private List<CartItemEntity> cartItemEntities = new ArrayList<>();
 
-    private LocalDateTime createdAt;
-    @Builder
-    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, LocalDateTime createdAt) {
-        this.id = id;
+    private Long createdAt;
 
+    @Builder
+    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, Long createdAt) {
+        this.id = id;
         this.count = count;
         this.totalPrice = totalPrice;
         this.cartItemEntities = cartItemEntities;

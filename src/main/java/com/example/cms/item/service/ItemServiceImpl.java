@@ -6,6 +6,7 @@ import com.example.cms.item.domain.ItemUpdate;
 import com.example.cms.item.domain.Item;
 
 import com.example.cms.item.service.port.ItemRepository;
+import com.example.cms.utils.common.service.port.ClockHolder;
 import com.example.cms.utils.exception.CommonException;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import static com.example.cms.utils.exception.ErrorCode.DUPLICATE_RESOURCE;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
+    private final ClockHolder clockHolder;
 
     @Override
     public Optional<Item> findByName(String name) {
@@ -44,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void create(ItemCreate itemCreate){
-        Item item = Item.from(itemCreate);
+        Item item = Item.from(itemCreate,clockHolder);
         //중복체크
         Boolean isExistItemAndStatus = itemRepository
                 .existsByNameAndAndHotIce(item.getName(), item.getHotIce());

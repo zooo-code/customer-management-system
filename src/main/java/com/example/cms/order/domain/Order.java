@@ -2,9 +2,11 @@ package com.example.cms.order.domain;
 
 import com.example.cms.cart.domain.Cart;
 import com.example.cms.member.domain.Member;
+import com.example.cms.utils.common.service.port.ClockHolder;
+import com.example.cms.utils.common.service.port.UuidHolder;
 import lombok.Builder;
 import lombok.Getter;
-import java.time.LocalDateTime;
+
 
 @Getter
 public class Order {
@@ -13,7 +15,7 @@ public class Order {
 
     private String ordersId;
 
-    private LocalDateTime cancelDate;
+    private Long cancelDate;
 
     private final Integer ordersPrice;
 
@@ -22,10 +24,11 @@ public class Order {
     private final Cart cart;
 
     private final Member member;
-    private final LocalDateTime CreatedAt;
+    private final Long CreatedAt;
 
     @Builder
-    public Order(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, com.example.cms.cart.domain.Cart cart, Member member, LocalDateTime createdAt) {
+    public Order(Long id, String ordersId, Long cancelDate, Integer ordersPrice,
+                 EPayments payment, Cart cart, Member member, Long createdAt) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
@@ -33,18 +36,20 @@ public class Order {
         this.payment = payment;
         this.cart = cart;
         this.member = member;
-        CreatedAt = createdAt;
+        this.CreatedAt = createdAt;
     }
-    public static Order from(OrderCreate orderCreate, Member member, Cart cart){
+    public static Order from(OrderCreate orderCreate, UuidHolder uuidHolder, Member member, Cart cart, ClockHolder clockHolder){
         return Order.builder()
                 .cart(cart)
+                .ordersId(uuidHolder.random())
                 .member(member)
                 .payment(orderCreate.getPayment())
                 .ordersPrice(cart.getTotalPrice())
+                .createdAt(clockHolder.millis())
                 .build();
     }
 
-    public void cancel(LocalDateTime cancelDate){
-        this.cancelDate = cancelDate;
+    public void cancel(ClockHolder clockHolder){
+        this.cancelDate = clockHolder.millis();
     }
 }

@@ -8,8 +8,11 @@ import com.example.cms.order.controller.port.OrderService;
 import com.example.cms.order.domain.Order;
 import com.example.cms.order.domain.OrderCreate;
 import com.example.cms.order.service.port.OrderRepository;
+import com.example.cms.utils.common.service.port.ClockHolder;
+import com.example.cms.utils.common.service.port.UuidHolder;
 import com.example.cms.utils.exception.CommonException;
 import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,18 +23,16 @@ import static com.example.cms.utils.exception.ErrorCode.DATA_NOT_FOUND;
 
 @Builder
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
 
     private final MemberRepository memberRepository;
     private final CartRepository cartRepository;
     private final OrderRepository orderRepository;
+    private final UuidHolder uuidHolder;
+    private final ClockHolder clockHolder;
 
-    public OrderServiceImpl(MemberRepository memberRepository, CartRepository cartRepository, OrderRepository orderRepository) {
-        this.memberRepository = memberRepository;
-        this.cartRepository = cartRepository;
-        this.orderRepository = orderRepository;
-    }
     @Override
     @Transactional
     public Order createOrder(OrderCreate orderCreate) {
@@ -42,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
 
         Cart cart = cartRepository.findById(orderCreate.getCartId())
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
+        Order order = Order.from(orderCreate, uuidHolder, member, cart, clockHolder);
 
-        Order order = orderCreate.toOrder(member, cart);
         //1-2. payment 확인
         //2. 포인트 차감
         calculateMemberPoint(member, order);
@@ -52,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    private Member calculateMemberPoint(Member member, Order order) {
+    private void calculateMemberPoint(Member member, Order order) {
         int memberPoint = order.getMember().getMembershipPoint();
         int payAmount = order.getOrdersPrice();
         if (memberPoint < payAmount) {
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
         int remainPoint = memberPoint - payAmount;
         //남은 포인트 set
         member.updatePoint(remainPoint);
-        return memberRepository.save(member);
+        memberRepository.save(member);
     }
 
     @Override

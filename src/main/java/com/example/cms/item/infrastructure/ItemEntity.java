@@ -2,7 +2,7 @@ package com.example.cms.item.infrastructure;
 
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
-import com.example.cms.utils.entity.BaseDateTimeEntity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @Table(name = "item")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ItemEntity extends BaseDateTimeEntity {
+public class ItemEntity {
 
     @Id
     @Column(name = "item_id")
