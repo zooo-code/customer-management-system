@@ -4,7 +4,7 @@ import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.order.domain.EPayments;
 import com.example.cms.order.domain.Order;
-import com.example.cms.utils.entity.BaseDateTimeEntity;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class OrderEntity extends BaseDateTimeEntity {
+public class OrderEntity   {
 
     @Column(name = "seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -30,7 +30,7 @@ public class OrderEntity extends BaseDateTimeEntity {
     private String ordersId;
 
     @Column(name = "cancel_date")
-    private LocalDateTime cancelDate;
+    private Long cancelDate;
 
     @Column(name = "orders_price", nullable = false)
     private Integer ordersPrice;
@@ -47,8 +47,11 @@ public class OrderEntity extends BaseDateTimeEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
 
+    @Column(name = "create_at")
+    private Long createAt;
     @Builder
-    public OrderEntity(Long id, String ordersId, LocalDateTime cancelDate, Integer ordersPrice, EPayments payment, CartEntity cartEntity, MemberEntity memberEntity) {
+    public OrderEntity(Long id, String ordersId, Long cancelDate, Integer ordersPrice, EPayments payment,
+                       CartEntity cartEntity, MemberEntity memberEntity, Long createAt) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
@@ -56,7 +59,11 @@ public class OrderEntity extends BaseDateTimeEntity {
         this.payment = payment;
         this.cartEntity = cartEntity;
         this.memberEntity = memberEntity;
+        this.createAt = createAt;
     }
+
+
+
 
     public static OrderEntity from(Order order) {
         OrderEntity orderEntity = new OrderEntity();
@@ -67,6 +74,7 @@ public class OrderEntity extends BaseDateTimeEntity {
         orderEntity.payment = order.getPayment();
         orderEntity.cartEntity = CartEntity.from(order.getCart());
         orderEntity.memberEntity = MemberEntity.from(order.getMember());
+        orderEntity.createAt = order.getCreatedAt();
         return orderEntity;
     }
 
@@ -80,6 +88,7 @@ public class OrderEntity extends BaseDateTimeEntity {
                 .cancelDate(cancelDate)
                 .member(memberEntity.toModel())
                 .payment(payment)
+                .createdAt(createAt)
                 .build();
 
     }

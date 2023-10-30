@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    private Member calculateMemberPoint(Member member, Order order) {
+    private void calculateMemberPoint(Member member, Order order) {
         int memberPoint = order.getMember().getMembershipPoint();
         int payAmount = order.getOrdersPrice();
         if (memberPoint < payAmount) {
@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
         int remainPoint = memberPoint - payAmount;
         //남은 포인트 set
         member.updatePoint(remainPoint);
-        return memberRepository.save(member);
+        memberRepository.save(member);
     }
 
     @Override
