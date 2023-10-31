@@ -30,22 +30,21 @@ public class Member {
 
     public static Member from(MemberCreate memberCreate, ClockHolder clockHolder){
         Integer firstPoint = 0;
-        Long createAtMillis = (clockHolder != null) ? clockHolder.millis() : System.currentTimeMillis();
         return Member.builder()
                 .phone(memberCreate.getPhone())
                 .name(memberCreate.getName())
                 .membershipPoint(firstPoint)
                 .status(EMemberStatus.OPEN)
-                .createAt(createAtMillis)
+                .createAt(clockHolder.millis())
                 .build();
     }
     public Member update(MemberUpdate memberUpdate,ClockHolder clockHolder){
-        Long modifiedAtMillis = (clockHolder != null) ? clockHolder.millis() : System.currentTimeMillis();
+
         return Member.builder()
                 .id(id)
                 .status(status)
                 .membershipPoint(membershipPoint)
-                .modifiedAt(modifiedAtMillis)
+                .modifiedAt(clockHolder.millis())
                 .phone(memberUpdate.getPhone())
                 .name(memberUpdate.getName())
                 .build();

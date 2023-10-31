@@ -24,6 +24,7 @@ class MemberServiceTest {
         FakeMemberRepository fakeMemberRepository = new FakeMemberRepository();
         this.memberService = MemberServiceImpl.builder()
                 .memberRepository(fakeMemberRepository)
+                .clockHolder(new TestClockHolder(1L))
                 .build();
         fakeMemberRepository.save(Member.builder()
                 .name("test")

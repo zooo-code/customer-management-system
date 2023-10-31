@@ -5,6 +5,7 @@ import com.example.cms.item.domain.Item;
 import com.example.cms.item.domain.ItemCreate;
 import com.example.cms.item.domain.ItemUpdate;
 import com.example.cms.mock.FakeItemRepository;
+import com.example.cms.mock.TestClockHolder;
 import com.example.cms.utils.exception.CommonException;
 import com.example.cms.utils.exception.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +25,7 @@ class ItemServiceTest {
         this.itemService = ItemServiceImpl
                 .builder()
                 .itemRepository(fakeItemRepository)
+                .clockHolder(new TestClockHolder(1L))
                 .build();
 
         fakeItemRepository.save(Item.builder()
