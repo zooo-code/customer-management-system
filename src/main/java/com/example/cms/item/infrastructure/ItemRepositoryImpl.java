@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 
 @Repository
-@Transactional
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepository {
 
