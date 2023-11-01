@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 
 @Repository
-@Transactional
 public class MemberRepositoryImpl implements MemberRepository {
 
     private final MemberRepositoryJpa memberJpaRepository;

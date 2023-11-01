@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 //쿼리 dsl 만드는 곳
 @Repository
 @RequiredArgsConstructor
-@Transactional
 public class MemberQDSLRepository implements MemberCustomRepository {
 
     private final JPAQueryFactory queryFactory;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
+
 public interface OrderRepositoryJpa extends JpaRepository<OrderEntity,String> {
 
     OrderEntity save(OrderEntity orderEntity);

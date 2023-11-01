@@ -1,4 +1,4 @@
-package com.example.cms;
+package com.example.cms.initdb;
 
 
 import com.example.cms.member.controller.port.MemberService;
