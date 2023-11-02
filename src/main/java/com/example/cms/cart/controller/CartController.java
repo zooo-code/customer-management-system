@@ -1,6 +1,5 @@
 package com.example.cms.cart.controller;
 
-import com.example.cms.cart.controller.request.CartDeleteRequest;
 import com.example.cms.cart.controller.request.CartRequest;
 import com.example.cms.cart.domain.Cart;
 import com.example.cms.cart.service.CartServiceImpl;
@@ -8,10 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "CartEntity", description = "카트 API")
 @RestController
@@ -29,14 +25,10 @@ public class CartController {
                 .body(cartServiceImpl.CreateCart(request));
     }
 
-    /**
-     * 카트 불러와서 삭제 과정 논의 어떤 기준으로 불러와서 진행을 할까?
-     * 1. 카트 아이디와 회원 아이디?
-     */
-    @PostMapping("/deleteItem")
-    public void deleteCartItem(@RequestBody CartDeleteRequest cartDeleteRequest){
-
-
+    @Operation(summary = "장바구니 삭제", description = "징바구니를 삭제합니다.")
+    @PostMapping("/deleteCart/{id}")
+    public void deleteCartItem(@PathVariable Long id){
+        cartServiceImpl.deleteCart(id);
     }
 
 

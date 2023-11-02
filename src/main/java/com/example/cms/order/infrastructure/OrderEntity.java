@@ -26,7 +26,6 @@ public class OrderEntity   {
 
     @Id
     @Column(name = "orders_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String ordersId;
 
     @Column(name = "cancel_date")

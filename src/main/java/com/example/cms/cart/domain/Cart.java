@@ -20,15 +20,17 @@ public class Cart {
     private Integer totalPrice;
     private final List<CartItem> cartItems;
     private final Long createdAt;
+
+    private ECartStatus status;
     @Builder
-    public Cart(Long id, Integer count, Integer totalPrice, List<CartItem> cartItems, Long createdAt) {
+    public Cart(Long id, Integer count, Integer totalPrice, List<CartItem> cartItems, Long createdAt, ECartStatus status) {
         this.id = id;
         this.count = count;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
         this.createdAt = createdAt;
+        this.status = status;
     }
-
 
     public static Cart cartCreate(ClockHolder clockHolder){
         List<CartItem> cartItems = new ArrayList<>();
@@ -39,6 +41,7 @@ public class Cart {
                 .totalPrice(totalPrice)
                 .count(countItem)
                 .createdAt(clockHolder.millis())
+                .status(ECartStatus.START)
                 .build();
     }
 
@@ -52,5 +55,8 @@ public class Cart {
     public void addCartItem(CartItem cartItem) {
         this.cartItems.add(cartItem);
 
+    }
+    public void cartDel(){
+        this.status = ECartStatus.NOORDER;
     }
 }
