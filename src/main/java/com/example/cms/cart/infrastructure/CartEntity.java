@@ -2,6 +2,7 @@ package com.example.cms.cart.infrastructure;
 
 
 import com.example.cms.cart.domain.Cart;
+import com.example.cms.cart.domain.ECartStatus;
 import com.example.cms.cartitem.infrastructure.CartItemEntity;
 
 import jakarta.persistence.*;
@@ -32,17 +33,22 @@ public class CartEntity   {
 
     @OneToMany(mappedBy = "cartEntity")
     private List<CartItemEntity> cartItemEntities = new ArrayList<>();
-
+    @Column(name = "creatAt")
     private Long createdAt;
-
+    @Column(name= "status")
+    private ECartStatus status;
     @Builder
-    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, Long createdAt) {
+    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, Long createdAt, ECartStatus status) {
         this.id = id;
         this.count = count;
         this.totalPrice = totalPrice;
         this.cartItemEntities = cartItemEntities;
         this.createdAt = createdAt;
+        this.status = status;
     }
+
+
+
     public static CartEntity from(Cart cart){
         CartEntity cartEntity = new CartEntity();
         cartEntity.cartItemEntities = cart.getCartItems()
@@ -63,6 +69,7 @@ public class CartEntity   {
                 .totalPrice(totalPrice)
                 .count(count)
                 .createdAt(createdAt)
+                .status(status)
                 .build();
     }
 

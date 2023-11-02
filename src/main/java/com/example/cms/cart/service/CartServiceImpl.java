@@ -1,6 +1,5 @@
 package com.example.cms.cart.service;
 import com.example.cms.cart.controller.port.CartService;
-import com.example.cms.cart.controller.request.CartDeleteRequest;
 import com.example.cms.cart.controller.request.CartRequest;
 import com.example.cms.cart.domain.Cart;
 
@@ -12,7 +11,6 @@ import com.example.cms.cartitem.domain.CartItem;
 import com.example.cms.cartitem.service.port.CartItemRepository;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.service.port.ItemRepository;
-import com.example.cms.member.service.port.MemberRepository;
 import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -66,22 +64,16 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(save);
     }
 
-    /**
-     * 카트 불러와서 삭제 과정 논의 어떤 기준으로 불러와서 진행을 할까?
-     * 1. 카트 아이디와 회원 아이디?
-     * 2.
-     */
+//    카트의 상태만 NOORDER 처리
     @Override
     @Transactional
-    public void deleteCartItem(CartDeleteRequest request){
-        Optional<Cart> findCart = cartRepository.findById(request.getCartId());
+    public void deleteCart(Long cartId){
+        Optional<Cart> findCart = cartRepository.findById(cartId);
         if (findCart.isEmpty()){
             throw new CartNotFoundException("존재하지 않는 장바구니 입니다.");
         }
         Cart cart = findCart.get();
-        List<CartItem> cartItemEntities = cart.getCartItems();
-
-
+        cart.cartDel();
 
     }
 }
