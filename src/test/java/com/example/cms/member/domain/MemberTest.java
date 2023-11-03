@@ -21,6 +21,10 @@ class MemberTest {
         //then
         assertThat(member.getId()).isNull();
         assertThat(member.getName()).isEqualTo("kim");
+        assertThat(member.getCreateAt()).isEqualTo(1L);
+        assertThat(member.getStatus()).isEqualTo(EMemberStatus.OPEN);
+        assertThat(member.getMembershipPoint()).isEqualTo(0);
+
     }
 
     @Test
@@ -36,6 +40,7 @@ class MemberTest {
         MemberUpdate lee_kim = MemberUpdate.builder()
                 .phone("12345")
                 .name("lee_kim")
+                .status(EMemberStatus.BLIND)
                 .build();
         //when
         Member update = lee.update(lee_kim,new TestClockHolder(2L));
@@ -43,8 +48,26 @@ class MemberTest {
         assertThat(update.getId()).isEqualTo(1L);
         assertThat(update.getName()).isEqualTo("lee_kim");
         assertThat(update.getPhone()).isEqualTo("12345");
+        assertThat(update.getModifiedAt()).isEqualTo(2L);
+        assertThat(update.getStatus()).isEqualTo(EMemberStatus.BLIND);
 
     }
 
+    @Test
+    public void updatePoint(){
+        //given
+        Member lee = Member.builder()
+                .id(1L)
+                .status(EMemberStatus.OPEN)
+                .membershipPoint(1000)
+                .name("lee")
+                .phone("1234")
+                .build();
+        ;
+        //when
+        lee.updatePoint(100);
+        //then
+        assertThat(lee.getMembershipPoint()).isEqualTo(100);
 
+    }
 }

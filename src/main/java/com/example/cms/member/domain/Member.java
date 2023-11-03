@@ -42,7 +42,7 @@ public class Member {
 
         return Member.builder()
                 .id(id)
-                .status(status)
+                .status(memberUpdate.getStatus())
                 .membershipPoint(membershipPoint)
                 .modifiedAt(clockHolder.millis())
                 .phone(memberUpdate.getPhone())

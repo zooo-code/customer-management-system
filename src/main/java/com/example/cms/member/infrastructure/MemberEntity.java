@@ -55,6 +55,7 @@ public class MemberEntity  {
         memberEntity.status = member.getStatus();
         memberEntity.createAt = member.getCreateAt();
         memberEntity.membershipPoint = member.getMembershipPoint();
+        memberEntity.modifyAt = member.getModifiedAt();
         return memberEntity;
     }
 
