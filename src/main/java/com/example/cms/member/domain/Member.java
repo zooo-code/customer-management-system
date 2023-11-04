@@ -39,7 +39,6 @@ public class Member {
                 .build();
     }
     public Member update(MemberUpdate memberUpdate,ClockHolder clockHolder){
-
         return Member.builder()
                 .id(id)
                 .status(memberUpdate.getStatus())
@@ -50,7 +49,9 @@ public class Member {
                 .build();
     }
 
-    public void updatePoint(int remainPoint) {
+
+
+    public void updatePoint(Integer remainPoint) {
         this.membershipPoint = remainPoint;
     }
 }

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+
 @Getter
 public class ItemCreate {
 
@@ -24,11 +24,4 @@ public class ItemCreate {
     }
 
 
-    public Item toItem(){
-        return Item.builder()
-                .name(name)
-                .cost(cost)
-                .hotIce(hotIce)
-                .build();
-    }
 }
