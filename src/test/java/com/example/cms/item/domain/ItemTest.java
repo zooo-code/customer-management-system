@@ -25,6 +25,7 @@ class ItemTest {
         assertThat(item.getName()).isEqualTo(itemCreate.getName());
         assertThat(item.getCost()).isEqualTo(itemCreate.getCost());
         assertThat(item.getHotIce()).isEqualTo(itemCreate.getHotIce());
+        assertThat(item.getCreateAt()).isEqualTo(1L);
     }
 
     @Test

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+
 @Getter
 public class ItemUpdate {
 
@@ -27,12 +27,5 @@ public class ItemUpdate {
     }
 
 
-    public Item toItem(){
-        return Item.builder()
-                .itemId(itemId)
-                .name(name)
-                .cost(cost)
-                .hotIce(hotIce)
-                .build();
-    }
+
 }
