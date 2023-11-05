@@ -3,6 +3,8 @@ package com.example.cms.mock;
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.service.port.ItemRepository;
+import com.example.cms.utils.exception.CommonException;
+import com.example.cms.utils.exception.ErrorCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,10 @@ public class FakeItemRepository implements ItemRepository {
     @Override
     public void deleteByItemId(Long id) {
 
+        Item first = data.stream()
+                .filter(test -> test.getItemId().equals(id))
+                .findFirst().orElseThrow(()-> new CommonException(ErrorCode.DATA_NOT_FOUND));
+        data.remove(first);
     }
 
     @Override
@@ -79,5 +85,14 @@ public class FakeItemRepository implements ItemRepository {
             return item;
         }
 
+    }
+
+    @Override
+    public List<Item> searchItems(String name, Integer cost, EItemStatus eItemStatus) {
+        return data.stream()
+                .filter(test -> test.getName().contains(name)
+                        ||test.getCost().equals(cost)
+                        ||test.getHotIce().equals(eItemStatus))
+                .collect(Collectors.toList());
     }
 }

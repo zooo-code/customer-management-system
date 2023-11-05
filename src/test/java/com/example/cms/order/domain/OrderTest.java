@@ -7,6 +7,8 @@ import com.example.cms.item.domain.Item;
 import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.domain.Member;
 
+import com.example.cms.mock.TestClockHolder;
+import com.example.cms.mock.TestUuidHolder;
 import org.junit.jupiter.api.Test;
 
 
@@ -59,8 +61,21 @@ class OrderTest {
                 .cartId(cart.getId())
                 .payment(EPayments.POINT)
                 .build();
+        assertThat(orderCreate.getMobile()).isEqualTo("1234");
+        assertThat(orderCreate.getCartId()).isEqualTo(1L);
+        Order newOrder = Order.from(orderCreate,
+                new TestUuidHolder("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
+                , member
+                , cart
+                , new TestClockHolder(1L));
 
-
+        assertThat(newOrder.getMember()).isEqualTo(member);
+        assertThat(newOrder.getCreatedAt()).isEqualTo(1L);
+        assertThat(newOrder.getOrdersId()).isEqualTo("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa");
+        assertThat(newOrder.getCart()).isEqualTo(cart);
+        assertThat(newOrder.getCart().getId()).isEqualTo(cart.getId());
+        assertThat(newOrder.getPayment()).isEqualTo(EPayments.POINT);
+        assertThat(newOrder.getOrdersPrice()).isEqualTo(3000);
     }
 
 

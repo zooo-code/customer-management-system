@@ -1,6 +1,7 @@
 package com.example.cms.item.controller;
 
 import com.example.cms.item.controller.port.ItemService;
+import com.example.cms.item.controller.request.ItemSearchRequest;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.domain.ItemCreate;
 import com.example.cms.item.domain.ItemUpdate;
@@ -52,12 +53,12 @@ public class ItemController {
         itemService.delete(id);
     }
 
-    //TODO: 필터링 완료
-//    @GetMapping("/search")
-//    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")
-//    public List<ItemResponse> searchItems(@RequestBody ItemSearchRequest itemSearchRequest){
-//        return itemServiceImpl.searchItems(itemSearchRequest);
-//    }
+    //TODO:
+    @GetMapping("/search")
+    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")
+    public List<Item> searchItems(@RequestBody ItemSearchRequest itemSearchRequest){
+        return itemService.searchItems(itemSearchRequest);
+    }
 //
 //    @GetMapping("/search/paging")
 //    @Operation(summary = "상품 검색", description = "상품을 조건으로 검색합니다.")

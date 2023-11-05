@@ -1,6 +1,7 @@
 package com.example.cms.item.controller.request;
 
 import com.example.cms.item.domain.EItemStatus;
+import com.example.cms.item.domain.Item;
 import com.example.cms.item.infrastructure.ItemEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,8 +23,8 @@ public class ItemSearchRequest {
     }
 
 
-    public ItemEntity toItem(){
-        return ItemEntity.builder()
+    public Item toItem(){
+        return Item.builder()
                 .name(name)
                 .cost(cost)
                 .hotIce(hotIce)
