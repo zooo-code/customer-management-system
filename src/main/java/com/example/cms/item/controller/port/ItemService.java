@@ -1,6 +1,7 @@
 package com.example.cms.item.controller.port;
 
 
+import com.example.cms.item.controller.request.ItemSearchRequest;
 import com.example.cms.item.domain.ItemCreate;
 import com.example.cms.item.domain.ItemUpdate;
 import com.example.cms.item.domain.Item;
@@ -19,4 +20,5 @@ public interface ItemService {
 
     Item update(ItemUpdate updateRequest);
     void delete(Long itemId);
+    List<Item> searchItems(ItemSearchRequest itemSearchRequest);
 }

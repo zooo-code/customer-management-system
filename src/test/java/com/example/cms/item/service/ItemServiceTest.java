@@ -1,5 +1,6 @@
 package com.example.cms.item.service;
 
+import com.example.cms.item.controller.request.ItemSearchRequest;
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.domain.ItemCreate;
@@ -125,6 +126,23 @@ class ItemServiceTest {
         assertThatThrownBy(() ->itemService
                 .findByName("test11"))
                 .isInstanceOf(CommonException.class);
+
+    }
+    @Test
+    void searchItems_로_아이템을_검색할_수_있다(){
+        //given
+
+        ItemSearchRequest test = ItemSearchRequest.builder()
+                .name("test")
+                .build();
+        //when
+
+        List<Item> items = itemService
+                .searchItems(test);
+
+
+        //then
+        assertThat(items).size().isEqualTo(2);
 
     }
 }

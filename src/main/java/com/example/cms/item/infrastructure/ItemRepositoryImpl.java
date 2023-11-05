@@ -63,4 +63,12 @@ public class ItemRepositoryImpl implements ItemRepository {
     public Item save(Item item) {
         return itemRepositoryJpa.save(ItemEntity.from(item)).toModel();
     }
+
+    @Override
+    public List<Item> searchItems(String name, Integer cost, EItemStatus eItemStatus) {
+        return itemRepositoryJpa
+                .searchItems(name,cost,eItemStatus)
+                .stream().map(ItemEntity::toModel)
+                .collect(Collectors.toList());
+    }
 }

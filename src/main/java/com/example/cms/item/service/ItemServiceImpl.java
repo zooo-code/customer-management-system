@@ -1,6 +1,7 @@
 package com.example.cms.item.service;
 
 import com.example.cms.item.controller.port.ItemService;
+import com.example.cms.item.controller.request.ItemSearchRequest;
 import com.example.cms.item.domain.ItemCreate;
 import com.example.cms.item.domain.ItemUpdate;
 import com.example.cms.item.domain.Item;
@@ -93,15 +94,12 @@ public class ItemServiceImpl implements ItemService {
     public void delete(Long itemId){
         itemRepository.deleteByItemId(itemId);
     }
-
-//    @Transactional(readOnly = true)
-//    public List<ItemResponse> searchItems(ItemSearchRequest itemSearchRequest) {
-//        ItemEntity filter = itemSearchRequest.toItem();
-//        return itemRepositoryJpa.searchItems(filter)
-//                .stream()
-//                .map(ItemResponse::of)
-//                .collect(Collectors.toList());
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<Item> searchItems(ItemSearchRequest itemSearchRequest) {
+        return itemRepository
+                .searchItems(itemSearchRequest.getName(),itemSearchRequest.getCost(),itemSearchRequest.getHotIce());
+    }
 //
 //    public PageImpl<ItemResponse> searchItemsPaging(ItemSearchRequest itemSearchRequest, PageRequest pageRequest) {
 //        Pageable pageable = pageRequest.of();

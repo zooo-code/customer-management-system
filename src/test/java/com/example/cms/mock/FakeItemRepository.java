@@ -86,4 +86,13 @@ public class FakeItemRepository implements ItemRepository {
         }
 
     }
+
+    @Override
+    public List<Item> searchItems(String name, Integer cost, EItemStatus eItemStatus) {
+        return data.stream()
+                .filter(test -> test.getName().contains(name)
+                        ||test.getCost().equals(cost)
+                        ||test.getHotIce().equals(eItemStatus))
+                .collect(Collectors.toList());
+    }
 }

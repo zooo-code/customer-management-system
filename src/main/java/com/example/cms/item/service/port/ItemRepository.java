@@ -24,4 +24,6 @@ public interface ItemRepository {
     boolean existsByNameAndCostAndHotIce(String name, int cost, EItemStatus hotIce);
 
     Item save(Item item);
+
+    List<Item> searchItems(String name, Integer cost, EItemStatus eItemStatus);
 }

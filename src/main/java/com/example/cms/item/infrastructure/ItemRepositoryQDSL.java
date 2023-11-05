@@ -20,15 +20,15 @@ public class ItemRepositoryQDSL implements ItemCustomRepository{
 
 
 
-//    @Override
-//    public List<ItemEntity> searchItems(ItemEntity filter) {
-//        return queryFactory.selectFrom(QItemEntity.itemEntity)
-//                .where(containName(filter.getName()),
-//                        eqCost(filter.getCost()),
-//                        eqHotIce(filter.getHotIce())
-//                )
-//                .fetch();
-//    }
+    @Override
+    public List<ItemEntity> searchItems(String name, Integer cost, EItemStatus eItemStatus) {
+        return queryFactory.selectFrom(QItemEntity.itemEntity)
+                .where(containName(name),
+                        eqCost(cost),
+                        eqHotIce(eItemStatus)
+                )
+                .fetch();
+    }
 //
 //    @Override
 //    public PageImpl<ItemEntity> searchItemsPaging(Pageable pageable, ItemEntity filter) {
@@ -53,15 +53,15 @@ public class ItemRepositoryQDSL implements ItemCustomRepository{
 //        return new PageImpl<>(itemEntities, pageable, count);
 //    }
 //
-//    private BooleanExpression containName(String name){
-//        return hasText(name) ? QItemEntity.itemEntity.name.contains(name) : null ;
-//    }
-//
-//    private BooleanExpression eqCost(Integer cost){
-//        return cost != null ? QItemEntity.itemEntity.cost.eq(cost) : null ;
-//    }
-//
-//    private BooleanExpression eqHotIce(EItemStatus hotIce){
-//        return hotIce != null ? QItemEntity.itemEntity.hotIce.eq(hotIce) : null;
-//    }
+    private BooleanExpression containName(String name){
+        return hasText(name) ? QItemEntity.itemEntity.name.contains(name) : null ;
+    }
+
+    private BooleanExpression eqCost(Integer cost){
+        return cost != null ? QItemEntity.itemEntity.cost.eq(cost) : null ;
+    }
+
+    private BooleanExpression eqHotIce(EItemStatus hotIce){
+        return hotIce != null ? QItemEntity.itemEntity.hotIce.eq(hotIce) : null;
+    }
 }
