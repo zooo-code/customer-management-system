@@ -50,7 +50,7 @@ class ItemServiceTest {
                 .build();
         //when
         itemService.create(test);
-        Item item = itemService.findByName("test11").orElseThrow(()->new CommonException(ErrorCode.DATA_NOT_FOUND));
+        Item item = itemService.findByName("test11");
 
         //then
         assertThat(test.getName()).isEqualTo(item.getName());
@@ -82,7 +82,7 @@ class ItemServiceTest {
     @Test
     void 상품이름으로_찾을_수_있다(){
         //given
-        Item test11 = itemService.findByName("test1").orElseThrow(()->new CommonException(ErrorCode.DATA_NOT_FOUND));
+        Item test11 = itemService.findByName("test1");
         //when
 
         //then
@@ -99,10 +99,32 @@ class ItemServiceTest {
                 .build();
         //when
         itemService.update(test);
-        Item item = itemService.findByName("test1").orElseThrow(()->new CommonException(ErrorCode.DATA_NOT_FOUND));
+        Item item = itemService.findByName("test1");
         //then
         assertThat(test.getName()).isEqualTo(item.getName());
         assertThat(test.getCost()).isEqualTo(item.getCost());
         assertThat(test.getHotIce()).isEqualTo(item.getHotIce());
+    }
+
+    @Test
+    void ItemDelete_로_아이템을_삭제할_수_있다(){
+        //given
+
+        ItemCreate test = ItemCreate.builder()
+                .name("test11")
+                .cost(12234)
+                .hotIce(EItemStatus.ICED)
+                .build();
+        //when
+        itemService.create(test);
+        Item delItem = itemService
+                .findByName("test11");
+        itemService.delete(delItem.getItemId());
+
+        //then
+        assertThatThrownBy(() ->itemService
+                .findByName("test11"))
+                .isInstanceOf(CommonException.class);
+
     }
 }

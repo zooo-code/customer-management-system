@@ -29,8 +29,10 @@ public class ItemServiceImpl implements ItemService {
     private final ClockHolder clockHolder;
 
     @Override
-    public Optional<Item> findByName(String name) {
-        return itemRepository.findByName(name);
+    public Item findByName(String name) {
+        return itemRepository
+                .findByName(name)
+                .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
     }
 
     @Override

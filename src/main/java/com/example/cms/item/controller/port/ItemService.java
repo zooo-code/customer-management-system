@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemService {
-    Optional<Item> findByName(String name);
+    Item findByName(String name);
     List<Item> findAll();
     List<Item> findAllByNameContaining(String name);
 
