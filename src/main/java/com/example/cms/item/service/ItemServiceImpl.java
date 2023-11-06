@@ -51,7 +51,7 @@ public class ItemServiceImpl implements ItemService {
     public void create(ItemCreate itemCreate){
         Item item = Item.from(itemCreate,clockHolder);
         //중복체크
-        Boolean isExistItemAndStatus = itemRepository
+        boolean isExistItemAndStatus = itemRepository
                 .existsByNameAndAndHotIce(item.getName(), item.getHotIce());
 
         if(isExistItemAndStatus){
@@ -81,7 +81,8 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemRepository
                 .findByName(itemUpdate.getName()).orElseThrow(()->new CommonException(DATA_NOT_FOUND));
         //name, cost, h/i 가 모두 중복
-        Boolean isDuplicated = itemRepository.existsByNameAndCostAndHotIce(itemUpdate.getName(), itemUpdate.getCost(), itemUpdate.getHotIce());
+        boolean isDuplicated = itemRepository
+                .existsByNameAndCostAndHotIce(itemUpdate.getName(), itemUpdate.getCost(), itemUpdate.getHotIce());
         if(isDuplicated) {
             throw new CommonException(DUPLICATE_RESOURCE);
         }
