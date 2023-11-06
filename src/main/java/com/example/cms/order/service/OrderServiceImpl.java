@@ -5,6 +5,7 @@ import com.example.cms.cart.service.port.CartRepository;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.service.port.MemberRepository;
 import com.example.cms.order.controller.port.OrderService;
+import com.example.cms.order.domain.Cashier;
 import com.example.cms.order.domain.Order;
 import com.example.cms.order.domain.OrderCreate;
 import com.example.cms.order.service.port.OrderRepository;
@@ -47,23 +48,14 @@ public class OrderServiceImpl implements OrderService {
 
         //1-2. payment 확인
         //2. 포인트 차감
-        calculateMemberPoint(member, order);
 
+        Cashier cashier = new Cashier();
+        Member calMember = cashier.calculate(member, order);
+        memberRepository.save(calMember);
         return orderRepository.save(order);
 
     }
 
-    private void calculateMemberPoint(Member member, Order order) {
-        int memberPoint = order.getMember().getMembershipPoint();
-        int payAmount = order.getOrdersPrice();
-        if (memberPoint < payAmount) {
-            throw new IllegalStateException("포인트가 부족합니다.");
-        }
-        int remainPoint = memberPoint - payAmount;
-        //남은 포인트 set
-        member.updatePoint(remainPoint);
-        memberRepository.save(member);
-    }
 
     @Override
     public List<Order> findByOrdersId(String orderId) {

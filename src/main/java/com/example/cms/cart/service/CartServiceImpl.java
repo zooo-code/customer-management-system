@@ -41,27 +41,27 @@ public class CartServiceImpl implements CartService {
         //카트 생성
         List<CartItemRequest> cartItemRequests = cartRequest.getCartItemRequests();
         Cart cart = Cart.cartCreate(clockHolder);
-
-        return makeCart(cart,cartItemRequests);
+        Cart saveCart = cartRepository.save(cart);
+        return makeCart(saveCart,cartItemRequests);
     }
 
     private Cart makeCart(Cart cart, List<CartItemRequest> cartItemRequests) {
-        Cart save = cartRepository.save(cart);
+
         for (CartItemRequest cartItemRequest : cartItemRequests) {
             //카트에 총 상품의 수를 증가
             Item drink = itemRepository
                     .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
 
-            save.addTotalPrice(drink.getCost() * cartItemRequest.getCount());
-            save.addCountCart(cartItemRequest.getCount());
+            cart.addTotalPrice(drink.getCost() * cartItemRequest.getCount());
+            cart.addCountCart(cartItemRequest.getCount());
 
             CartItem cartItem = CartItem
-                    .createCartItem(save, drink, cartItemRequest.getCount());
+                    .createCartItem(cart, drink, cartItemRequest.getCount());
 
-            save.addCartItem(cartItem);
+            cart.addCartItem(cartItem);
             cartItemRepository.save(cartItem);
         }
-        return cartRepository.save(save);
+        return cartRepository.save(cart);
     }
 
 //    카트의 상태만 NOORDER 처리
