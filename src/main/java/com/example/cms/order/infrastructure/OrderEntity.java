@@ -2,6 +2,7 @@ package com.example.cms.order.infrastructure;
 
 import com.example.cms.cart.infrastructure.CartEntity;
 import com.example.cms.member.infrastructure.MemberEntity;
+import com.example.cms.order.domain.EOrderStatus;
 import com.example.cms.order.domain.EPayments;
 import com.example.cms.order.domain.Order;
 
@@ -48,9 +49,12 @@ public class OrderEntity   {
 
     @Column(name = "create_at")
     private Long createAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name ="order_status", nullable = false)
+    private EOrderStatus status;
     @Builder
-    public OrderEntity(Long id, String ordersId, Long cancelDate, Integer ordersPrice, EPayments payment,
-                       CartEntity cartEntity, MemberEntity memberEntity, Long createAt) {
+    public OrderEntity(Long id, String ordersId, Long cancelDate, Integer ordersPrice, EPayments payment, CartEntity cartEntity, MemberEntity memberEntity, Long createAt, EOrderStatus status) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
@@ -59,8 +63,8 @@ public class OrderEntity   {
         this.cartEntity = cartEntity;
         this.memberEntity = memberEntity;
         this.createAt = createAt;
+        this.status = status;
     }
-
 
 
 
@@ -74,6 +78,7 @@ public class OrderEntity   {
         orderEntity.cartEntity = CartEntity.from(order.getCart());
         orderEntity.memberEntity = MemberEntity.from(order.getMember());
         orderEntity.createAt = order.getCreatedAt();
+        orderEntity.status = order.getStatus();
         return orderEntity;
     }
 
@@ -88,6 +93,7 @@ public class OrderEntity   {
                 .member(memberEntity.toModel())
                 .payment(payment)
                 .createdAt(createAt)
+                .status(status)
                 .build();
 
     }

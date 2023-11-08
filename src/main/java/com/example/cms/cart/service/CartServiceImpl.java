@@ -3,6 +3,7 @@ import com.example.cms.cart.controller.port.CartService;
 import com.example.cms.cart.controller.request.CartRequest;
 import com.example.cms.cart.domain.Cart;
 
+import com.example.cms.cart.domain.Carter;
 import com.example.cms.cart.exception.CartNotFoundException;
 import com.example.cms.cart.service.port.CartRepository;
 import com.example.cms.cartitem.controller.request.CartItemRequest;
@@ -41,24 +42,16 @@ public class CartServiceImpl implements CartService {
         //카트 생성
         List<CartItemRequest> cartItemRequests = cartRequest.getCartItemRequests();
         Cart cart = Cart.cartCreate(clockHolder);
-        Cart saveCart = cartRepository.save(cart);
-        return makeCart(saveCart,cartItemRequests);
-    }
-
-    private Cart makeCart(Cart cart, List<CartItemRequest> cartItemRequests) {
-
+        Cart save = cartRepository.save(cart);
+        Carter carter = new Carter();
         for (CartItemRequest cartItemRequest : cartItemRequests) {
             //카트에 총 상품의 수를 증가
             Item drink = itemRepository
                     .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
-
-            cart.addTotalPrice(drink.getCost() * cartItemRequest.getCount());
-            cart.addCountCart(cartItemRequest.getCount());
-
+            Cart makeCart = carter.make(save, drink, cartItemRequest.getCount());
             CartItem cartItem = CartItem
-                    .createCartItem(cart, drink, cartItemRequest.getCount());
-
-            cart.addCartItem(cartItem);
+                    .createCartItem(save, drink, cartItemRequest.getCount());
+            makeCart.addCartItem(cartItem);
             cartItemRepository.save(cartItem);
         }
         return cartRepository.save(cart);

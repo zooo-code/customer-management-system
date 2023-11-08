@@ -25,10 +25,10 @@ public class Order {
 
     private final Member member;
     private final Long CreatedAt;
-
+    private final EOrderStatus status;
     @Builder
     public Order(Long id, String ordersId, Long cancelDate, Integer ordersPrice,
-                 EPayments payment, Cart cart, Member member, Long createdAt) {
+                 EPayments payment, Cart cart, Member member, Long createdAt, EOrderStatus status) {
         this.id = id;
         this.ordersId = ordersId;
         this.cancelDate = cancelDate;
@@ -36,8 +36,12 @@ public class Order {
         this.payment = payment;
         this.cart = cart;
         this.member = member;
-        this.CreatedAt = createdAt;
+        CreatedAt = createdAt;
+        this.status = status;
     }
+
+
+
     public static Order from(OrderCreate orderCreate, UuidHolder uuidHolder, Member member, Cart cart, ClockHolder clockHolder){
         return Order.builder()
                 .cart(cart)
@@ -46,6 +50,7 @@ public class Order {
                 .payment(orderCreate.getPayment())
                 .ordersPrice(cart.getTotalPrice())
                 .createdAt(clockHolder.millis())
+                .status(EOrderStatus.ORDERING)
                 .build();
     }
 
