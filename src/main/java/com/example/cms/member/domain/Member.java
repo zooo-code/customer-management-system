@@ -29,11 +29,11 @@ public class Member {
     }
 
     public static Member from(MemberCreate memberCreate, ClockHolder clockHolder){
-        Integer firstPoint = 0;
+        final Integer FIRST_POINT = 0;
         return Member.builder()
                 .phone(memberCreate.getPhone())
                 .name(memberCreate.getName())
-                .membershipPoint(firstPoint)
+                .membershipPoint(FIRST_POINT)
                 .status(EMemberStatus.OPEN)
                 .createAt(clockHolder.millis())
                 .build();
