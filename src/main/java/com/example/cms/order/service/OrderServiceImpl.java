@@ -1,6 +1,7 @@
 package com.example.cms.order.service;
 
 import com.example.cms.cart.domain.Cart;
+import com.example.cms.cart.domain.ECartStatus;
 import com.example.cms.cart.service.port.CartRepository;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.service.port.MemberRepository;
@@ -8,6 +9,7 @@ import com.example.cms.order.controller.port.OrderService;
 import com.example.cms.order.domain.Cashier;
 import com.example.cms.order.domain.Order;
 import com.example.cms.order.domain.OrderCreate;
+import com.example.cms.order.execption.CanNotOrderException;
 import com.example.cms.order.service.port.OrderRepository;
 import com.example.cms.utils.common.service.port.ClockHolder;
 import com.example.cms.utils.common.service.port.UuidHolder;
@@ -44,6 +46,10 @@ public class OrderServiceImpl implements OrderService {
 
         Cart cart = cartRepository.findById(orderCreate.getCartId())
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
+        if (cart.getStatus() != ECartStatus.ORDER){
+            throw new CanNotOrderException("OrderStatus is cancel");
+        }
+
         Order order = Order.from(orderCreate, uuidHolder, member, cart, clockHolder);
 
         //1-2. payment 확인
