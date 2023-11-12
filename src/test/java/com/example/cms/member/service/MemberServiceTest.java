@@ -7,7 +7,7 @@ import com.example.cms.member.domain.MemberCreate;
 import com.example.cms.member.domain.MemberUpdate;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
-import com.example.cms.mock.FakeMemberRepository;
+import com.example.cms.mock.member.FakeMemberRepository;
 import com.example.cms.mock.TestClockHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,11 +1,11 @@
 package com.example.cms.initdb;
 
 
-import com.example.cms.member.controller.port.MemberService;
+
 import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.infrastructure.MemberEntity;
 import com.example.cms.member.infrastructure.MemberRepositoryJpa;
-import com.example.cms.member.service.port.MemberRepository;
+
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -50,4 +50,6 @@ public class InitDb {
         }
 
     }
+
+
 }

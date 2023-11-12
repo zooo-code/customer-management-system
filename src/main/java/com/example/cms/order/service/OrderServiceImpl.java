@@ -14,6 +14,7 @@ import com.example.cms.order.service.port.OrderRepository;
 import com.example.cms.utils.common.service.port.ClockHolder;
 import com.example.cms.utils.common.service.port.UuidHolder;
 import com.example.cms.utils.exception.CommonException;
+import com.example.cms.utils.exception.ErrorCode;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -64,20 +65,21 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Order> findByOrdersId(String orderId) {
-        Order order = orderRepository.findById(orderId)
+        Order order = orderRepository.findByOrdersId(orderId)
                 .orElseThrow(() -> new IllegalStateException("주문 내역이 없습니다."));
 
         return List.of(order);
     }
     @Override
+    @Transactional
     public void cancel(String orderId) {
-        //1.포인트 업뎃
 
+        Order order = orderRepository
+                .findByOrdersId(orderId)
+                .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
+        order.cancel(clockHolder);
 
-//        member.updatePoint(resultPoint);
-
-        //2. 오더 삭제
-//        orderRepository.deleteById(orderId);
     }
 }
