@@ -11,6 +11,6 @@ public interface OrderRepository {
 
     boolean existsByOrdersId(String orderId);
 
-    Optional<Order> findById(String orderId);
+    Optional<Order> findByOrdersId(String orderId);
 
 }

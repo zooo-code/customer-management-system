@@ -12,5 +12,5 @@ public interface OrderRepositoryJpa extends JpaRepository<OrderEntity,String> {
 
     boolean existsByOrdersId(String orderId);
 
-    Optional<OrderEntity> findById(String orderId);
+    Optional<OrderEntity> findByOrdersId(String orderId);
 }
