@@ -2,12 +2,10 @@ package com.example.cms.order.service;
 
 
 import com.example.cms.mock.FakeCartRepository;
-import com.example.cms.mock.FakeMemberRepository;
+import com.example.cms.mock.member.FakeMemberRepository;
 import com.example.cms.mock.FakeOrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class OrderServiceImplTest {
 

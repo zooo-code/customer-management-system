@@ -1,4 +1,4 @@
-package com.example.cms.mock;
+package com.example.cms.mock.member;
 
 
 import com.example.cms.member.domain.Member;
