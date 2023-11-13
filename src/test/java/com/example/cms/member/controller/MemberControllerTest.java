@@ -2,9 +2,11 @@ package com.example.cms.member.controller;
 
 import com.example.cms.member.controller.response.MemberCreateResponse;
 import com.example.cms.member.controller.response.MemberResponse;
+import com.example.cms.member.controller.response.MemberUpdateResponse;
 import com.example.cms.member.domain.EMemberStatus;
 import com.example.cms.member.domain.Member;
 import com.example.cms.member.domain.MemberCreate;
+import com.example.cms.member.domain.MemberUpdate;
 import com.example.cms.mock.member.MemberTestContainer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -63,6 +65,41 @@ class MemberControllerTest {
         assertThat(member.getBody().getName()).isEqualTo(test.getName());
         assertThat(member.getBody().getMobile()).isEqualTo(test.getPhone());
         assertThat(member.getBody().getMembershipPoint()).isEqualTo(0);
+
+
+    }
+
+    @Test
+    @DisplayName("회원의 정보를 수정할 수 있다.")
+    void updateMemberController(){
+        MemberTestContainer memberTestContainer = MemberTestContainer
+                .builder()
+                .clockHolder(()->200L)
+                .build();
+
+
+        Member test = memberTestContainer.memberRepository.save(Member.builder()
+                .phone("1234")
+                .id(1L)
+                .name("test")
+                .status(EMemberStatus.OPEN)
+                .membershipPoint(0)
+                .createAt(1L)
+                .build());
+        MemberUpdate build = MemberUpdate.builder()
+                .name(test.getName())
+                .status(test.getStatus())
+                .phone("12345")
+                .build();
+        ResponseEntity<MemberUpdateResponse> member = memberTestContainer
+                .memberController
+                .updateMember(test.getPhone(),build);
+
+        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(member.getBody()).isNotNull();
+        assertThat(member.getBody().getName()).isEqualTo(test.getName());
+        assertThat(member.getBody().getMobile()).isEqualTo(build.getPhone());
+
 
 
     }
