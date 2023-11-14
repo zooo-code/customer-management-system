@@ -15,7 +15,7 @@ public interface ItemService {
     List<Item> findAll();
     List<Item> findAllByNameContaining(String name);
 
-    void create(ItemCreate itemCreate);
+    Item create(ItemCreate itemCreate);
 
 
     Item update(ItemUpdate updateRequest);

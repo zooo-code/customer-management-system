@@ -2,19 +2,12 @@ package com.example.cms.cart.service;
 
 import com.example.cms.cart.domain.Cart;
 import com.example.cms.cartitem.domain.CartItem;
-import com.example.cms.cartitem.service.port.CartItemRepository;
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
-import com.example.cms.member.domain.EMemberStatus;
-import com.example.cms.member.domain.Member;
-import com.example.cms.member.service.MemberServiceImpl;
 import com.example.cms.mock.*;
-import com.example.cms.order.domain.OrderCreate;
+import com.example.cms.mock.item.FakeItemRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class CartServiceTest {
     private CartServiceImpl cartService;

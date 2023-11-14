@@ -31,7 +31,7 @@ class MemberControllerTest {
                 .memberController
                 .createMember(test);
 
-        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(member.getBody()).isNotNull();
         assertThat(member.getBody().getName()).isEqualTo(test.getName());
         assertThat(member.getBody().getPhone()).isEqualTo(test.getPhone());
@@ -60,7 +60,7 @@ class MemberControllerTest {
                 .memberController
                 .findMembership(test.getPhone());
 
-        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.FOUND);
         assertThat(member.getBody()).isNotNull();
         assertThat(member.getBody().getName()).isEqualTo(test.getName());
         assertThat(member.getBody().getMobile()).isEqualTo(test.getPhone());

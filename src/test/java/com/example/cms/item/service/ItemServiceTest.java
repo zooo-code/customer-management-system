@@ -5,10 +5,9 @@ import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.domain.ItemCreate;
 import com.example.cms.item.domain.ItemUpdate;
-import com.example.cms.mock.FakeItemRepository;
+import com.example.cms.mock.item.FakeItemRepository;
 import com.example.cms.mock.TestClockHolder;
 import com.example.cms.utils.exception.CommonException;
-import com.example.cms.utils.exception.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
