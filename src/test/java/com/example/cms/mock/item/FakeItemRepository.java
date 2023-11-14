@@ -1,4 +1,4 @@
-package com.example.cms.mock;
+package com.example.cms.mock.item;
 
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;

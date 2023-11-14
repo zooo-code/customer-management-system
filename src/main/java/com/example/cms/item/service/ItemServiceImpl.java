@@ -48,7 +48,7 @@ public class ItemServiceImpl implements ItemService {
     }
     @Override
     @Transactional
-    public void create(ItemCreate itemCreate){
+    public Item create(ItemCreate itemCreate){
         Item item = Item.from(itemCreate,clockHolder);
         //중복체크
         boolean isExistItemAndStatus = itemRepository
@@ -58,9 +58,8 @@ public class ItemServiceImpl implements ItemService {
             Item originItem = itemRepository
                     .findByNameAndHotIce(item.getName(), item.getHotIce());
             validateDuplicate(originItem, item);
-        }else {
-            itemRepository.save(item);
         }
+        return itemRepository.save(item);
     }
 
     private void validateDuplicate(Item originItem, Item newItem){

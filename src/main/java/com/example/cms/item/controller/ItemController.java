@@ -8,11 +8,15 @@ import com.example.cms.item.domain.ItemUpdate;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Builder
 @Tag(name = "Items", description = "상품 API")
 @RestController
 @RequiredArgsConstructor
@@ -36,8 +40,10 @@ public class ItemController {
 
     @Operation(summary = "신규 상품 추가", description = "신규 상품을 추가합니다. 같은 이름의 메뉴를 중복체크합니다.")
     @PostMapping
-    public void create(@RequestBody ItemCreate itemCreate){
-        itemService.create(itemCreate);
+    public ResponseEntity<Item> create(@RequestBody ItemCreate itemCreate){
+        Item item = itemService.create(itemCreate);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(item);
     }
 
     @Operation(summary = "상품 정보 수정", description = "상품 정보를 수정합니다.")
