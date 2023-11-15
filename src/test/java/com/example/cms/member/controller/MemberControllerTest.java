@@ -37,6 +37,7 @@ class MemberControllerTest {
         assertThat(member.getBody().getPhone()).isEqualTo(test.getPhone());
         assertThat(member.getBody().getMyPoint()).isEqualTo(0);
 
+
     }
 
     @Test
@@ -99,6 +100,41 @@ class MemberControllerTest {
         assertThat(member.getBody()).isNotNull();
         assertThat(member.getBody().getName()).isEqualTo(test.getName());
         assertThat(member.getBody().getMobile()).isEqualTo(build.getPhone());
+
+
+
+    }
+
+    @Test
+    @DisplayName("회원의 정보를 이름만 수정할 수 있다.")
+    void updateNameMemberController(){
+        MemberTestContainer memberTestContainer = MemberTestContainer
+                .builder()
+                .clockHolder(()->200L)
+                .build();
+
+
+        Member test = memberTestContainer.memberRepository.save(Member.builder()
+                .phone("1234")
+                .id(1L)
+                .name("test")
+                .status(EMemberStatus.OPEN)
+                .membershipPoint(0)
+                .createAt(1L)
+                .build());
+        MemberUpdate build = MemberUpdate.builder()
+                .name("test123")
+                .status(test.getStatus())
+                .build();
+        ResponseEntity<MemberUpdateResponse> member = memberTestContainer
+                .memberController
+                .updateMember(test.getPhone(),build);
+
+        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(member.getBody()).isNotNull();
+        assertThat(member.getBody().getName()).isEqualTo(build.getName());
+        assertThat(member.getBody().getMobile()).isEqualTo(test.getPhone());
+
 
 
 
