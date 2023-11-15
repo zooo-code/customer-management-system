@@ -37,6 +37,7 @@ class MemberControllerTest {
         assertThat(member.getBody().getPhone()).isEqualTo(test.getPhone());
         assertThat(member.getBody().getMyPoint()).isEqualTo(0);
 
+
     }
 
     @Test
