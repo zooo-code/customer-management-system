@@ -39,6 +39,25 @@ public class Member {
                 .build();
     }
     public Member update(MemberUpdate memberUpdate,ClockHolder clockHolder){
+        if (memberUpdate.getName()== null){
+            return Member.builder()
+                    .id(id)
+                    .status(memberUpdate.getStatus())
+                    .membershipPoint(membershipPoint)
+                    .modifiedAt(clockHolder.millis())
+                    .phone(memberUpdate.getPhone())
+                    .name(name)
+                    .build();
+        }else if(memberUpdate.getPhone() == null) {
+            return Member.builder()
+                    .id(id)
+                    .status(memberUpdate.getStatus())
+                    .membershipPoint(membershipPoint)
+                    .modifiedAt(clockHolder.millis())
+                    .phone(phone)
+                    .name(memberUpdate.getName())
+                    .build();
+        }
         return Member.builder()
                 .id(id)
                 .status(memberUpdate.getStatus())
