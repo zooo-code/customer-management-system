@@ -133,4 +133,57 @@ class OrderTest {
 
     }
 
+    @Test
+    @DisplayName("주문을 시작할 수 있다.")
+    void OrderStart(){
+
+        //given
+        Member member = Member.builder()
+                .id(1L)
+                .name("123")
+                .phone("1234")
+                .status(EMemberStatus.OPEN)
+                .membershipPoint(100000)
+                .build();
+        //주문을 하기 위해서는 카트가 필요하다 -> 카트는 아이템으로 구성 되어있다.
+
+        Item test = Item.builder()
+                .hotIce(EItemStatus.HOT)
+                .cost(1000)
+                .name("test")
+                .build();
+
+        CartItem cartItem = CartItem.builder()
+                .item(test)
+                .price(test.getCost() * 3)
+                .count(3)
+                .build();
+
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(cartItem);
+        Cart cart = Cart.builder()
+                .id(1L)
+                .cartItems(cartItems)
+                .count(cartItem.getCount())
+                .totalPrice(cartItem.getPrice())
+                .build();
+
+        OrderCreate orderCreate = OrderCreate.builder()
+                .cartId(1L)
+                .mobile(member.getPhone())
+                .cartId(cart.getId())
+                .payment(EPayments.POINT)
+                .build();
+
+        Order newOrder = Order
+                .from(orderCreate, new TestUuidHolder("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), member,
+                        cart, new TestClockHolder(1L));
+
+        Long start = newOrder.start(() -> 100L);
+
+        assertThat(newOrder.getStatus()).isEqualTo(EOrderStatus.START);
+        assertThat(start).isEqualTo(100L);
+
+    }
+
 }

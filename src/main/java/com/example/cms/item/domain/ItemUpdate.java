@@ -10,17 +10,15 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ItemUpdate {
 
-    private Long itemId;
     private String name;
     private Integer cost;
     private EItemStatus hotIce;
 
     @Builder
-    public ItemUpdate(@JsonProperty("itemId") Long itemId,
-                      @JsonProperty("name") String name,
+    public ItemUpdate(@JsonProperty("name") String name,
                       @JsonProperty("cost") Integer cost,
                       @JsonProperty("status") EItemStatus hotIce) {
-        this.itemId = itemId;
+
         this.name = name;
         this.cost = cost;
         this.hotIce = hotIce;
