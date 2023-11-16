@@ -25,7 +25,7 @@ public class Order {
 
     private final Member member;
     private final Long CreatedAt;
-    private final EOrderStatus status;
+    private EOrderStatus status;
     @Builder
     public Order(Long id, String ordersId, Long cancelDate, Integer ordersPrice,
                  EPayments payment, Cart cart, Member member, Long createdAt, EOrderStatus status) {
@@ -55,6 +55,7 @@ public class Order {
     }
 
     public void cancel(ClockHolder clockHolder){
+        this.status = EOrderStatus.CANCEL;
         this.cancelDate = clockHolder.millis();
     }
 }

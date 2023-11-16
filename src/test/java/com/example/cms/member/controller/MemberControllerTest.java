@@ -88,7 +88,7 @@ class MemberControllerTest {
                 .createAt(1L)
                 .build());
         MemberUpdate build = MemberUpdate.builder()
-                .name(test.getName())
+                .name("test123")
                 .status(test.getStatus())
                 .phone("12345")
                 .build();
@@ -98,7 +98,7 @@ class MemberControllerTest {
 
         assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(member.getBody()).isNotNull();
-        assertThat(member.getBody().getName()).isEqualTo(test.getName());
+        assertThat(member.getBody().getName()).isEqualTo(build.getName());
         assertThat(member.getBody().getMobile()).isEqualTo(build.getPhone());
 
 

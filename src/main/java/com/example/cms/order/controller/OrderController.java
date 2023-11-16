@@ -23,7 +23,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    //TODO: 취소
+
 
     @PostMapping
     @Operation(summary = "주문 및 결제", description = "주문한 내역을 결제합니다. 일단 포인트 결제만 구현")
