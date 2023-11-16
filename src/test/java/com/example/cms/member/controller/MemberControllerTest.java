@@ -88,7 +88,7 @@ class MemberControllerTest {
                 .createAt(1L)
                 .build());
         MemberUpdate build = MemberUpdate.builder()
-                .name(test.getName())
+                .name("test123")
                 .status(test.getStatus())
                 .phone("12345")
                 .build();
@@ -98,7 +98,7 @@ class MemberControllerTest {
 
         assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(member.getBody()).isNotNull();
-        assertThat(member.getBody().getName()).isEqualTo(test.getName());
+        assertThat(member.getBody().getName()).isEqualTo(build.getName());
         assertThat(member.getBody().getMobile()).isEqualTo(build.getPhone());
 
 
@@ -135,8 +135,37 @@ class MemberControllerTest {
         assertThat(member.getBody().getName()).isEqualTo(build.getName());
         assertThat(member.getBody().getMobile()).isEqualTo(test.getPhone());
 
+    }
 
 
+    @Test
+    @DisplayName("회원의 정보를 번호만 수정할 수 있다.")
+    void updatePhoneMemberController(){
+        MemberTestContainer memberTestContainer = MemberTestContainer
+                .builder()
+                .clockHolder(()->200L)
+                .build();
+
+
+        Member test = memberTestContainer.memberRepository.save(Member.builder()
+                .phone("1234")
+                .id(1L)
+                .name("test")
+                .status(EMemberStatus.OPEN)
+                .membershipPoint(0)
+                .createAt(1L)
+                .build());
+        MemberUpdate build = MemberUpdate.builder()
+                .phone("123123")
+                .status(test.getStatus())
+                .build();
+        ResponseEntity<MemberUpdateResponse> member = memberTestContainer
+                .memberController
+                .updateMember(test.getPhone(),build);
+
+        assertThat(member.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(member.getBody()).isNotNull();
+        assertThat(member.getBody().getMobile()).isEqualTo(build.getPhone());
 
     }
 }
