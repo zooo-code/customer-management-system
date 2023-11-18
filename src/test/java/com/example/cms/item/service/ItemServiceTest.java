@@ -8,6 +8,7 @@ import com.example.cms.item.domain.ItemUpdate;
 import com.example.cms.mock.item.FakeItemRepository;
 import com.example.cms.mock.TestClockHolder;
 import com.example.cms.utils.exception.CommonException;
+import com.example.cms.utils.exception.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -104,6 +105,20 @@ class ItemServiceTest {
         assertThat(test.getName()).isEqualTo(item.getName());
         assertThat(test.getCost()).isEqualTo(item.getCost());
         assertThat(test.getHotIce()).isEqualTo(item.getHotIce());
+    }
+
+    @Test
+    void Item_중복은_수정할_수_없다(){
+        //given
+
+        ItemUpdate test = ItemUpdate.builder()
+                .name("test1")
+                .cost(10000)
+                .hotIce(EItemStatus.ICED)
+                .build();
+        //when
+        assertThatThrownBy(()-> itemService.update(test))
+                .isInstanceOf(CommonException.class);
     }
 
     @Test

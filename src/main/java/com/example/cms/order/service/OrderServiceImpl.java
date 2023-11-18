@@ -41,7 +41,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order createOrder(OrderCreate orderCreate) {
 
-        //1. 회원 멤버십 포인트 확인
         Member member = memberRepository.findByMobile(orderCreate.getMobile())
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
 
@@ -53,8 +52,6 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = Order.from(orderCreate, uuidHolder, member, cart, clockHolder);
 
-        //1-2. payment 확인
-        //2. 포인트 차감
 
         Cashier cashier = new Cashier();
         Member calMember = cashier.calculate(member, order);
@@ -81,5 +78,12 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
         order.cancel(clockHolder);
 
+    }
+
+    @Override
+    public Long start(String orderId) {
+        Order order = orderRepository.findByOrdersId(orderId)
+                .orElseThrow(() -> new CommonException(DATA_NOT_FOUND));
+        return order.start(clockHolder);
     }
 }

@@ -8,11 +8,5 @@ public class MemberNotFoundException extends RuntimeException{
         super(message);
     }
 
-    public MemberNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
 
-    public MemberNotFoundException(Throwable cause) {
-        super(cause);
-    }
 }
