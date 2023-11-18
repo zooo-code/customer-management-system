@@ -4,6 +4,8 @@ import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.Objects;
+
 
 @Getter
 public class Member {
@@ -67,7 +69,6 @@ public class Member {
                 .name(memberUpdate.getName())
                 .build();
     }
-
 
 
     public void updatePoint(Integer remainPoint) {

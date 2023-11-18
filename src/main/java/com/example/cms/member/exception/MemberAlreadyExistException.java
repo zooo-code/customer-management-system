@@ -9,11 +9,5 @@ public class MemberAlreadyExistException extends RuntimeException {
         super(message);
     }
 
-    public MemberAlreadyExistException(String message, Throwable cause) {
-        super(message, cause);
-    }
 
-    public MemberAlreadyExistException(Throwable cause) {
-        super(cause);
-    }
 }
