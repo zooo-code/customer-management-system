@@ -28,14 +28,18 @@ public class ItemController {
 
     @Operation(summary = "상품 목록 조회", description = "상품 목록 전부 조회합니다.")
     @GetMapping
-    public List<Item> findAll(){
-        return itemService.findAll();
+    public ResponseEntity<List<Item>> findAll(){
+        List<Item> all = itemService.findAll();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(all);
     }
 
     @Operation(summary = "상품 이름으로 조회", description = "상품 이름으로 Containing 조회합니다.")
     @GetMapping("/{itemName}")
-    public List<Item> findByName(@PathVariable("itemName") String name){
-        return itemService.findAllByNameContaining(name);
+    public ResponseEntity<List<Item>> findByName(@PathVariable("itemName") String name){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(itemService.findAllByNameContaining(name));
     }
 
     @Operation(summary = "신규 상품 추가", description = "신규 상품을 추가합니다. 같은 이름의 메뉴를 중복체크합니다.")
@@ -48,8 +52,10 @@ public class ItemController {
 
     @Operation(summary = "상품 정보 수정", description = "상품 정보를 수정합니다.")
     @PostMapping("/update")
-    public void update(@RequestBody ItemUpdate itemUpdate){
-        itemService.update(itemUpdate);
+    public ResponseEntity<Item> update(@RequestBody ItemUpdate itemUpdate){
+        Item update = itemService.update(itemUpdate);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(update);
     }
 
 

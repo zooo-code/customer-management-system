@@ -17,7 +17,7 @@ public class MemberEntity  {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-    @Column(length = 11,nullable = false)
+    @Column(name = "mobile",length = 11,nullable = false)
     private String mobile;
     @Column(name = "name",nullable = false)
     private String name;

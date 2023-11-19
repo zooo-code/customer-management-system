@@ -38,7 +38,7 @@ public class MemberController {
     @Operation(summary = "회원 조회", description = "회원에 대한 조회를 진행합니다.")
     @GetMapping("/membership/{phone}")
     public ResponseEntity<MemberResponse> findMembership(@PathVariable String phone){
-        return ResponseEntity.status(HttpStatus.FOUND)
+        return ResponseEntity.status(HttpStatus.OK)
                 .body(MemberResponse
                         .from(memberService.findMembership(phone)));
     }
