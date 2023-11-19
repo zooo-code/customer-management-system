@@ -4,8 +4,10 @@ package com.example.cms.item.domain;
 import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class Item {
 
     private final Long itemId;

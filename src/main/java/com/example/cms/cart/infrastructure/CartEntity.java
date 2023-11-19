@@ -33,7 +33,7 @@ public class CartEntity   {
 
     @OneToMany(mappedBy = "cartEntity")
     private List<CartItemEntity> cartItemEntities = new ArrayList<>();
-    @Column(name = "creatAt")
+    @Column(name = "creat_at")
     private Long createdAt;
     @Column(name= "status")
     private ECartStatus status;
