@@ -2,6 +2,7 @@ package com.example.cms.item.service;
 
 import com.example.cms.item.controller.port.ItemService;
 import com.example.cms.item.controller.request.ItemSearchRequest;
+import com.example.cms.item.domain.ItemCheckDuplicate;
 import com.example.cms.item.domain.ItemCreate;
 import com.example.cms.item.domain.ItemUpdate;
 import com.example.cms.item.domain.Item;
@@ -57,21 +58,12 @@ public class ItemServiceImpl implements ItemService {
         if(isExistItemAndStatus){
             Item originItem = itemRepository
                     .findByNameAndHotIce(item.getName(), item.getHotIce());
-            validateDuplicate(originItem, item);
+            ItemCheckDuplicate itemCheckDuplicate = new ItemCheckDuplicate();
+            itemCheckDuplicate.validate(originItem, item);
         }
         return itemRepository.save(item);
     }
 
-    private void validateDuplicate(Item originItem, Item newItem){
-        // 이름과 상태값이 같은 제품이 있을경우
-        if(originItem != null && ( originItem.getCost().equals(newItem.getCost()))){
-//            throw new IllegalStateException("중복되는 기존 메뉴가 있습니다. " + originItemEntity.getName() + "("+ originItemEntity.getHotIce() +") " +originItemEntity.getCost());
-            throw new CommonException(DUPLICATE_RESOURCE);
-        }else if(originItem != null && (!originItem.getCost().equals(newItem.getCost()))){
-//            throw new IllegalStateException(newItemEntity.getName() +"("+newItemEntity.getHotIce()+") 는(운) 이미 "+originItemEntity.getCost()+"원 으로 책정되어있습니다.");
-            throw new CommonException(DUPLICATE_RESOURCE);
-        }
-    }
     @Override
     @Transactional
     public Item update(ItemUpdate itemUpdate){

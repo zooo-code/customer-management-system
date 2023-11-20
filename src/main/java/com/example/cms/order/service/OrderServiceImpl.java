@@ -51,8 +51,6 @@ public class OrderServiceImpl implements OrderService {
         }
 
         Order order = Order.from(orderCreate, uuidHolder, member, cart, clockHolder);
-
-
         Cashier cashier = new Cashier();
         Member calMember = cashier.calculate(member, order);
         memberRepository.save(calMember);
