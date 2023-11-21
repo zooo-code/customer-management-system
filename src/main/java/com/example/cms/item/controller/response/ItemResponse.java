@@ -1,6 +1,7 @@
 package com.example.cms.item.controller.response;
 
 import com.example.cms.item.domain.EItemStatus;
+import com.example.cms.item.domain.Item;
 import com.example.cms.item.infrastructure.ItemEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,11 +22,11 @@ public class ItemResponse {
         this.hotIce = hotIce;
     }
 
-    public static ItemResponse of(ItemEntity itemEntity){
+    public static ItemResponse from(Item item){
         return ItemResponse.builder()
-                .name(itemEntity.getName())
-                .cost(itemEntity.getCost())
-                .hotIce(itemEntity.getHotIce())
+                .name(item.getName())
+                .cost(item.getCost())
+                .hotIce(item.getHotIce())
                 .build();
     }
 }
