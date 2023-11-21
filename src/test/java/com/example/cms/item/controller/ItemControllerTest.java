@@ -1,5 +1,6 @@
 package com.example.cms.item.controller;
 
+import com.example.cms.item.controller.response.ItemResponse;
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.domain.ItemCreate;
@@ -29,13 +30,12 @@ class ItemControllerTest {
                 .cost(100)
                 .hotIce(EItemStatus.HOT)
                 .build();
-        ResponseEntity<Item> itemResponseEntity = itemTestContainer.itemController.create(test);
+        ResponseEntity<ItemResponse> itemResponseEntity = itemTestContainer.itemController.create(test);
         assertThat(itemResponseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(itemResponseEntity.getBody()).isNotNull();
         assertThat(itemResponseEntity.getBody().getCost()).isEqualTo(100);
         assertThat(itemResponseEntity.getBody().getName()).isEqualTo("test");
         assertThat(itemResponseEntity.getBody().getHotIce()).isEqualTo(EItemStatus.HOT);
-        assertThat(itemResponseEntity.getBody().getCreateAt()).isEqualTo(1L);
 
     }
 
@@ -57,9 +57,9 @@ class ItemControllerTest {
                 .hotIce(EItemStatus.ICED)
                 .cost(1000)
                 .build();
-        ResponseEntity<Item> itemResponseEntity = itemTestContainer.itemController.create(test);
-        ResponseEntity<List<Item>> byName = itemTestContainer.itemController.findByName(test.getName());
-        ResponseEntity<Item> update1 = itemTestContainer.itemController.update(update);
+        itemTestContainer.itemController.create(test);
+        itemTestContainer.itemController.findByName(test.getName());
+        ResponseEntity<ItemResponse> update1 = itemTestContainer.itemController.update(update);
 
         assertThat(update1.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(update1.getBody()).isNotNull();
@@ -82,7 +82,7 @@ class ItemControllerTest {
                     .build();
             itemTestContainer.itemController.create(test);
         }
-        ResponseEntity<List<Item>> all = itemTestContainer.itemController.findAll();
+        ResponseEntity<List<ItemResponse>> all = itemTestContainer.itemController.findAll();
         assertThat(all.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(all.getBody()).isNotNull();
         assertThat(all.getBody().size()).isEqualTo(10);

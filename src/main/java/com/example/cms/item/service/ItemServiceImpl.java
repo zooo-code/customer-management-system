@@ -68,7 +68,6 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public Item update(ItemUpdate itemUpdate){
 
-
         Item item = itemRepository
                 .findByName(itemUpdate.getName()).orElseThrow(()->new CommonException(DATA_NOT_FOUND));
         //name, cost, h/i 가 모두 중복
