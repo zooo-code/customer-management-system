@@ -46,6 +46,14 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.save(update);
     }
 
+    @Override
+    public void blindMember(String phone) {
+        Member member = memberRepository
+                .findByMobile(phone)
+                .orElseThrow(() -> new MemberNotFoundException("member not found"));
+        member.makeBlind();
+        memberRepository.save(member);
+    }
 
 
 }

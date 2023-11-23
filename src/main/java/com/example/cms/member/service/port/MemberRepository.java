@@ -15,6 +15,6 @@ public interface MemberRepository {
 
     Optional<Member> findById(Long id);
 
-
+    void deleteMember(String phone);
 
 }

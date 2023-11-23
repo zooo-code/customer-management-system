@@ -1,5 +1,6 @@
 package com.example.cms.member.controller;
 
+import com.example.cms.member.exception.MemberAlreadyBlindException;
 import com.example.cms.member.exception.MemberAlreadyExistException;
 import com.example.cms.member.exception.MemberNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,11 @@ public class MemberExController {
     }
 
     @ExceptionHandler(MemberNotFoundException.class)
-    public ResponseEntity<?> handleMemberNotFountEx(MemberNotFoundException e){
+    public ResponseEntity<?> handleMemberNotFoundEx(MemberNotFoundException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+    @ExceptionHandler(MemberAlreadyBlindException.class)
+    public ResponseEntity<?> handleMemberAlreadyBlindEx(MemberNotFoundException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 

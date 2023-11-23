@@ -10,6 +10,6 @@ public interface MemberService {
     Member findMembership(String mobile);
     Member memberUpdate(String previousPhone, MemberUpdate memberUpdate);
 
-
+    void blindMember(String phone);
 
 }

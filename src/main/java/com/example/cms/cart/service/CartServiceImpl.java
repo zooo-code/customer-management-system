@@ -33,19 +33,17 @@ public class CartServiceImpl implements CartService {
     private final ItemRepository itemRepository;
     private final CartItemRepository cartItemRepository;
     private final ClockHolder clockHolder;
-    /**
-     * 메뉴를 선택한 후에 메뉴들(리스트로 들어옴)이 카드에 담긴다.
-     */
+
     @Override
     @Transactional
     public Cart CreateCart(CartRequest cartRequest){
-        //카트 생성
+
         List<CartItemRequest> cartItemRequests = cartRequest.getCartItemRequests();
         Cart cart = Cart.cartCreate(clockHolder);
         Cart save = cartRepository.save(cart);
         Carter carter = new Carter();
+
         for (CartItemRequest cartItemRequest : cartItemRequests) {
-            //카트에 총 상품의 수를 증가
             Item drink = itemRepository
                     .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
             Cart makeCart = carter.make(save, drink, cartItemRequest.getCount());
@@ -57,7 +55,7 @@ public class CartServiceImpl implements CartService {
         return cartRepository.save(cart);
     }
 
-//    카트의 상태만 NOORDER 처리
+
     @Override
     @Transactional
     public void deleteCart(Long cartId){

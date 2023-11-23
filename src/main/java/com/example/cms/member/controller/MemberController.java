@@ -53,6 +53,10 @@ public class MemberController {
     }
 
 
-
+    @Operation(summary = "회원 정보 블라인드", description = "회원 정보를 블라인드 합니다.")
+    @PatchMapping("/{phone}/blind")
+    public  void blindMember(@PathVariable String phone){
+        memberService.blindMember(phone);
+    }
 
 }

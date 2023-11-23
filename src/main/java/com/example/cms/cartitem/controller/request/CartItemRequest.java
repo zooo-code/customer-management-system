@@ -19,9 +19,6 @@ public class CartItemRequest {
 
     private EItemStatus status;
 
-
-    public CartItemRequest() {
-    }
     @Builder
     public CartItemRequest(String name, Integer count, EItemStatus status) {
         this.name = name;
