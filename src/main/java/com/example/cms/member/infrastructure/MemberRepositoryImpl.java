@@ -36,7 +36,10 @@ public class MemberRepositoryImpl implements MemberRepository {
         return memberJpaRepository.findById(id).map(MemberEntity::toModel);
     }
 
+    @Override
+    public void deleteMember(String phone) {
 
+    }
 
 
 }

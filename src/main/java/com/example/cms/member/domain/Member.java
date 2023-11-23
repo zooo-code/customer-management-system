@@ -1,5 +1,6 @@
 package com.example.cms.member.domain;
 
+import com.example.cms.member.exception.MemberAlreadyBlindException;
 import com.example.cms.utils.common.service.port.ClockHolder;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ public class Member {
     private final String phone;
     private final String name;
     private Integer membershipPoint;
-    private final EMemberStatus status;
+    private EMemberStatus status;
 
     private final Long createAt;
     private final Long modifiedAt;
@@ -73,5 +74,12 @@ public class Member {
 
     public void updatePoint(Integer remainPoint) {
         this.membershipPoint = remainPoint;
+    }
+
+    public void makeBlind(){
+        if (this.status == EMemberStatus.BLIND){
+            throw new MemberAlreadyBlindException("이미 블라인드 회원입니다.");
+        }
+        this.status = EMemberStatus.BLIND;
     }
 }

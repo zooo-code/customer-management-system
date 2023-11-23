@@ -46,7 +46,6 @@ public class MemberEntity  {
     }
 
 
-
     public static MemberEntity from(Member member){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.id = member.getId();

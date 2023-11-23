@@ -43,4 +43,9 @@ public class FakeMemberRepository implements MemberRepository {
     public Optional<Member> findById(Long id) {
         return data.stream().filter(test -> test.getId().equals(id)).findAny();
     }
+
+    @Override
+    public void deleteMember(String phone) {
+
+    }
 }
