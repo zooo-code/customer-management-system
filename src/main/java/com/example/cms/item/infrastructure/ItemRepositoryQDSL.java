@@ -1,5 +1,6 @@
 package com.example.cms.item.infrastructure;
 
+import com.example.cms.cartitem.infrastructure.QCartItemEntity;
 import com.example.cms.item.domain.EItemStatus;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -29,30 +30,7 @@ public class ItemRepositoryQDSL implements ItemCustomRepository{
                 )
                 .fetch();
     }
-//
-//    @Override
-//    public PageImpl<ItemEntity> searchItemsPaging(Pageable pageable, ItemEntity filter) {
-//        List<ItemEntity> itemEntities = queryFactory.select(QItemEntity.itemEntity)
-//                .from(QItemEntity.itemEntity)
-//                .where(containName(filter.getName()),
-//                        eqCost(filter.getCost()),
-//                        eqHotIce(filter.getHotIce())
-//                )
-//                .offset(pageable.getOffset())
-//                .limit(pageable.getPageSize())
-//                .fetch();
-//
-//        Long count = queryFactory.select(QItemEntity.itemEntity.count())
-//                .from(QItemEntity.itemEntity)
-//                .where(containName(filter.getName()),
-//                        eqCost(filter.getCost()),
-//                        eqHotIce(filter.getHotIce())
-//                )
-//                .fetchOne();
-//
-//        return new PageImpl<>(itemEntities, pageable, count);
-//    }
-//
+
     private BooleanExpression containName(String name){
         return hasText(name) ? QItemEntity.itemEntity.name.contains(name) : null ;
     }
@@ -63,5 +41,13 @@ public class ItemRepositoryQDSL implements ItemCustomRepository{
 
     private BooleanExpression eqHotIce(EItemStatus hotIce){
         return hotIce != null ? QItemEntity.itemEntity.hotIce.eq(hotIce) : null;
+    }
+
+    @Override
+    public List<ItemEntity> popularItems() {
+        queryFactory.selectFrom(QCartItemEntity.cartItemEntity);
+
+
+        return null;
     }
 }

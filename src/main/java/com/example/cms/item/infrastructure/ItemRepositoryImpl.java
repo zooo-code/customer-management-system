@@ -1,5 +1,6 @@
 package com.example.cms.item.infrastructure;
 
+import com.example.cms.cartitem.infrastructure.CartItemRepositoryJpa;
 import com.example.cms.item.domain.EItemStatus;
 import com.example.cms.item.domain.Item;
 import com.example.cms.item.service.port.ItemRepository;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class ItemRepositoryImpl implements ItemRepository {
 
     private final ItemRepositoryJpa itemRepositoryJpa;
+    private final CartItemRepositoryJpa cartItemRepositoryJpa;
 
     @Override
     public Optional<Item> findByName(String name) {
@@ -70,5 +72,10 @@ public class ItemRepositoryImpl implements ItemRepository {
                 .searchItems(name,cost,eItemStatus)
                 .stream().map(ItemEntity::toModel)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Item> popularItems() {
+        return null;
     }
 }

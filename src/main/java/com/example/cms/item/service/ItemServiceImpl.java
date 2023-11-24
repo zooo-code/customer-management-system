@@ -91,6 +91,13 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository
                 .searchItems(itemSearchRequest.getName(),itemSearchRequest.getCost(),itemSearchRequest.getHotIce());
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Item> popularItems() {
+
+        return null;
+    }
 //
 //    public PageImpl<ItemResponse> searchItemsPaging(ItemSearchRequest itemSearchRequest, PageRequest pageRequest) {
 //        Pageable pageable = pageRequest.of();

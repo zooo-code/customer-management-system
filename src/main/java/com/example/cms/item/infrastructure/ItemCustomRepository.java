@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ItemCustomRepository {
     List<ItemEntity> searchItems(String name, Integer cost, EItemStatus eItemStatus);
-//
-//    PageImpl<ItemEntity> searchItemsPaging(Pageable pageable, ItemEntity filter);
+
+    List<ItemEntity> popularItems();
 }

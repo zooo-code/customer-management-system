@@ -96,4 +96,9 @@ public class FakeItemRepository implements ItemRepository {
                         ||test.getHotIce().equals(eItemStatus))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Item> popularItems() {
+        return null;
+    }
 }
