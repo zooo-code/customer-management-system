@@ -74,8 +74,5 @@ public class ItemRepositoryImpl implements ItemRepository {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Item> popularItems() {
-        return null;
-    }
+
 }

@@ -22,5 +22,5 @@ public interface ItemService {
     void delete(Long itemId);
     List<Item> searchItems(ItemSearchRequest itemSearchRequest);
 
-    List<Item> popularItems();
+
 }

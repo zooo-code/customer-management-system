@@ -43,11 +43,12 @@ public class ItemRepositoryQDSL implements ItemCustomRepository{
         return hotIce != null ? QItemEntity.itemEntity.hotIce.eq(hotIce) : null;
     }
 
+
     @Override
     public List<ItemEntity> popularItems() {
-        queryFactory.selectFrom(QCartItemEntity.cartItemEntity);
-
-
+        queryFactory.select().from(QCartItemEntity.cartItemEntity)
+                .join(QItemEntity.itemEntity);
         return null;
     }
+
 }

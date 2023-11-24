@@ -27,5 +27,5 @@ public interface ItemRepository {
 
     List<Item> searchItems(String name, Integer cost, EItemStatus eItemStatus);
 
-    List<Item> popularItems();
+
 }
