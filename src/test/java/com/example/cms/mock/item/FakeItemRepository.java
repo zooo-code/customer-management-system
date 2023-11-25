@@ -97,8 +97,5 @@ public class FakeItemRepository implements ItemRepository {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Item> popularItems() {
-        return null;
-    }
+
 }
