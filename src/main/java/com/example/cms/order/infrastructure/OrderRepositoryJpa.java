@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface OrderRepositoryJpa extends JpaRepository<OrderEntity,String> {
 
-    OrderEntity save(OrderEntity orderEntity);
+
 
     boolean existsByOrdersId(String orderId);
 
