@@ -38,7 +38,8 @@ public class CartEntity   {
     @Column(name= "status")
     private ECartStatus status;
     @Builder
-    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, Long createdAt, ECartStatus status) {
+    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities,
+                      Long createdAt, ECartStatus status) {
         this.id = id;
         this.count = count;
         this.totalPrice = totalPrice;
@@ -65,7 +66,8 @@ public class CartEntity   {
         return Cart.builder()
                 .id(id)
                 .cartItems(cartItemEntities.stream()
-                        .map(CartItemEntity::toModel).collect(Collectors.toList()))
+                        .map(CartItemEntity::toModel)
+                        .collect(Collectors.toList()))
                 .totalPrice(totalPrice)
                 .count(count)
                 .createdAt(createdAt)
