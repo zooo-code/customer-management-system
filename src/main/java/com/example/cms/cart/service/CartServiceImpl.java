@@ -40,15 +40,15 @@ public class CartServiceImpl implements CartService {
 
         List<CartItemRequest> cartItemRequests = cartRequest.getCartItemRequests();
         Cart cart = Cart.cartCreate(clockHolder);
-        Cart save = cartRepository.save(cart);
+        Cart saveCart = cartRepository.save(cart);
         Carter carter = new Carter();
 
         for (CartItemRequest cartItemRequest : cartItemRequests) {
             Item drink = itemRepository
                     .findByNameAndHotIce(cartItemRequest.getName(), cartItemRequest.getStatus());
-            Cart makeCart = carter.make(save, drink, cartItemRequest.getCount());
+            Cart makeCart = carter.make(saveCart, drink, cartItemRequest.getCount());
             CartItem cartItem = CartItem
-                    .createCartItem(save, drink, cartItemRequest.getCount());
+                    .createCartItem(saveCart, drink, cartItemRequest.getCount());
             makeCart.addCartItem(cartItem);
             cartItemRepository.save(cartItem);
         }

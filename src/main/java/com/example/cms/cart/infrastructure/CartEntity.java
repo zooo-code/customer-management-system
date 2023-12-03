@@ -11,7 +11,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +37,8 @@ public class CartEntity   {
     @Column(name= "status")
     private ECartStatus status;
     @Builder
-    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities, Long createdAt, ECartStatus status) {
+    public CartEntity(Long id, Integer count, Integer totalPrice, List<CartItemEntity> cartItemEntities,
+                      Long createdAt, ECartStatus status) {
         this.id = id;
         this.count = count;
         this.totalPrice = totalPrice;
@@ -65,7 +65,8 @@ public class CartEntity   {
         return Cart.builder()
                 .id(id)
                 .cartItems(cartItemEntities.stream()
-                        .map(CartItemEntity::toModel).collect(Collectors.toList()))
+                        .map(CartItemEntity::toModel)
+                        .collect(Collectors.toList()))
                 .totalPrice(totalPrice)
                 .count(count)
                 .createdAt(createdAt)

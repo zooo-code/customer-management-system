@@ -50,9 +50,6 @@ public class CartItemEntity {
 
     }
 
-    public static CartItemEntity createCartItem(CartEntity cartEntity, ItemEntity itemEntity, Integer price, Integer count){
-        return new CartItemEntity(cartEntity, itemEntity, count, price);
-    }
 
     public CartItem toModel(){
         return CartItem.builder()
