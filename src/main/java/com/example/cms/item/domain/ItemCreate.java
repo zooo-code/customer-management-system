@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ItemCreate {
 
-    private String name;
-    private Integer cost;
-    private EItemStatus hotIce;
+    private final String name;
+    private final Integer cost;
+    private final EItemStatus hotIce;
 
     @Builder
     public ItemCreate(@JsonProperty("name") String name,
